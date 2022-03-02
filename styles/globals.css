@@ -1,0 +1,67 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input:focus,
+button:focus {
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+*, *::before, *::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+:root {
+  --color-text-5: #f2f4f5;
+  --color-text-10: #e6e8eb;
+  --color-text-20: #d1d5d9;
+  --color-text-30: #b8bfc4;
+  --color-text-40: #9ea7ad;
+  --color-text-50: #808991;
+  --color-text-60: #636c73;
+  --color-text-70: #525a61;
+  --color-text-80: #40474d;
+  --color-text-90: #303538;
+  --color-text-100: #212529;
+
+  --color-midnight: #2c3e50;
+  --color-asphart: #34495e;
+
+  --shadow-34: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  --shadow-35: rgba(0, 0, 0, 0.05) 0 1px 2px 0;
+  --shadow-36: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  --shadow-37: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  --shadow-38: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  --shadow-39: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  --shadow-40: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  --shadow-41: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+}
+
+.font-nunito {
+  font-family: 'Nunito', sans-serif;
+}
+
+.font-nanum {
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+#keydown_event_handler:focus {
+  outline: none;
+}

@@ -1,0 +1,29 @@
+.music_list {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 15px;
+}
+
+.blank_title {
+  margin: 50px 0 0;
+  font-size: 25px;
+  color: var(--color-text-40);
+}
+
+@media screen and ( max-width: 1000px ) {
+  
+  .music_list {
+    padding: 0 5px;
+  }
+
+  @media screen and ( max-width: 600px ) {
+    
+    .music_list {
+      justify-content: space-evenly;
+    }
+
+  }
+
+}
