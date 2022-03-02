@@ -1,1 +1,1 @@
-# dicover-mesic
+# Dicover-Me'sic
