@@ -1,1 +1,1 @@
-# Dicover-Me'sic
+# Discover-Me'sic
