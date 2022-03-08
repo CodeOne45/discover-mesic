@@ -23,7 +23,7 @@ const Controller: React.FC = () => {
             styles.icon
           )}
         />
-      </button>
+      </button> 
     </div>
   );
 };

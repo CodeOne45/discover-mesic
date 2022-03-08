@@ -17,7 +17,7 @@ const MusicListItem: React.FC<IMusic> = ({ id, title }) => {
             className={classNames(
               styles.item_box,
               id === currentId ? styles.on_hover : ""
-            )}
+            )}  
           >
             <img
               className={styles.thumbnail}

@@ -1,9 +1,27 @@
 import React from "react";
 import MusicListItem from "./MusicListItem";
-import styles from "../styles/music-lilst-component.module.css";
 import { IMusic } from "../types/music";
 import classNames from "classnames";
 import TinderCard from "react-tinder-card";
+import { thumbnailLink } from "../constant/url";
+import styled from "styled-components";
+
+const CardDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ImgDiv = styled.div`
+  display: flex;
+  position: relative;
+  justify-content: center;
+  margin-top: 19rem;
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+`;
+
 
 interface Props {
   readonly musics: IMusic[];
@@ -11,30 +29,37 @@ interface Props {
 
 const MusicList: React.FC<Props> = ({ musics }) => {
 
-  const onSwipe = (direction) => {
-    //<MusicListItem key={id} id={id} title={title} author={author} />
-    {
-      musics.length ? (
-        <MusicListItem
-          key={musics[getRandomInt(musics.length - 1)].id}
-          id={musics[getRandomInt(musics.length - 1)].id}
-          title={musics[getRandomInt(musics.length - 1)].title}
-          author={musics[getRandomInt(musics.length - 1)].author}
-        />
-      ) : (
-        console.log("no!")
-      );
+
+  const onSwipe = (music) => {
+    //console.log("You swiped: " + direction);
+    if(music != null){
+      console.log(music.id);
     }
   };
 
   const onCardLeftScreen = (myIdentifier) => {
     console.log(myIdentifier + " left the screen");
   };
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-  }
+
+  
+
   return (
-    <div className={styles.music_list}>
+    <CardDiv>
+      {musics.map((person, index) => {
+        return (
+          <TinderCard
+            key={index}
+            className="swipe"
+            onSwipe={() => onSwipe((person == null)? {}: person) }
+            onCardLeftScreen={() => onCardLeftScreen("fooBar")}
+            preventSwipe={["up", "down"]}
+          >
+            <MusicListItem key={person.id} id={person.id} title={person.title} author={person.author} />
+          </TinderCard>
+        );
+      })}
+    </CardDiv>
+    /*<div className={styles.music_list}>
       <TinderCard
         onSwipe={onSwipe}
         onCardLeftScreen={() => onCardLeftScreen("fooBar")}
@@ -60,7 +85,7 @@ const MusicList: React.FC<Props> = ({ musics }) => {
           </h3>
         )}
       </TinderCard>
-    </div>
+    </div>*/
    /* <div>
       <div className="tinderCards__cardContainer">
         {musics.map((person) => (
