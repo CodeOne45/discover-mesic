@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MusicListItem from "./MusicListItem";
 import { IMusic } from "../types/music";
 import classNames from "classnames";
 import TinderCard from "react-tinder-card";
 import { thumbnailLink } from "../constant/url";
 import styled from "styled-components";
+import Link from "next/link";
+import styles from "../styles/music-list-item-component.module.css";
+import { Context } from "../store";
 
 const CardDiv = styled.div`
   display: flex;
@@ -28,12 +31,15 @@ interface Props {
 }
 
 const MusicList: React.FC<Props> = ({ musics }) => {
+  const {setMusic, setIsPlay } = useContext(Context) as any;
 
-
-  const onSwipe = (music) => {
-    //console.log("You swiped: " + direction);
+  const swipe = (dir, music) => {
+    console.log("You swiped: " + dir);
     if(music != null){
-      console.log(music.id);
+      if(dir === "right"){
+        setMusic(music);
+        setIsPlay(true);
+      }
     }
   };
 
@@ -45,20 +51,41 @@ const MusicList: React.FC<Props> = ({ musics }) => {
 
   return (
     <CardDiv>
-      {musics.map((person, index) => {
+      {musics.map((music, index) => {
         return (
           <TinderCard
             key={index}
             className="swipe"
-            onSwipe={() => onSwipe((person == null)? {}: person) }
+            onSwipe={(dir) => swipe(dir, music)}
             onCardLeftScreen={() => onCardLeftScreen("fooBar")}
             preventSwipe={["up", "down"]}
           >
-            <MusicListItem key={person.id} id={person.id} title={person.title} author={person.author} />
+             <ImgDiv
+              style={{ position: "absolute" }}
+            >
+                <div className={styles.item_wrapper}>
+                  <div
+                    className={classNames(
+                      styles.item_box,
+                    )}  
+                  >
+                    <img
+                      className={styles.thumbnail}
+                      src={thumbnailLink(music.id)}
+                      alt={music.title}
+                    />
+                    <div className={styles.icon}>
+                      <i className="fas fa-play-circle" />
+                    </div>
+                  </div>
+                  <h3 className={classNames(styles.title, "font-nunito")}>{music.title}</h3>
+                </div>
+            </ImgDiv>
           </TinderCard>
         );
       })}
     </CardDiv>
+
     /*<div className={styles.music_list}>
       <TinderCard
         onSwipe={onSwipe}
@@ -88,17 +115,17 @@ const MusicList: React.FC<Props> = ({ musics }) => {
     </div>*/
    /* <div>
       <div className="tinderCards__cardContainer">
-        {musics.map((person) => (
+        {musics.map((music) => (
           <TinderCard
             className="swipe"
-            key={person.id}
+            key={music.id}
             preventSwipe={["up", "down"]}
           >
             <div
-              style={{ backgroundImage: `url(${person.id})` }}
+              style={{ backgroundImage: `url(${music.id})` }}
               className="card"
             >
-              <h3>{person.id}</h3>
+              <h3>{music.id}</h3>
             </div>
           </TinderCard>
         ))}

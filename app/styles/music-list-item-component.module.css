@@ -1,5 +1,5 @@
 .item_wrapper {
-    width: 90px;
+    width: 190px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,19 +9,10 @@
 
 .item_box {
     width: 100%;
-    height: 90px;
+    height: 190px;
     box-shadow: var(--shadow-38);
 }
 
-.item_box:hover,
-.item_box:hover > .thumbnail,
-.item_box:hover > .icon,
-.on_hover,
-.on_hover > .thumbnail,
-.on_hover > .icon
-{
-    border-radius: 100% !important;
-}
 
 .item_box,
 .thumbnail,
@@ -34,11 +25,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-.item_box:hover > .icon,
-.on_hover > .icon {
-    opacity: 1;
 }
 
 .icon {
