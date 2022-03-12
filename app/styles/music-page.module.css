@@ -1,0 +1,115 @@
+.music_page_wrapper {
+  width: 100%;
+  padding: 50px 15px;
+  text-align: center;
+}
+
+.thumbnail {
+  margin: 0 auto;
+  background: #fff;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  background-repeat: no-repeat !important;
+  background-size: auto 100% !important;
+  box-shadow: var(--shadow-40);
+}
+.thumbnail .dot {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  background-color: #fff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+
+.music_info_wrapper {
+  padding: 60px 0 0;
+  width: 400px;
+  margin: 0 auto;
+}
+
+.title_wrapper {
+  margin: 0 0 50px;
+}
+.title_wrapper .title {
+  font-size: 40px;
+}
+
+.author_wrapper {
+  text-align: left;
+}
+.author_wrapper .author {
+  color: var(--color-text-40);
+  font-size: 22px;
+}
+
+@media screen and ( max-width: 1000px ) {
+
+  .music_page_wrapper {
+    padding: 50px 15px 0;
+  }
+  
+  .thumbnail {
+    width: 400px;
+    height: 400px;
+  }
+  .thumbnail .dot {
+    width: 150px;
+    height: 150px;
+  }
+
+  .author_wrapper {
+    text-align: center;
+  }
+
+  .author_wrapper .author {
+    font-size: 20px;
+  }
+
+  @media screen and ( max-width: 500px ) {
+
+    .thumbnail {
+      width: 300px;
+      height: 300px;
+    }
+    .thumbnail .dot {
+      width: 120px;
+      height: 120px;
+    }
+
+    .music_info_wrapper {
+      padding: 60px 0 0;
+      width: 100%;
+    }
+
+    @media screen and ( max-width: 400px ) {
+
+      .thumbnail {
+        width: 200px;
+        height: 200px;
+      }
+      .thumbnail .dot {
+        width: 75px;
+        height: 75px;
+      }
+
+      .title_wrapper {
+        margin: 0 0 40px;
+      }
+      .title_wrapper .title {
+        font-size: 35px;
+      }
+
+      .author_wrapper .author {
+        font-size: 18px;
+      }
+
+    }
+
+  }
+
+}

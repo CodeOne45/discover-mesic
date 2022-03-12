@@ -1,0 +1,14 @@
+.main {
+    padding: 100px 0 50px;
+    overflow-x: hidden;
+    min-height: 100vh;
+    background: #f7fafc;
+}
+
+@media screen and (max-width: 500px) {
+
+    .main {
+        padding: 80px 0 50px;
+    }
+
+}
