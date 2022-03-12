@@ -26,7 +26,7 @@ const Music: React.FC<IMusic | any> = (data) => {
     } else router?.push("/404");
   }, [id]);
 
-  const TITLE = data ? `${data.title} - KHJcode Lofi` : undefined;
+  const TITLE = data ? `${data.title} - Discover Me'sic` : undefined;
   const URL = `${FRONTEND_URL}/music/${id}`;
 
   return (

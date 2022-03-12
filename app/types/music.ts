@@ -1,5 +1,6 @@
 export interface IMusic {
-    id: string;
+    _id: string;
+    yt_id: string;
     title: string;
     author: string;
 }

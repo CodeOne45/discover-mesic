@@ -9,6 +9,7 @@ interface Props {
 }
 
 const Container: React.FC<Props> = ({ children }) => {
+  const [musics, setMusics] = useState<IMusic[]>([]);
   const [playStarted, setPlayStarted] = useState<boolean>(false);
   const [isPlay, setIsPlay] = useState<boolean>(false);
   const [music, setMusic] = useState<IMusic>();
@@ -39,7 +40,7 @@ const Container: React.FC<Props> = ({ children }) => {
   }, [isPlay]);
 
   return (
-    <Context.Provider value={{ isPlay, setIsPlay, music, setMusic, playStarted, setPlayStarted}}>
+    <Context.Provider value={{ isPlay, setIsPlay, music, setMusic, playStarted, setPlayStarted, musics, setMusics}}>
       <div id="keydown_event_handler" onKeyDown={handleKeydown} tabIndex={0}>
         {children}
         {music && (
@@ -48,7 +49,7 @@ const Container: React.FC<Props> = ({ children }) => {
             style={{ display: "none" }}
             width="560"
             height="315"
-            src={`https://www.youtube.com/embed/${music?.id}?version=3&enablejsapi=1&autoplay=1&control=0`}
+            src={`https://www.youtube.com/embed/${music?.yt_id}?version=3&enablejsapi=1&autoplay=1&control=0`}
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
