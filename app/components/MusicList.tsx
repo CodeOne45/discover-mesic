@@ -31,14 +31,17 @@ interface Props {
 }
 
 const MusicList: React.FC<Props> = ({ musics }) => {
-  const {setMusic, setIsPlay } = useContext(Context) as any;
+  const {setMusic,isPlay, setIsPlay, playStarted, setPlayStarted } = useContext(Context) as any;
 
   const swipe = (dir, music) => {
     console.log("You swiped: " + dir);
     if(music != null){
+      setMusic(music);
+      setIsPlay(!isPlay);
       if(dir === "right"){
-        setMusic(music);
-        setIsPlay(true);
+        console.log("Music added to your favrotes !");
+      }else{
+        console.log("Music skiped !");
       }
     }
   };
@@ -46,17 +49,17 @@ const MusicList: React.FC<Props> = ({ musics }) => {
   const onCardLeftScreen = (myIdentifier) => {
     console.log(myIdentifier + " left the screen");
   };
-
   
 
   return (
     <CardDiv>
-      {musics.map((music, index) => {
+      {musics.length ? musics.map((music, index) => {
+        playStarted? console.log("musicStarted") :(setMusic(music), setIsPlay(false), setPlayStarted(true));
         return (
           <TinderCard
-            key={index}
+            key={index} 
             className="swipe"
-            onSwipe={(dir) => swipe(dir, music)}
+            onSwipe={(dir) => swipe(dir, musics[index - 1])}
             onCardLeftScreen={() => onCardLeftScreen("fooBar")}
             preventSwipe={["up", "down"]}
           >
@@ -83,7 +86,7 @@ const MusicList: React.FC<Props> = ({ musics }) => {
             </ImgDiv>
           </TinderCard>
         );
-      })}
+      }): `No music found!`}
     </CardDiv>
 
     /*<div className={styles.music_list}>

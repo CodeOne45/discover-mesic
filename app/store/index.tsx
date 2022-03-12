@@ -9,6 +9,7 @@ interface Props {
 }
 
 const Container: React.FC<Props> = ({ children }) => {
+  const [playStarted, setPlayStarted] = useState<boolean>(false);
   const [isPlay, setIsPlay] = useState<boolean>(false);
   const [music, setMusic] = useState<IMusic>();
 
@@ -38,7 +39,7 @@ const Container: React.FC<Props> = ({ children }) => {
   }, [isPlay]);
 
   return (
-    <Context.Provider value={{ isPlay, setIsPlay, music, setMusic }}>
+    <Context.Provider value={{ isPlay, setIsPlay, music, setMusic, playStarted, setPlayStarted}}>
       <div id="keydown_event_handler" onKeyDown={handleKeydown} tabIndex={0}>
         {children}
         {music && (
