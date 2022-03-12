@@ -1,3 +1,4 @@
+/** Music interface */
 export interface IMusic {
     _id: string;
     yt_id: string;

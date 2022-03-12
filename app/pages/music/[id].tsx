@@ -2,15 +2,17 @@ import React, { useContext, useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import styles from "../../styles/music-page.module.css";
 import { useRouter } from "next/router";
-import { FRONTEND_URL, thumbnailLink } from "../../constant/url";
+import { FRONTEND_URL, thumbnailLink, API_URL } from "../../constant/url";
 import { Context } from "../../store";
-// import axios from "axios";
+import axios from "axios";
 import classNames from "classnames";
 import { GetServerSideProps } from "next";
-import { findMusicById } from "../../service/music";
 import Head from "next/head";
 import type { IMusic } from "../../types/music";
 
+/**
+ * Handle /music/[id] type url 
+ */
 const Music: React.FC<IMusic | any> = (data) => {
   const router = useRouter();
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -75,8 +77,7 @@ const Music: React.FC<IMusic | any> = (data) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.query?.id;
   if (id) {
-    // const data = (await axios.get(`/api/music?id=${id}`))?.data;
-    const data = findMusicById(id as string);
+    const { data } = (await axios.get(API_URL+"/songs/songs")) as any;
     if (data) return { props: data };
   }
   return { props: {} } as any;

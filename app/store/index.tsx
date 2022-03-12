@@ -1,3 +1,4 @@
+/** Music Hook store */
 import React, { useCallback, useEffect, useState } from "react";
 import Controller from "../components/Controller";
 import type { IMusic } from "../types/music";
@@ -20,6 +21,7 @@ const Container: React.FC<Props> = ({ children }) => {
     }
   }, [isPlay]);
 
+  /** Handle play & pause */
   useEffect(() => {
     if (music) {
       const iframe = document.querySelector("#player") as any;
@@ -39,6 +41,7 @@ const Container: React.FC<Props> = ({ children }) => {
     }
   }, [isPlay]);
 
+  /** Creating and running YT player in back for each passed music */
   return (
     <Context.Provider value={{ isPlay, setIsPlay, music, setMusic, playStarted, setPlayStarted, musics, setMusics}}>
       <div id="keydown_event_handler" onKeyDown={handleKeydown} tabIndex={0}>

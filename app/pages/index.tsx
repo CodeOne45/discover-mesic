@@ -6,13 +6,13 @@ import MusicList from "../components/MusicList";
 import Controller from "../components/Controller";
 import { Context } from "../store";
 import type { NextPage } from "next";
-//import type { IMusic } from "../types/music";
-//import { findMusics } from "../service/music";
 import Head from "next/head";
 import { FRONTEND_URL, API_URL } from "../constant/url";
 
+/**
+ * Home page
+ */
 const Home: NextPage = () => {
-  //const [musics, setMusics] = useState<IMusic[]>([]);
   const {musics, setMusics} = useContext(Context) as any;
 
   const { isPlay } = useContext(Context) as any;

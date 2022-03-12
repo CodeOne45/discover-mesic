@@ -1,10 +1,8 @@
-//import musics from "../music.json";
-//import { useContext } from "react";
-
+/**
+ * Music service functions
+ */
 import type { IMusic } from "../types/music";
-//import { Context } from "../store";
 
-//const {musics} = useContext(Context) as any;
 
 export function findMusics(musics: IMusic[]): IMusic[] {
   const length = musics.length;

@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
-import MusicListItem from "./MusicListItem";
+import React, { useContext } from "react";
 import { IMusic } from "../types/music";
 import classNames from "classnames";
 import TinderCard from "react-tinder-card";
 import { thumbnailLink } from "../constant/url";
 import styled from "styled-components";
-import Link from "next/link";
 import styles from "../styles/music-list-item-component.module.css";
 import { Context } from "../store";
 
@@ -33,7 +31,7 @@ const MusicList: React.FC<Props> = ({ musics }) => {
   const { setMusic, isPlay, setIsPlay, playStarted, setPlayStarted } =
     useContext(Context) as any;
 
-  const swipe = (dir, music) => {
+  const swipe = (dir : any, music : IMusic) => {
     console.log("You swiped: " + dir);
     if (music != null) {
       setMusic(music);
@@ -46,7 +44,7 @@ const MusicList: React.FC<Props> = ({ musics }) => {
     }
   };
 
-  const onCardLeftScreen = (myIdentifier) => {
+  const onCardLeftScreen = (myIdentifier : any) => {
     console.log(myIdentifier + " left the screen");
   };
 
@@ -87,52 +85,6 @@ const MusicList: React.FC<Props> = ({ musics }) => {
           })
         : `No music found!`}
     </CardDiv>
-
-    /*<div className={styles.music_list}>
-      <TinderCard
-        onSwipe={onSwipe}
-        onCardLeftScreen={() => onCardLeftScreen("fooBar")}
-        preventSwipe={["right", "left"]}
-      >
-        {musics.length ? (
-          musics.map(({ id, author, title }) => (
-            <TinderCard
-            className="swipe"
-            key={id}
-            preventSwipe={["up", "down"]}
-           >
-            <div
-              className="card"
-            >
-              <MusicListItem key={id} id={id} title={title} author={author} />
-            </div>
-          </TinderCard>
-          ))
-        ) : (
-          <h3 className={classNames(styles.blank_title, "font-nanum")}>
-            No music found!
-          </h3>
-        )}
-      </TinderCard>
-    </div>*/
-    /* <div>
-      <div className="tinderCards__cardContainer">
-        {musics.map((music) => (
-          <TinderCard
-            className="swipe"
-            key={music.yt_id}
-            preventSwipe={["up", "down"]}
-          >
-            <div
-              style={{ backgroundImage: `url(${music.yt_id})` }}
-              className="card"
-            >
-              <h3>{music.yt_id}</h3>
-            </div>
-          </TinderCard>
-        ))}
-      </div>
-    </div>*/
   );
 };
 
