@@ -1,7 +1,10 @@
-import musics from "../music.json";
+/**
+ * Music service functions
+ */
 import type { IMusic } from "../types/music";
 
-export function findMusics(): IMusic[] {
+
+export function findMusics(musics: IMusic[]): IMusic[] {
   const length = musics.length;
   let newMusics = musics;
   for (let i = 0; i < length; i++) {
@@ -18,7 +21,7 @@ export function findMusics(): IMusic[] {
   return newMusics;
 }
 
-export function findMusicsBySearch(keyword: string): IMusic[] {
+export function findMusicsBySearch(keyword: string, musics :IMusic[] ): IMusic[] {
   const result: IMusic[] = [];
   const regex = new RegExp(keyword, "i");
   for (const music of musics) {
@@ -27,9 +30,9 @@ export function findMusicsBySearch(keyword: string): IMusic[] {
   return result;
 }
 
-export function findMusicById(id: string): IMusic | null {
+export function findMusicById(id: string, musics :IMusic[]): IMusic | null {
   for (const music of musics) {
-    if (id === music.id) return music;
+    if (id === music.yt_id) return music;
   }
   return null;
 }

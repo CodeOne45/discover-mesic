@@ -1,25 +1,27 @@
-import { useContext, useEffect, useState } from "react";
-// import axios from "axios";
+import { useContext, useEffect } from "react";
+import axios from "axios";
 import Layout from "../components/Layout";
 import styles from "../styles/home.module.css";
 import MusicList from "../components/MusicList";
+import UrlForm from "../components/UrlForm";
 import Controller from "../components/Controller";
 import { Context } from "../store";
 import type { NextPage } from "next";
-import type { IMusic } from "../types/music";
-//import Carousel from "../components/Carousel";
-import { findMusics } from "../service/music";
 import Head from "next/head";
-import { FRONTEND_URL } from "../constant/url";
+import { FRONTEND_URL, API_URL } from "../constant/url";
 
+/**
+ * Home page
+ */
 const Home: NextPage = () => {
-  const [musics, setMusics] = useState<IMusic[]>([]);
+  const {musics, setMusics} = useContext(Context) as any;
+
   const { isPlay } = useContext(Context) as any;
 
   useEffect(() => {
     (async () => {
-      // const { data } = (await axios.get("/api/music")) as any;
-      const data = findMusics();
+      const { data } = (await axios.get(API_URL+"/songs/songs")) as any;
+      //const data = findMusics(); --> to use .json file data
       if (data.length) setMusics(data);
     })();
   }, []);
@@ -45,6 +47,7 @@ const Home: NextPage = () => {
       </Head>
       <Layout>
         <div className={styles.list_wrapper}>
+          <UrlForm />
           <MusicList musics={musics} />
         </div>
         {isPlay && <Controller />}
