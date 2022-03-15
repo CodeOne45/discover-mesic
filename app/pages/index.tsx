@@ -3,6 +3,7 @@ import axios from "axios";
 import Layout from "../components/Layout";
 import styles from "../styles/home.module.css";
 import MusicList from "../components/MusicList";
+import UrlForm from "../components/UrlForm";
 import Controller from "../components/Controller";
 import { Context } from "../store";
 import type { NextPage } from "next";
@@ -46,6 +47,7 @@ const Home: NextPage = () => {
       </Head>
       <Layout>
         <div className={styles.list_wrapper}>
+          <UrlForm />
           <MusicList musics={musics} />
         </div>
         {isPlay && <Controller />}
