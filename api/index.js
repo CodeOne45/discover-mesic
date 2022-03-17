@@ -25,5 +25,6 @@ app.use("/songs", require("./models/songs/songs.controller"));
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  console.log("Server started on : localhost:" + PORT);
+  console.log("-----> Running API server...")
+  console.log("-----> Server started on : localhost:" + PORT);
 });
