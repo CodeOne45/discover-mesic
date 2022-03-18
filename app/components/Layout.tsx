@@ -12,7 +12,11 @@ const Layout: React.FC<Props> = ({ children }) => {
         <>
             <Header />
             <main className={styles.main}>{children}</main>
+            {
+            /*
             <SideBar />
+            */
+            }
         </>
     );
 };
