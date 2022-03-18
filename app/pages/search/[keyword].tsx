@@ -1,28 +1,32 @@
 import {GetServerSideProps} from 'next';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Layout from '../../components/Layout';
 import MusicList from '../../components/MusicList';
 import {findMusicsBySearch} from '../../service/music';
 import {IMusic} from '../../types/music';
 import styles from "../../styles/home.module.css";
+import { Context } from "../../store";
 
 const Search: React.FC<{ keyword: string }> = ({keyword}) => {
-  const [musics, setMusics] = useState<IMusic[]>([]);
+  const [musicsSearched, setMusicsSearched] = useState<IMusic[]>([]);
+  const {musics} = useContext(Context) as any;
+
 
   useEffect(() => {
     if (keyword) {
       (async () => {
-        const data = findMusicsBySearch(keyword);
-        setMusics(data);
+        const data = findMusicsBySearch(keyword,musics);
+        console.log("+++++++++++++++++++++++++" + musics);
+        setMusicsSearched(data);
       })();
     }
   }, [keyword]);
 
   return (
     <Layout>
-      {musics && (
+      {musicsSearched && (
         <div className={styles.list_wrapper}>
-          <MusicList musics={musics}/>
+          <MusicList musics={musicsSearched}/>
         </div>
       )}
     </Layout>

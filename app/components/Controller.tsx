@@ -15,7 +15,7 @@ const Controller: React.FC = () => {
   }, [isPlay]);
 
   return (
-    <div className={styles.controller} style={{ background: `url('${thumbnailLink(music?.id)}')` }}>
+    <div className={styles.controller} style={{ background: `url('${thumbnailLink(music?.yt_id)}')` }}>
       <button className={styles.button} onClick={handleClickPlayButton}>
         <i
           className={classNames(

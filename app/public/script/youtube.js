@@ -1,5 +1,5 @@
 var player;
-
+/** Test Youtube script --> create YT player */
 function onYoutubeIframeAPIReady() {
   player = new YT.Player('music_player', {
     height: '360',

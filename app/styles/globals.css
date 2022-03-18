@@ -29,6 +29,7 @@ button {
 }
 
 :root {
+  --color-text-1: #ffffff;
   --color-text-5: #f2f4f5;
   --color-text-10: #e6e8eb;
   --color-text-20: #d1d5d9;
@@ -52,6 +53,11 @@ button {
   --shadow-39: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
   --shadow-40: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
   --shadow-41: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+
+  --orange-42: #73001E;
+  --orange-43: rgba(195, 73, 46, 0.8);
+  --orange-44: rgba(252, 226, 132, 0.8);
+  --red-45: #C60000;
 }
 
 .font-nunito {

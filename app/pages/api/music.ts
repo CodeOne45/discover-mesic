@@ -2,6 +2,9 @@ import { findMusicById, findMusicsBySearch, findMusics } from "../../service/mus
 import type { NextApiRequest, NextApiResponse } from "next";
 import type { IMusic } from "../../types/music";
 
+/**
+ * To handle URL's
+ */
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<IMusic[] | IMusic | null>
