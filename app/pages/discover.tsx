@@ -23,9 +23,10 @@ const Discover: NextPage = () => {
 
   useEffect(() => {
     (async () => {
-      const { data } = (await axios.get(API_URL+"/songs/songs")) as any;
-      //const data = findMusics(); --> to use .json file data
-      if (data.length) setMusics(data);
+      if(musics.length === 0){
+        const { data } = (await axios.get(API_URL+"/songs/songs")) as any;
+        if (data.length) setMusics(data);
+      }
     })();
   }, []);
 
@@ -51,9 +52,8 @@ const Discover: NextPage = () => {
       </Head>
       <Layout>
         <div className={styles.list_wrapper}>
-          <UrlForm />
           <MusicList musics={musics} />
-          
+          <UrlForm />          
         </div>
         {isPlay && <Controller />}
       </Layout>
