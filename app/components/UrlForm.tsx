@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { API_URL } from "../constant/url";
+import axios from "axios";
 
 
 const UrlForm: React.FC = () => {
@@ -10,29 +11,32 @@ const UrlForm: React.FC = () => {
 
   let handleSubmit = async (e : any) => {
     e.preventDefault();
+    let data = {
+      yt_id: yt_id,
+      title: title,
+      author: author,
+    };
     try {
-      let res = await fetch(API_URL+"/songs/newsong", {
-        method: "POST",
-        body: JSON.stringify({
-          yt_id: yt_id,
-          title: title,
-          author: author,
-        }),
-      });
-      console.log(yt_id);
-      let resJson = await res.json();
+      console.log(data);
+
+      let res = await axios.post(API_URL+"/songs/newsong", data);
+      console.log(res.status);
       if (res.status === 200) {
         setyt_id("");
         settitle("");
         setMessage("Song added successfully");
-      } else {
-        setMessage("Some error occured");
       }
     } catch (err) {
-      console.log(err);
+      if(err.response.status === 400) {
+        setMessage("Error : Body is empty !");
+      }else{
+        setMessage("Eroor : Some error occured !");
+      }
+      console.log(err.response);
     }
   };
 
+  //TODO: Verify if input are empty or not
   return (
     <div >
       <form onSubmit={handleSubmit}>
