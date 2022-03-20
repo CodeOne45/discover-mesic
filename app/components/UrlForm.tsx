@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { API_URL } from "../constant/url";
 import axios from "axios";
 
+import styles from "../styles/urlForm.module.css";
 
 const UrlForm: React.FC = () => {
   const [yt_id, setyt_id] = useState("");
@@ -38,14 +39,16 @@ const UrlForm: React.FC = () => {
 
   //TODO: Verify if input are empty or not
   return (
-    <div >
-      <form onSubmit={handleSubmit}>
+    <div className={styles.form_parent}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <input
           type="text"
+          className={styles.youtubeurl_input}
           value={yt_id}
-          placeholder="Youtube URL"
+          placeholder="Add a song : Youtube URL"
           onChange={(e) => setyt_id(e.target.value)}
         />
+        {/*
         <input
           type="text"
           value={author}
@@ -58,10 +61,10 @@ const UrlForm: React.FC = () => {
           placeholder="Song Name"
           onChange={(e) => settitle(e.target.value)}
         />
+        */}
+        <button type="submit" className={styles.submit_btn}>Make it shine</button>
 
-        <button type="submit">Make shine</button>
-
-        <div className="message">{message ? <p>{message}</p> : null}</div>
+        <div className={styles.erreurmsg}>{message ? <p>{message}</p> : null}</div>
       </form>
     </div>
   );

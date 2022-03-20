@@ -3,7 +3,6 @@ import axios from "axios";
 import 'font-awesome/css/font-awesome.min.css';
 
 import Layout from "../components/Layout";
-import styles from "../styles/discover.module.css";
 import MusicList from "../components/MusicList";
 import UrlForm from "../components/UrlForm";
 import Controller from "../components/Controller";
@@ -12,6 +11,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { FRONTEND_URL, API_URL } from "../constant/url";
 
+import styles from "../styles/discover.module.css";
 
 /**
  * Discover page
@@ -22,6 +22,9 @@ const Discover: NextPage = () => {
   const { isPlay } = useContext(Context) as any;
 
   useEffect(() => {
+
+    document.body.classList.add("discover_page");
+
     (async () => {
       if(musics.length === 0){
         const { data } = (await axios.get(API_URL+"/songs/songs")) as any;
@@ -52,10 +55,12 @@ const Discover: NextPage = () => {
       </Head>
       <Layout>
         <div className={styles.list_wrapper}>
-          <MusicList musics={musics} />
           <UrlForm />          
+          <MusicList musics={musics} />
+          {isPlay && <Controller />}
         </div>
-        {isPlay && <Controller />}
+        <div className={styles.other_song}>
+        </div>
       </Layout>
     </>
   );

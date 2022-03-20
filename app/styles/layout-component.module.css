@@ -2,7 +2,6 @@
     padding: 100px 0 0 0;
     overflow-x: hidden;
     min-height: 100vh;
-    background: linear-gradient(180deg, var(--orange-44) 0%, var(--orange-43)  100%);
 }
 
 @media screen and (max-width: 500px) {

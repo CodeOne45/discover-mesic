@@ -1,0 +1,39 @@
+.form_parent {
+    flex: 100%;
+}
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    justify-content: space-between;
+
+    flex: 100%;
+}
+.youtubeurl_input {
+    flex: 65%;
+    height: 40px;
+    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    
+    
+    padding: 0px 10px;
+    border: none;
+    background-color: var(--color-text-5);
+    color: var(--color-text-60);
+}
+.submit_btn {
+    flex: 30%;
+    margin: 0 0 0 10px;
+    height: 40px;
+    padding: 0px 22px;
+    border: none;
+    border-radius: 10px;
+
+    color: var(--color-text-1);
+    background-color: var(--orange-42);
+    box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.05);
+}
+.erreurmsg {
+    flex: 100%;
+    color: var(--red-45);
+}

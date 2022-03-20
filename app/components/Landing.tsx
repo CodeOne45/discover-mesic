@@ -10,6 +10,7 @@ const BUTTON_TEXT = "Discover";
 
 const Landing: React.FC = () => {
     useEffect(() => {
+      document.body.classList.add("landing_page");
         (async () => {    
           document.body.addEventListener("mousemove", (e) => {
             const x = e.clientX;
@@ -29,7 +30,6 @@ const Landing: React.FC = () => {
     return (
         <div className={styles.list_wrapper}>
           <span className={styles.switch_language_btn}>FR | EN</span>
-          <span className={styles.catchphrase}>“{CATCHPHRASE}”</span>
 
           <div className={styles.content}>
             <h1 className={styles.content_title}>{TITLE}</h1>
@@ -45,6 +45,8 @@ const Landing: React.FC = () => {
               <i id={styles.image_container_icon_heart} className={"fa fa-solid fa-heart "+ styles.image_container_icon}></i>
             </div>
           </div>
+                    <span className={styles.catchphrase}>“{CATCHPHRASE}”</span>
+
         </div>
     );
   };

@@ -71,3 +71,14 @@ button {
 #keydown_event_handler:focus {
   outline: none;
 }
+
+
+
+.landing_page main{
+  background: linear-gradient(180deg, var(--orange-44) 0%, var(--orange-43)  100%);
+}
+.discover_page main{
+  background: #fff;
+  display: flex;
+  flex-wrap: wrap;
+}
