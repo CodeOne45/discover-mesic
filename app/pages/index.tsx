@@ -46,7 +46,7 @@ const Home: NextPage = () => {
         <link rel="canonical" href={FRONTEND_URL} />
       </Head>
       <Layout>
-          <Landing />
+          <Landing musics={musics} />
       </Layout>
     </>
   );
