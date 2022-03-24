@@ -1,0 +1,36 @@
+version: "3.3"
+
+services:
+  app:
+    ports:
+      - 3080:3080
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
+    environment:
+      - MONGODB_URI="${MONGODB_URI}:-mongodb://api:docker1234@mongo"
+
+  node:
+    image: node:10.16.3
+    volumes:
+      - "./api:/var/www"
+    ports:
+      - "8081:3000"
+    links:
+      - mongo
+    environment:
+      - MONGODB_URI="${MONGODB_URI}:-mongodb://api:docker1234@mongo"
+
+  mongo:
+    image: mongo:4.0
+    volumes:
+      - "./mongo/data:/data/db"
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME="${MONGO_USERNAME}:-api"
+      - MONGO_INITDB_ROOT_PASSWORD="${MONGO_PASSWORD}:-docker1234"
