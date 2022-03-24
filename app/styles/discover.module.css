@@ -1,12 +1,31 @@
 .list_wrapper {
-  flex: 50%;
-  margin: 0 auto;
-
   display: flex;
-  flex-wrap: wrap;  
-  justify-content: center;
-  padding: 0 20px;
+  flex-direction: column;
+  flex: 50%;
+  align-items: center;
 }
 .other_song {
   flex: 50%;
+}
+
+.music_container {
+  flex: 100%;
+  width: 100%;
+  min-height: 380px;
+  max-height: 380px;
+}
+
+.music_options {
+  width: 100%;
+  text-align: center;
+  padding: 0 0 30px 0;
+}
+
+.music_options .icon {
+  font-size: 30px;
+  padding: 20px;
+  margin: 0 20px;
+  background-color: var(--color-text-5);
+  border-radius: 50%;
+  cursor: pointer;
 }

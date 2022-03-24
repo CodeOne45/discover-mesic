@@ -26,6 +26,10 @@ const Discover: NextPage = () => {
     document.body.classList.add("discover_page");
 
     (async () => {
+      document.querySelector('#music_options_pause')?.addEventListener('click', function() {
+        document.querySelector('.controller-component_button__JWbDP').click();
+        console.log(isPlay);
+      })
       if(musics.length === 0){
         const { data } = (await axios.get(API_URL+"/songs/songs")) as any;
         if (data.length) setMusics(data);
@@ -55,12 +59,19 @@ const Discover: NextPage = () => {
       </Head>
       <Layout>
         <div className={styles.list_wrapper}>
+          <div className={styles.music_container}>
+            <MusicList musics={musics} />
+          </div>
+          <div className={styles.music_options}>
+            <i id="music_options_dislike" className={styles.icon + ' fa fa-close'} aria-hidden="true"></i>
+            <i id="music_options_pause"  className={styles.icon + ' fa fa-pause'} aria-hidden="true"></i>
+            <i id="music_options_like" className={styles.icon + ' fa fa-heart'} aria-hidden="true"></i>
+          </div>
           <UrlForm />          
-          <MusicList musics={musics} />
-          {isPlay && <Controller />}
         </div>
         <div className={styles.other_song}>
         </div>
+        {isPlay && <Controller />}
       </Layout>
     </>
   );

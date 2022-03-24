@@ -1,5 +1,7 @@
 .form_parent {
     flex: 100%;
+    width: 100%;
+    padding: 0 40px;
 }
 .form {
     display: flex;
