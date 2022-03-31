@@ -7,6 +7,7 @@ const CATCHPHRASE = "Always the most beautiful things are hidden, like diamonds"
 const SUBTITLE_1 = "With DISCOVER ME’SIC, ";
 const SUBTITLE_2 = "Discover or make shine a unknown artist";
 const BUTTON_TEXT = "Discover";
+import Link from "next/link";
 
 const Landing: React.FC = () => {
     useEffect(() => {
@@ -35,11 +36,15 @@ const Landing: React.FC = () => {
             <h1 className={styles.content_title}>{TITLE}</h1>
             <span className={styles.content_subtitle}>{SUBTITLE_1}</span>
             <span className={styles.content_subtitle}>{SUBTITLE_2}</span>
-            <a href="/discover" className={styles.content_button}>{BUTTON_TEXT}</a>
+            <Link href="/discover" >
+                <a className={styles.content_button}>
+                  {BUTTON_TEXT}
+                </a>
+            </Link>
           </div>
           <div className={styles.image_container}>
             <div className={styles.image_container_block}></div>
-            <img className={styles.image_container_img} src={pochetteImage.src}/>
+            <img className={styles.image_container_img} src={pochetteImage.src} alt="Landing pochette"/>
             <div className={styles.image_container_icon_container} >
               <i id={styles.image_container_icon_cancel} className={"fa fa-window-close "+ styles.image_container_icon}></i>
               <i id={styles.image_container_icon_heart} className={"fa fa-solid fa-heart "+ styles.image_container_icon}></i>

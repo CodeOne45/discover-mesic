@@ -12,7 +12,7 @@ export default function handler(
   if (req.method === "GET") {
     const musicId = req.query?.id;
     const searchText = req.query?.search;
-    if (musicId && typeof musicId === "string") {
+    /*if (musicId && typeof musicId === "string") {
       const music = findMusicById(musicId);
       return res.status(200).json(music);
     }
@@ -21,6 +21,6 @@ export default function handler(
       return res.status(200).json(musics);
     }
     const musics = findMusics();
-    res.status(200).json(musics);
+    res.status(200).json(musics);*/
   }
 }
