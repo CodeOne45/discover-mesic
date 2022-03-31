@@ -26,7 +26,7 @@ const UrlForm: React.FC = () => {
         settitle("");
         setMessage("Song added successfully");
       }
-    } catch (err) {
+    } catch (err : any) {
       if(err.response.status === 400) {
         setMessage("Error : Body is empty !");
       }else{

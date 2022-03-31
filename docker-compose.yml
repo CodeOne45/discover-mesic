@@ -1,0 +1,23 @@
+version: "3.3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    restart: always
+    ports:
+      - 3000:3000
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api
+    restart: always
+    environment:
+      - MONGODB_URI=${MONGODB_URI}
+    ports:
+      - 8080:8080
+

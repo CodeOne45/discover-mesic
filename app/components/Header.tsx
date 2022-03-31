@@ -42,7 +42,7 @@ const Header: React.FC = () => {
       <div className={styles.logo_wrapper}>
         <Link href={"/"}>
           <a className={classNames("font-nunito", styles.logo)}>
-            Discover Me'sic
+            Discover Mesic
           </a>
         </Link>
       </div>

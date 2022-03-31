@@ -7,16 +7,12 @@ import styled from "styled-components";
 import styles from "../styles/music-list-item-component.module.css";
 import { Context } from "../store";
 
-const CardDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 const ImgDiv = styled.div`
   display: flex;
+  dlex-direction: row;
   position: relative;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 19rem;
   width: 300px;
   height: 300px;
@@ -49,7 +45,7 @@ const MusicList: React.FC<Props> = ({ musics }) => {
   };
 
   return (
-    <CardDiv>
+    <div className={styles.list_wrapper}>
       {musics.length
         ? musics.map((music, index) => {
             playStarted
@@ -58,12 +54,12 @@ const MusicList: React.FC<Props> = ({ musics }) => {
             return (
               <TinderCard
                 key={index}
-                className="swipe"
+                className={styles.swipe}
                 onSwipe={(dir) => swipe(dir, musics[index - 1])}
                 onCardLeftScreen={() => onCardLeftScreen("fooBar")}
                 preventSwipe={["up", "down"]}
               >
-                <ImgDiv style={{ position: "absolute" }}>
+                <div className={styles.content}>
                   <div className={styles.item_wrapper}>
                     <div className={classNames(styles.item_box)}>
                       <img
@@ -71,20 +67,20 @@ const MusicList: React.FC<Props> = ({ musics }) => {
                         src={thumbnailLink(music.yt_id)}
                         alt={music.title}
                       />
-                      <div className={styles.icon}>
-                        <i className="fas fa-play-circle" />
-                      </div>
                     </div>
-                    <h3 className={classNames(styles.title, "font-nunito")}>
+                    <h2 className={classNames(styles.title, "font-nunito")}>
                       {music.title}
+                    </h2>
+                    <h3 className={classNames(styles.author, "font-nunito")}>
+                      {music.author}
                     </h3>
                   </div>
-                </ImgDiv>
+                </div>
               </TinderCard>
             );
           })
         : `No music found!`}
-    </CardDiv>
+    </div>
   );
 };
 
