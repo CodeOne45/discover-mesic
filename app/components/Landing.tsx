@@ -44,7 +44,7 @@ const Landing: React.FC = () => {
           </div>
           <div className={styles.image_container}>
             <div className={styles.image_container_block}></div>
-            <img className={styles.image_container_img} src={pochetteImage.src}/>
+            <img className={styles.image_container_img} src={pochetteImage.src} alt="Landing pochette"/>
             <div className={styles.image_container_icon_container} >
               <i id={styles.image_container_icon_cancel} className={"fa fa-window-close "+ styles.image_container_icon}></i>
               <i id={styles.image_container_icon_heart} className={"fa fa-solid fa-heart "+ styles.image_container_icon}></i>
