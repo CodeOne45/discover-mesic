@@ -16,9 +16,10 @@
     "classnames": "^2.3.1",
     "font-awesome": "^4.7.0",
     "next": "12.1.0",
-    "react": "17.0.2",
+    "react": "^17.0.2",
     "react-dom": "17.0.2",
     "react-fontawesome": "^1.7.1",
+    "react-native": "^0.68.0",
     "react-tinder-card": "^1.4.5",
     "styled-components": "^5.3.3"
   },
