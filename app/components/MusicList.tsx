@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Button } from 'react-native'
 import { IMusic } from "../types/music";
 import classNames from "classnames";
 import TinderCard from "react-tinder-card";
@@ -80,6 +81,10 @@ const MusicList: React.FC<Props> = ({ musics }) => {
             );
           })
         : `No music found!`}
+        <Buttons>
+          <Button onPress={() => swipe('left')} title='Swipe left!' />
+          <Button onPress={() => swipe('right')} title='Swipe right!' />
+        </Buttons>
     </div>
   );
 };
