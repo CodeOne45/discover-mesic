@@ -2,14 +2,16 @@ const config = require("config.json");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const db = require("_helpers/db");
+const bcrypt = require("bcrypt");
 const User = db.User;
-
+const emailCheck = require('email-check');
 module.exports = {
   getAll,
   getById,
   create,
   update,
   delete: _delete,
+  authenticate,
 };
 
 async function authenticate({ username }) {
@@ -38,6 +40,22 @@ async function create(userParam) {
   if (await User.findOne({ username: userParam.username })) {
     throw 'Username "' + userParam.username + '" is already taken';
   }
+  if (await User.findOne({ email: userParam.email })) {
+    throw 'Email "' + userParam.email + '" is already taken';
+  }
+  // tester mail
+  if(!isValidEmail(userParam.email) || userParam.email == ''){
+    throw 'Email is invalid';
+  }
+  if(!emailCheck(userParam.email)){
+    throw 'Email do not exist';
+  } 
+  // tester password
+  if(validatePassword(userParam.password) == false || userParam.password == ''){
+      throw 'Password is invalid';
+  } 
+
+  // création User
   const user = new User(userParam);
   // save user
   await user.save();
@@ -78,4 +96,25 @@ async function update(id, userParam) {
 
 async function _delete(id) {
   await User.findByIdAndRemove(id);
+}
+function isValidEmail(email) {
+  const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return regex.test(String(email).toLowerCase());
+}
+function validatePassword(password) {
+  var newPassword = password;
+  var minNumberofChars = 8;
+  var maxNumberofChars = 16;
+  console.log(newPassword.length)
+  var regularExpression = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,16})')
+  if(newPassword.length < minNumberofChars || newPassword.length > maxNumberofChars){
+      return false;
+     
+  }
+  if(!regularExpression.test(String(newPassword))) {
+    console.log("fff");
+      return false;
+     
+  }
+  return true;
 }
