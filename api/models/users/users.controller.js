@@ -11,7 +11,7 @@ router.delete("/:_id", _delete);
 
 module.exports = router;
 
-/*function authenticate(req, res, next) {
+function authenticate(req, res, next) {
   userService
     .authenticate(req.body)
     .then((user) =>
@@ -20,7 +20,7 @@ module.exports = router;
         : res.status(400).json({ message: "Username or password is incorrect" })
     )
     .catch((err) => next(err));
-}*/
+}
 
 function register(req, res, next) {
   userService
