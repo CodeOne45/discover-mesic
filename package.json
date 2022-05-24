@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "swagger-converter": "^2.1.0"
+  }
+}
