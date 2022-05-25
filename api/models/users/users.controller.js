@@ -73,9 +73,9 @@ function updateUserPlaylistSongs(req, res, next) {
     .catch((err) => next(err));
 }
 function deleteUserPlaylistSongs(req, res, next) {
-  userService
+    userService
   .deleteUserPlaylistSongs(req.params.userId, req.body)
-  .then((user) => res.json({ user }))
+  .then(() => res.json({}))
   .catch((err) => next(err));
 }
 

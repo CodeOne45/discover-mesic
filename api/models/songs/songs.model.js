@@ -5,6 +5,7 @@ const schema = new Schema({
   yt_id: { type: String, unique: true, required: true },
   title: { type: String, required: true },
   author: { type: String, required: true},
+  dateInsertion : {  type : Date, default: Date.now}
 });
 
 schema.set("toJSON", {

@@ -116,10 +116,13 @@ async function updateUserPlaylistSongs(id,param){
   return user.toJSON();
 }
 async function deleteUserPlaylistSongs(id,param){
-  const user = await User.findById(id);
-  user.playlistIdSongs.pop(param.idMusic)
-  user.save();
-  return user.toJSON();
+  
+  var listSongToRemove = param.idMusic.map(s => s.toString());
+  await User.updateOne( // select your doc in moongo
+  {_id: id}, // your query, usually match by _id
+  { $pullAll: { playlistIdSongs : listSongToRemove } }, // item(s) to match from array you want to pull/remove
+  { multi: true } // set this to true if you want to remove multiple elements.
+  )
 }
 async function _delete(id) {
   await User.findByIdAndRemove(id);
