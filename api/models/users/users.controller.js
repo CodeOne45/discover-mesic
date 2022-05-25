@@ -6,9 +6,12 @@ router.post("/register", register);
 router.get("/", getAll);
 router.get("/current", getCurrent);
 router.get("/:_id", getById);
-router.put("/:_id", update);
+router.put("/:_id", update);  
 router.delete("/:_id", _delete);
 router.post("/login", authenticate);
+router.get("/playlist/:userId",getUserPlaylistSongsById);
+router.put("/playlist/:userId", updateUserPlaylistSongs);
+router.delete("/playlist/:userId", deleteUserPlaylistSongs);
 
 module.exports = router;
 
@@ -56,6 +59,24 @@ function update(req, res, next) {
     .update(req.params._id, req.body)
     .then(() => res.json({}))
     .catch((err) => next(err));
+}
+function getUserPlaylistSongsById(req, res, next) {
+  userService
+    .getUserPlaylistSongs(req.params.userId)
+    .then((playlistIdSongs) => (playlistIdSongs ? res.json(playlistIdSongs) : res.sendStatus(404)))
+    .catch((err) => next(err));
+}
+function updateUserPlaylistSongs(req, res, next) {
+    userService
+    .updateUserPlaylistSongs(req.params.userId, req.body)
+    .then((user) => res.json({ user }))
+    .catch((err) => next(err));
+}
+function deleteUserPlaylistSongs(req, res, next) {
+  userService
+  .deleteUserPlaylistSongs(req.params.userId, req.body)
+  .then((user) => res.json({ user }))
+  .catch((err) => next(err));
 }
 
 function _delete(req, res, next) {
