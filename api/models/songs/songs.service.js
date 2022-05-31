@@ -12,6 +12,7 @@ module.exports = {
     delete: _delete,
     getSongsByUser,
     getRandomMusic,
+    getTopTenSongs,
 };
 
 async function getAll() {
@@ -48,9 +49,15 @@ async function getSongsByUser(id) {
     }
     return listSongByUser;
 }
-async function getRandomMusic(){
+async function getRandomMusic() {
     const randomSong = await Songs.aggregate([{ $sample: { size: 1 } }]);
-    return randomSong;  
+    return randomSong;
+}
+
+async function getTopTenSongs() {
+    const listTopSongs = await Songs.find().sort({ "numberOfLikes": -1 }).limit(10);
+    return listTopSongs;
+
 }
 
 async function update(id, songParam) {
