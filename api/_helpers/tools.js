@@ -50,5 +50,9 @@ async function checkYTview(id){
   
   return true;
 }
+async function checkYTVideoURL(id){
+
+  // check si la video est une musique, si le temps est inférieur à <
+}
 
 module.exports = { YouTubeGetID, stringToint, checkYTview };

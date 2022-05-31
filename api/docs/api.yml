@@ -1,0 +1,248 @@
+---
+openapi: 3.0.0
+info:
+  title: Discover-mesic API
+  description: This is the API of Discover-mesic
+  contact:
+    email: kumar.aman.pro01@gmail.com
+  license:
+    name: GPL v3
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
+  version: 1.0.0
+servers:
+# Added by API Auto Mocking Plugin
+- description: Discover-Mesic server 
+  url: ''
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: users
+  description: Operations available to regular users
+paths:
+  /:
+    get:
+      tags:
+      - users
+      summary: home page of the service
+      description: |
+        Nothing to do
+      operationId: home
+      responses:
+        "200":
+          description: welcome message
+          content:
+            text/html:
+              schema:
+                type: string
+                example: <h1>Test</h1>
+  /songs:
+    get:
+      tags:
+      - users
+      summary: get all songs
+      description: |
+        Nothing to do
+      operationId: get_songs
+      responses:
+        "200":
+          description: Here are all the songs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Songs'
+  /newsong:
+    post:
+      tags:
+      - users
+      summary: add a new song
+      description: |
+        Enter the song characteristics
+      operationId: add_song
+      requestBody:
+        description: song to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Song'
+      responses:
+        "200":
+          description: New song added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Song'
+        "400":
+          description: bad input parameter
+  /current:
+    get:
+      tags:
+      - users
+      summary: get the current user logged in
+      description: |
+        Nothing to do
+      operationId: get_user
+      responses:
+        "200":
+          description: here the profile of the current user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /register:
+    post:
+      tags:
+      - users
+      summary: register as a new user
+      description: |
+        Nothing to do
+      operationId: post_user
+      requestBody:
+        description: profile to register
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "200":
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: item already exists
+  /{id}:
+    get:
+      tags:
+      - users
+      summary: get profile of a user with his id
+      description: |
+        By passing in the appropriate options, you can get the profile of a user
+      operationId: get_booking_for_user
+      parameters:
+      - name: id
+        in: path
+        description: User ID.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          maximum: 1
+          minimum: 1
+          type: string
+      responses:
+        "200":
+          description: Profile of the user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "400":
+          description: bad input parameter
+    put:
+      tags:
+      - admins
+      summary: update a user profile
+      description: Updates a user profile using his ID
+      operationId: update_id_user
+      parameters:
+      - name: id
+        in: path
+        description: User ID.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          maximum: 1
+          minimum: 1
+          type: string
+      requestBody:
+        description: profile to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "200":
+          description: Profile updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "409":
+          description: item already exists
+    delete:
+      tags:
+      - admins
+      summary: delete a user profile
+      description: deletes a user profile using his ID
+      operationId: delete_id_user
+      parameters:
+      - name: id
+        in: path
+        description: User ID.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          maximum: 1
+          minimum: 1
+          type: string
+      responses:
+        "200":
+          description: Profile deleted
+        "400":
+          description: bad input parameter
+components:
+  schemas:
+    Songs:
+      type: array
+      items:
+        $ref: '#/components/schemas/Song'
+    Song:
+      required:
+      - title
+      - yt_id
+      - author
+      type: object
+      properties:
+        yt_id:
+          type: string
+          example: https://www.youtube.com/watch?v=oorVWW9ywG0
+        title:
+          type: string
+          example : Pop Smoke - dior
+        author:
+          type: string 
+          example: CodeOne94
+    Users:
+      type: array
+      items:
+        $ref: '#/components/schemas/User'
+    User:
+      required:
+      - username
+      - email
+      - password
+      - playlistIdSongs
+      - role
+      type: object
+      properties:
+        username:
+          type: string
+          example: CodeOne94
+        email:
+          type: string
+          example : kumar.aman.pro01@gmail.com
+        password:
+          type: string
+        playlistIdSongs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Song'
+        role:
+          type: string
+          enum : [artiste, admin, utilisateur]
+          example : utilisateur
+          
+   
