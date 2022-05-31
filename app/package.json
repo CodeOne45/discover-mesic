@@ -21,7 +21,7 @@
     "react-fontawesome": "^1.7.1",
     "react-native": "^0.68.0",
     "react-tinder-card": "^1.4.5",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@types/node": "16.11.6",
