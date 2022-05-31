@@ -15,6 +15,8 @@ module.exports = {
   getUserPlaylistSongs,
   updateUserPlaylistSongs,
   deleteUserPlaylistSongs,
+  getUserPlaylistSongsLeftById,
+  updateUserPlaylistSongsSwipLeft,
 };
 
 async function authenticate(userAuthentification) {
@@ -105,8 +107,19 @@ async function update(id, userParam) {
 // recuperer la playlist de l'utilisateur connecté
 async function getUserPlaylistSongs(id){
   const user = await User.findById(id);
-  console.log(user);
   return user.playlistIdSongs;
+}
+// recuperer la list de l'utilisateur connecté swipé à gauche
+async function getUserPlaylistSongsLeftById(id){
+  const user = await User.findById(id);
+  return user.listIdSongsSwiptoLeft;
+}
+// update la playlist utilisateur quand il ajoute une musique
+async function updateUserPlaylistSongsSwipLeft(id,param){
+  const user = await User.findById(id);
+  user.listIdSongsSwiptoLeft.push(param.idMusic)
+  user.save();
+  return user.toJSON();
 }
 // update la playlist utilisateur quand il ajoute une musique
 async function updateUserPlaylistSongs(id,param){

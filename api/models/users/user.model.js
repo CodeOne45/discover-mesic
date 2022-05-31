@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const typeRole = {
   roleArtiste: 'artiste',
   roleAdmin: 'admin',
-  roleUtilisateur: 'utlisateur'
+  roleUtilisateur: 'utilisateur'
 }
 
 const Userschema = new Schema({
@@ -12,7 +12,8 @@ const Userschema = new Schema({
   email :{ type: String, unique: true, required:true},
   password : {type: String, required: true},
   playlistIdSongs : [{type : String}],
-  role : {type : typeRole}
+  role : {type : typeRole, default: typeRole.roleUtilisateur},
+  listIdSongsSwiptoLeft : [{type: String , default:[]}]
 });
 
 Userschema.set("toJSON", {

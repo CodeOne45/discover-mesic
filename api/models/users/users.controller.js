@@ -12,6 +12,8 @@ router.post("/login", authenticate);
 router.get("/playlist/:userId",getUserPlaylistSongsById);
 router.put("/playlist/:userId", updateUserPlaylistSongs);
 router.delete("/playlist/:userId", deleteUserPlaylistSongs);
+router.get("/playlistToLeft/:userId",getUserPlaylistSongsLeftById);
+router.put("/playlistToLeft/:userId",updateUserPlaylistSongsSwipLeft);
 
 module.exports = router;
 
@@ -65,6 +67,18 @@ function getUserPlaylistSongsById(req, res, next) {
     .getUserPlaylistSongs(req.params.userId)
     .then((playlistIdSongs) => (playlistIdSongs ? res.json(playlistIdSongs) : res.sendStatus(404)))
     .catch((err) => next(err));
+}
+function getUserPlaylistSongsLeftById(req, res, next) {
+  userService
+    .getUserPlaylistSongsLeftById(req.params.userId)
+    .then((listIdSongsSwiptoLeft) => (listIdSongsSwiptoLeft ? res.json(listIdSongsSwiptoLeft) : res.sendStatus(404)))
+    .catch((err) => next(err));
+}
+function updateUserPlaylistSongsSwipLeft(req, res, next) {
+  userService
+  .updateUserPlaylistSongsSwipLeft(req.params.userId, req.body)
+  .then((user) => res.json({ user }))
+  .catch((err) => next(err));
 }
 function updateUserPlaylistSongs(req, res, next) {
     userService
