@@ -1,12 +1,22 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const schema = new Schema({
+const typeRole = {
+  roleArtiste: 'artiste',
+  roleAdmin: 'admin',
+  roleUtilisateur: 'utilisateur'
+}
+
+const Userschema = new Schema({
   username: { type: String, unique: true, required: true },
-  score: { type: Number, default: 0.0 },
+  email :{ type: String, unique: true, required:true},
+  password : {type: String, required: true},
+  playlistIdSongs : [{type : String}],
+  role : {type : typeRole, default: typeRole.roleUtilisateur},
+  listIdSongsSwiptoLeft : [{type: String , default:[]}]
 });
 
-schema.set("toJSON", {
+Userschema.set("toJSON", {
   virtuals: true,
   versionKey: false,
   transform: function (doc, ret) {
@@ -14,4 +24,4 @@ schema.set("toJSON", {
   },
 });
 
-module.exports = mongoose.model("User", schema);
+module.exports = mongoose.model("User", Userschema);
