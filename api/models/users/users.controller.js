@@ -14,6 +14,7 @@ router.put("/playlist/:userId", updateUserPlaylistSongs);
 router.delete("/playlist/:userId", deleteUserPlaylistSongs);
 router.get("/playlistToLeft/:userId",getUserPlaylistSongsLeftById);
 router.put("/playlistToLeft/:userId",updateUserPlaylistSongsSwipLeft);
+router.put("/updatePassword/:userId", updateUserPassword);
 
 module.exports = router;
 
@@ -92,7 +93,12 @@ function deleteUserPlaylistSongs(req, res, next) {
   .then(() => res.json({}))
   .catch((err) => next(err));
 }
-
+function updateUserPassword(req, res, next){
+  userService
+  .updateUserPassword(req.params.userId, req.body)
+  .then((user) => res.json({ user }))
+  .catch((err) => next(err));
+}
 function _delete(req, res, next) {
   userService
     .delete(req.params._id)

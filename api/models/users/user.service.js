@@ -17,6 +17,7 @@ module.exports = {
   deleteUserPlaylistSongs,
   getUserPlaylistSongsLeftById,
   updateUserPlaylistSongsSwipLeft,
+  updateUserPassword,
 };
 
 async function authenticate(userAuthentification) {
@@ -72,7 +73,7 @@ async function create(userParam) {
   }
   userParam.password = bcrypt.hashSync(userParam.password);
   // create User
-    const user = new User(userParam);
+  const user = new User(userParam);
   // save user
   await user.save();
   const newUser = await User.findOne({ username: userParam.username });
@@ -105,37 +106,52 @@ async function update(id, userParam) {
   await user.save();
 }
 // recuperer la playlist de l'utilisateur connecté
-async function getUserPlaylistSongs(id){
+async function getUserPlaylistSongs(id) {
   const user = await User.findById(id);
   return user.playlistIdSongs;
 }
 // recuperer la list de l'utilisateur connecté swipé à gauche
-async function getUserPlaylistSongsLeftById(id){
+async function getUserPlaylistSongsLeftById(id) {
   const user = await User.findById(id);
   return user.listIdSongsSwiptoLeft;
 }
 // update la playlist utilisateur quand il ajoute une musique
-async function updateUserPlaylistSongsSwipLeft(id,param){
+async function updateUserPlaylistSongsSwipLeft(id, param) {
   const user = await User.findById(id);
   user.listIdSongsSwiptoLeft.push(param.idMusic)
   user.save();
   return user.toJSON();
 }
 // update la playlist utilisateur quand il ajoute une musique
-async function updateUserPlaylistSongs(id,param){
+async function updateUserPlaylistSongs(id, param) {
   const user = await User.findById(id);
   user.playlistIdSongs.push(param.idMusic)
   user.save();
   return user.toJSON();
 }
-async function deleteUserPlaylistSongs(id,param){
-  
+async function deleteUserPlaylistSongs(id, param) {
+
   var listSongToRemove = param.idMusic.map(s => s.toString());
   await User.updateOne( // select your doc in moongo
-  {_id: id}, // your query, usually match by _id
-  { $pullAll: { playlistIdSongs : listSongToRemove } }, // item(s) to match from array you want to pull/remove
-  { multi: true } // set this to true if you want to remove multiple elements.
+    { _id: id }, // your query, usually match by _id
+    { $pullAll: { playlistIdSongs: listSongToRemove } }, // item(s) to match from array you want to pull/remove
+    { multi: true } // set this to true if you want to remove multiple elements.
   )
+}
+
+async function updateUserPassword(id, param) {
+  const user = await User.findById(id);
+  // test password
+  if (isValidatePassword(param.newPassword) == false || param.newPassword == '') {
+    throw 'Password is invalid';
+  }
+  var oldPasswordisSameThanNew = await bcrypt.compare(param.newPassword,user.password);
+  if(oldPasswordisSameThanNew){
+    throw 'This password is the same that your last password';
+  }
+  user.password = bcrypt.hashSync(param.newPassword);
+  await user.save();
+  return user.toJSON();
 }
 async function _delete(id) {
   await User.findByIdAndRemove(id);
