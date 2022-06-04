@@ -13,7 +13,8 @@ const Userschema = new Schema({
   password : {type: String, required: true},
   playlistIdSongs : [{type : String}],
   role : {type : typeRole, default: typeRole.roleUtilisateur},
-  listIdSongsSwiptoLeft : [{type: String , default:[]}]
+  listIdSongsSwiptoLeft : [{type: String , default:[]}],
+  isVerified: {type: Boolean,default: false}
 });
 
 Userschema.set("toJSON", {
@@ -23,5 +24,22 @@ Userschema.set("toJSON", {
     delete ret.hash;
   },
 });
+
+Userschema.methods.generateJWT = function() {
+  const today = new Date();
+  const expirationDate = new Date(today);
+  expirationDate.setDate(today.getDate() + 60);
+
+  let payload = {
+      id: this._id,
+      email: this.email,
+      username: this.username
+  };
+
+  return jwt.sign(payload, config.secret, {
+      expiresIn: parseInt(expirationDate.getTime() / 1000, 10)
+  });
+};
+
 
 module.exports = mongoose.model("User", Userschema);

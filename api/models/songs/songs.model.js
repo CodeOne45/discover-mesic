@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const ObjectID = require('mongodb').ObjectID
 const Schema = mongoose.Schema;
 
-const schema = new Schema({
+const songSchema = new Schema({
   yt_id: { type: String, unique: true, required: true },
   title: { type: String, required: true },
   author: { type: String, required: true},
@@ -11,7 +11,7 @@ const schema = new Schema({
   dateInsertion : {  type : Date, default: Date.now}
 });
 
-schema.set("toJSON", {
+songSchema.set("toJSON", {
   virtuals: true,
   versionKey: false,
   transform: function (doc, ret) {
@@ -19,4 +19,4 @@ schema.set("toJSON", {
   },
 });
 
-module.exports = mongoose.model("Songs", schema);
+module.exports = mongoose.model("Songs", songSchema);

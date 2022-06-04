@@ -12,7 +12,8 @@ mongoose.connect(
   process.env.MONGODB_URI || config.connectionString,
   connectionOptions
 ).then(() => {
-  console.log('start');
+  console.log('-----> DB Coonected');
+  console.log('-----> API running...');
 }).catch(err => {
   console.error('App starting error:', err.stack);
   process.exit(1)
@@ -23,4 +24,5 @@ mongoose.Promise = global.Promise;
 module.exports = {
   User: require("../models/users/user.model"),
   Songs: require("../models/songs/songs.model"),
+  Tokens: require("../models/tokens/token.model"),
 };
