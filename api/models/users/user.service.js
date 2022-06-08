@@ -166,11 +166,10 @@ function isValidatePassword(password) {
 
 
 // ===EMAIL VERIFICATION
-// @route GET api/verify/:token
+// @route GET users/verify/:token
 // @desc Verify token
 // @access Public
 async function verify(req, res){
-  console.log("hello")
   if(!req.params.token) return res.status(400).json({message: "We were unable to find a user for this token."});
 
   try {
@@ -180,8 +179,8 @@ async function verify(req, res){
       if (!token) return res.status(400).json({ message: 'We were unable to find a valid token. Your token my have expired.' });
 
       // If we found a token, find a matching user
-      User.findOne({ _id: token.userId }, (err, user) => {
-          if (!user) return res.status(400).json({ message: 'We were unable to find a user for this token.' });
+      User.findOne({ _id: token.userId }, (_err, user) => {
+          if (!user) return res.status(400).json({ mcessage: 'We were unable to find a user for this token.' });
 
           if (user.isVerified) return res.status(400).json({ message: 'This user has already been verified.' });
 
@@ -192,16 +191,16 @@ async function verify(req, res){
 
               res.status(200).send("The account has been verified. Please log in.");
           });
-      });
+      }); 
   } catch (error) {
       res.status(500).json({message: error.message})
-  }
+    }
 };
 
-// @route POST api/resend
+// @route POST users/resend
 // @desc Resend Verification Token
 // @access Public
-exports.resendToken = async (req, res) => {
+async function resendToken(req, res){
   try {
       const { email } = req.body;
 
@@ -342,8 +341,9 @@ async function sendVerificationEmail(user, req, res){
                       padding-top: 25px;
                       color: #000000;
                       font-family: sans-serif;" class="header">
-                              <img border="0" vspace="0" hspace="0" src="https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" width="200" height="58" alt="The Idea" title="The Idea" />
+                              <img border="0" vspace="0" hspace="0" src="" width="200" height="58" alt="The Idea" title="Discover Me'sic" />
                             </td>
+                            
                           </tr>
                           <tr>
                             <td align="center" valign="top" style="border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0; padding-left: 6.25%; padding-right: 6.25%; width: 87.5%;

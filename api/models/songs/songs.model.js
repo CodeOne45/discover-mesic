@@ -8,13 +8,14 @@ const songSchema = new Schema({
   author: { type: String, required: true},
   addedBy: { type: ObjectID, required: true},
   numberOfLikes : { type: Number, required: true },
-  dateInsertion : {  type : Date, default: Date.now}
+  dateInsertion : {  type : Date, default: Date.now},
+  isVerified: {type: Boolean,default: false}
 });
 
 songSchema.set("toJSON", {
   virtuals: true,
   versionKey: false,
-  transform: function (doc, ret) {
+  transform: function (_doc, ret) {
     delete ret.hash;
   },
 });

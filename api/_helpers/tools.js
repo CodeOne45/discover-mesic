@@ -18,8 +18,6 @@ function uploader(req) {
 }
 
 function sendEmail(mailOptions) {
-  console.log("okay")
-
   return new Promise((resolve, reject) => {
       sgMail.send(mailOptions, (error, result) => {
           if (error) return reject(error);

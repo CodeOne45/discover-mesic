@@ -106,13 +106,11 @@ function _delete(req, res, next) {
 function getUserEmailVerify(req, res, next){
   userService
     .verify(req, res)
-    .then(() => res.json({}))
     .catch((err) => next(err));
 }
 
 function resendTokenEmailVerification(req, res, next){
   userService
     .resendToken(req, res)
-    .then(() => res.json({}))
     .catch((err) => next(err));
 }

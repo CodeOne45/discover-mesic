@@ -13,7 +13,8 @@ function jwt() {
       "/songs/newsong",
       "/songs/songs",
       "/users/login",
-    ],
+      /^\/users\/verify\/.*/,
+    ],  
   });
 }
 
