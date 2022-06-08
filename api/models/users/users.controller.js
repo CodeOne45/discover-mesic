@@ -19,6 +19,7 @@ router.put("/playlistToLeft/:userId",updateUserPlaylistSongsSwipLeft);
 //EMAIL Verification
 router.get("/verify/:token", getUserEmailVerify);
 router.post("/resend", resendTokenEmailVerification);
+router.put("/updatePassword/:userId", updateUserPassword);
 
 
 function authenticate(req, res, next) {
@@ -95,7 +96,12 @@ function deleteUserPlaylistSongs(req, res, next) {
   .then(() => res.json({}))
   .catch((err) => next(err));
 }
-
+function updateUserPassword(req, res, next){
+  userService
+  .updateUserPassword(req.params.userId, req.body)
+  .then((user) => res.json({ user }))
+  .catch((err) => next(err));
+}
 function _delete(req, res, next) {
   userService
     .delete(req.params._id)
