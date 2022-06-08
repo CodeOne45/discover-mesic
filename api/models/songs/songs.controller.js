@@ -10,7 +10,6 @@ router.get("/TopTen",getTopTenSongs)
 module.exports = router;
 
 function addSong(req, res, next) {
-  console.log("---------> Adding song ..." );
   songService
     .create(req.body)
     .then((song) => res.json({ song }))
