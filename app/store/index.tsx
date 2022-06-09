@@ -1,6 +1,6 @@
 /** Music Hook store */
 import React, { useCallback, useEffect, useState } from "react";
-import Controller from "../components/Controller";
+import Controller from "../components/music/Controller";
 import type { IMusic } from "../types/music";
 
 export const Context = React.createContext({});

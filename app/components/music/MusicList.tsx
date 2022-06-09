@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 //import { Button } from 'react-native'
-import { IMusic } from "../types/music";
+import { IMusic } from "../../types/music";
 import classNames from "classnames";
 import TinderCard from "react-tinder-card";
-import { thumbnailLink } from "../constant/url";
+import { thumbnailLink } from "../../constant/url";
 import styled from "styled-components";
-import styles from "../styles/music-list-item-component.module.css";
-import { Context } from "../store";
+import styles from "../../styles/music-list-item-component.module.css";
+import { Context } from "../../store";
 
 
 const ImgDiv = styled.div`

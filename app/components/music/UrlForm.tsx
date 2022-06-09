@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { API_URL } from "../constant/url";
+import { API_URL } from "../../constant/url";
 import axios from "axios";
 
 
