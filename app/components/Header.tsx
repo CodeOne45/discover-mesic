@@ -9,11 +9,22 @@ import styles from "../styles/header-component.module.css";
 import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import {userService} from '../services/user.service';
 
 const Header: React.FC = () => {
   const [keyword, setKeyword] = useState<string>("");
 
   const router = useRouter();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+      const subscription = userService.user.subscribe(x => setUser(x));
+      return () => subscription.unsubscribe();
+  }, []);
+
+  function logout() {
+      userService.logout();
+  }
 
   const submitSearchHandler = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
@@ -55,6 +66,13 @@ const Header: React.FC = () => {
             value={keyword}
             onChange={changeKeywordHandler}
           />
+          {user?         
+          <nav className="navbar navbar-expand navbar-dark bg-dark">
+            <div className="navbar-nav">
+                <a onClick={logout} className="nav-item nav-link">Logout</a>
+            </div>
+          </nav>: <a href="/account/login" className="nav-item nav-link">Login</a>
+ }
           <button className={styles.button}>
             <i className={classNames("fas fa-search", styles.icon)} />
           </button>

@@ -106,4 +106,4 @@ const AddEdit: React.FC = (props) => {
     );
 }
 
-export { AddEdit };
+export default AddEdit;
