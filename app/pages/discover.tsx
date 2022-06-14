@@ -4,9 +4,9 @@ import 'font-awesome/css/font-awesome.min.css';
 
 import Layout from "../components/Layout";
 import styles from "../styles/discover.module.css";
-import MusicList from "../components/MusicList";
-import UrlForm from "../components/UrlForm";
-import Controller from "../components/Controller";
+import MusicList from "../components/music/MusicList";
+import UrlForm from "../components/music/UrlForm";
+import Controller from "../components/music/Controller";
 import { Context } from "../store";
 import type { NextPage } from "next";
 import Head from "next/head";

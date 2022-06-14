@@ -8,12 +8,13 @@ function jwt() {
   const secret = config.secret;
   return expressJwt({ secret, algorithms: ["HS256"], isRevoked }).unless({
     path: [
-      // public routes that don't require authentication
+      // public routes that don't require token
       "/users/register",
       "/songs/newsong",
       "/songs/songs",
-      "/users/login"
-    ],
+      "/users/login",
+      /^\/users\/verify\/.*/,
+    ],  
   });
 }
 
