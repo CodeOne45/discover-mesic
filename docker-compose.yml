@@ -1,23 +1,30 @@
 version: "3.3"
 
 services:
+
+  nginx:
+    depends_on:
+      - app
+      - api
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "3050:80"
   app:
     build:
-      context: .
+      context: ./app
       dockerfile: Dockerfile
     container_name: app
     restart: always
-    ports:
-      - 3000:3000
 
   api:
     build:
-      context: .
+      context: ./api
       dockerfile: Dockerfile
     container_name: api
     restart: always
     environment:
       - MONGODB_URI=${MONGODB_URI}
-    ports:
-      - 8080:8080
 
