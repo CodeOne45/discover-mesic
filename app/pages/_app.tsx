@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Container from "../store";
-import Head from "next/head";
+//import Head from "next/head";
+import PreloaderComp from '../components/preloader/preloaderComp';
 
 import {userService} from '../services/user.service';
 
@@ -36,7 +37,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   function authCheck(url) {
     // redirect to login page if accessing a private page and not logged in 
     setUser(userService.userValue);
-    const publicPaths = [ '/','/account/login', '/account/register'];
+    const publicPaths = [ '/','/discover','/account/login', '/account/register'];
     const path = url.split('?')[0];
     if (!userService.userValue && !publicPaths.includes(path)) {
         setAuthorized(false);
@@ -47,7 +48,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     } else {
         setAuthorized(true);
     }
-}
+  }
+
+  if (!authorized) {
+    return <PreloaderComp />
+  }
 
   return (
     <>
