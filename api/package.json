@@ -4,7 +4,9 @@
   "description": "An API to collect songs & login + register users",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "prepare": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -34,6 +36,8 @@
     "path": "^0.12.7",
     "rootpath": "^0.1.2",
     "to": "^0.2.9",
-    "update": "^0.7.4"
-  }
+    "update": "^0.7.4",
+    "@snyk/protect": "latest"
+  },
+  "snyk": true
 }
