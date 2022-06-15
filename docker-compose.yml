@@ -27,4 +27,6 @@ services:
     restart: always
     environment:
       - MONGODB_URI=${MONGODB_URI}
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+      - FROM_EMAIL=${FROM_EMAIL}
 
