@@ -1,0 +1,8 @@
+.main {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.main > * {
+    flex: 1 100%;
+}

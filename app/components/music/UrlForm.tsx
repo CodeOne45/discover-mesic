@@ -38,7 +38,7 @@ const UrlForm: React.FC = () => {
 
   //TODO: Verify if input are empty or not
   return (
-    <div >
+    <div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

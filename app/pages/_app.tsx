@@ -8,7 +8,7 @@ import ReactSwitch from 'react-switch';
 export const ThemeContext = createContext(null);
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
 
   const toggleTheme = () => {
       setTheme((curr) => (curr === 'light' ? 'dark' : 'light'));

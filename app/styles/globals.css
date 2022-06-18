@@ -58,6 +58,10 @@ button {
   --bleu-2: #0E6BFF;
   --bleu-3: #3D54A0;
 
+  --dark-1: #000000;
+  --dark-2: #2C3856;
+  --dark-3: #2C3856;
+
   --purple-1: #373A75;
   
   --orange-42: #73001E;
@@ -125,3 +129,10 @@ button {
 }
 
 /*Discover Page*/
+
+#dark h1 {
+  color: var(--bleu-1);
+}
+#dark h2, #dark h3, #dark p, #dark span{
+  color: var(--color-text-1);
+}
