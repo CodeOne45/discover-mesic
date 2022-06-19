@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import { useRouter } from 'next/router';
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Container from "../store";
 
-import React, { createContext, useState } from 'react';
 import ReactSwitch from 'react-switch';
 //import Head from "next/head";
 import PreloaderComp from '../components/preloader/preloaderComp';
