@@ -1,11 +1,9 @@
 .list_wrapper {
-    order: 0;
+    position: relative;
 }
 .swipe {
     position: absolute;
-}
-.content{
-
+    z-index: 1;
 }
 
 .item_wrapper {
