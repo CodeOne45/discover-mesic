@@ -20,8 +20,10 @@
     "react": "^17.0.2",
     "react-dom": "17.0.2",
     "react-fontawesome": "^1.7.1",
+    "react-hook-form": "^7.32.0",
     "react-native": "^0.68.0",
     "react-tinder-card": "^1.4.5",
+    "rxjs": "^7.5.5",
     "styled-components": "^5.3.3",
     "yup": "^0.32.11"
   },

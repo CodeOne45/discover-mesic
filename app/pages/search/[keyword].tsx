@@ -2,7 +2,7 @@ import {GetServerSideProps} from 'next';
 import React, {useContext, useEffect, useState} from 'react';
 import Layout from '../../components/Layout';
 import MusicList from '../../components/music/MusicList';
-import {findMusicsBySearch} from '../../service/music';
+import {findMusicsBySearch} from '../../services/music';
 import {IMusic} from '../../types/music';
 import styles from "../../styles/home.module.css";
 import { Context } from "../../store";
