@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
 import Link from '../../components/Link';
-import Layout from '../../components/account/Layout';
+import Layout from '../../components/Layout';
 import {userService} from '../../services/user.service';
 import {alertService} from '../../services/alert.service';
 
@@ -35,7 +35,10 @@ function Register() {
         return userService.register(user)
             .then(() => {
                 alertService.success('Registration successful', { keepAfterRouteChange: true });
-                router.push('login');
+                router.push({
+                    pathname: '/account/verification',
+                    query: { email: user["email"] }
+                },'/account/verification');
             })
             .catch(alertService.error);
     }

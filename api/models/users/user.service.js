@@ -22,6 +22,7 @@ module.exports = {
   updateUserPlaylistSongsSwipLeft,
   verify,
   updateUserPassword,
+  resendToken,
 };
 
 async function authenticate(userAuthentification) {
