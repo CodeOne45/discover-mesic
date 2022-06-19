@@ -34,6 +34,7 @@ function authenticate(req, res, next) {
 }
 
 function register(req, res, next) {
+  console.log(req.body)
   userService
     .create(req.body,req, res)
     .catch((err) => next(err));

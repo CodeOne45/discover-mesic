@@ -22,6 +22,7 @@ module.exports = {
   updateUserPlaylistSongsSwipLeft,
   verify,
   updateUserPassword,
+  resendToken,
 };
 
 async function authenticate(userAuthentification) {
@@ -35,8 +36,12 @@ async function authenticate(userAuthentification) {
       const token = jwt.sign({ sub: user._id }, config.secret, {
         expiresIn: "7d",
       });
+      console.log(user)
+
       return {
-        ...user.toJSON(),
+        id: user.id,
+        username: user.username,
+        email: user.email,
         token,
       };
     } else {
@@ -65,20 +70,25 @@ async function create(userParam, req, res) {
     if (await User.findOne({ username: userParam.username })) {
       throw 'Username "' + userParam.username + '" is already taken';
     }
+
     if (await User.findOne({ email: userParam.email })) {
       throw 'Email "' + userParam.email + '" is already taken';
     }
     // tester mail
-    if (!isValidEmail(userParam.email) || userParam.email == '') {
-      throw 'Email is invalid';
-    }
+    
     if (!emailCheck(userParam.email)) {
       throw 'Email do not exist';
     }
+
+    if (!isValidEmail(userParam.email) || userParam.email == '') {
+      throw 'Email is invalid';
+    }
+
     // test password
     if (isValidatePassword(userParam.password) == false || userParam.password == '') {
       throw 'Password is invalid';
     }
+
     userParam.password = bcrypt.hashSync(userParam.password);
     // create User
     const user = new User(userParam);

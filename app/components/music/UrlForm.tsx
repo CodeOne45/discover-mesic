@@ -17,10 +17,7 @@ const UrlForm: React.FC = () => {
       author: author,
     };
     try {
-      console.log(data);
-
       let res = await axios.post(API_URL+"/songs/newsong", data);
-      console.log(res.status);
       if (res.status === 200) {
         setyt_id("");
         settitle("");
