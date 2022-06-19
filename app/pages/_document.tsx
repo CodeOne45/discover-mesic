@@ -38,6 +38,8 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,800;0,900;1,700&display=swap"
             rel="stylesheet"
           />
+          <link href="//netdna.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+
         </Head>
         <body>
         <Main/>

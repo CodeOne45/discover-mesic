@@ -44,6 +44,7 @@ const Home: NextPage = () => {
         <meta property="og:url" content={FRONTEND_URL} />
 
         <link rel="canonical" href={FRONTEND_URL} />
+        
       </Head>
       <Layout>
           <Landing />

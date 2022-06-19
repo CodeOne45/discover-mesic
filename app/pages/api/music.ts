@@ -1,4 +1,4 @@
-import { findMusicById, findMusicsBySearch, findMusics } from "../../service/music";
+import { findMusicById, findMusicsBySearch, findMusics } from "../../services/music";
 import type { NextApiRequest, NextApiResponse } from "next";
 import type { IMusic } from "../../types/music";
 
