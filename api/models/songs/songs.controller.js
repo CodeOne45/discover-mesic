@@ -11,7 +11,7 @@ module.exports = router;
 
 function addSong(req, res, next) {
   songService
-    .create(req.body)
+    .create(req.body, res)
     .then((song) => res.json({ song }))
     .catch((err) => next(err));
 }
@@ -25,7 +25,7 @@ function getAll(req, res, next) {
 
 function getSongsByUser(req, res, next){
   songService.
-  getSongsByUser(req.params.userId)
+  getSongsByUser(req.params.userId, res)
   .then((listSongs) => (listSongs ? res.json(listSongs) : res.sendStatus(404)))
   .catch((err) => next(err));
 }
