@@ -10,7 +10,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="ko">
+      <Html lang="en">
         <Head>
           <meta httpEquiv="x-ua-compatible" content="IE=edge"/>
           <meta
@@ -18,12 +18,12 @@ class MyDocument extends Document {
             content="upgrade-insecure-requests"
           />
 
-          <meta name="copyright" content="© 2021- KHJcode(Hyungjin Kim)" />
+          <meta name="copyright" content="© 2021- Discover Me'sic" />
           <meta name="theme-color" content="#000000" />
-          <meta name="language" content="ko"/>
+          <meta name="language" content="en"/>
           <meta name="robots" content="noindex, nofollow"/>
 
-          <meta property="og:email" content="to@khjcode.com" />
+          <meta property="og:email" content="discover.mesic@gmail.com" />
           <meta property="og:type" content="music" />
 
           <link

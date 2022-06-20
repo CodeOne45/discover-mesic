@@ -23,18 +23,32 @@
 }
 
 .card {
-  width: 450px;
-  padding: 0 14px;
+  width: 150px;
+  margin: 15px 20px;
+  transition: transform 0.2s ease-out;
 }
+
+.card:hover {
+  cursor: pointer;
+  transform: translate(5px, -10px);
+}
+
 .card:nth-child(1) {
- padding-left: 0;
+ padding-left: -10;
 }
 
-.card_image_circle {
+.card .card_image_circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card .card_image_circle img {
   width: 100%;
-  height: 180px;
-
+  height: auto;
 }
+
 .card_image_circle img{
   width: 100%;
   height: 100%;

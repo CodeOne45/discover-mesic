@@ -84,11 +84,12 @@ const Discover: NextPage = () => {
         <link rel="canonical" href={FRONTEND_URL} />
       </Head>
       <Layout>
-        <div className={`${styles.music_lister}, ${styles.block}`}>
-          <MusicList musics={musics}/>
-          <UrlForm />
-        </div>
-        <div className={`${styles.other_music}, ${styles.block}`}>
+          <div className={`${styles.music_lister}, ${styles.block}`}>
+            <MusicList musics={musics}/>
+            <UrlForm />
+          </div>
+        
+        <div className={`${styles.top_music}, ${styles.block}`}>
           <Carousel hotelCards={hotelCards} slide_type="song"/>
           <Carousel hotelCards={hotelCards} slide_type="artiste"/>
         </div>

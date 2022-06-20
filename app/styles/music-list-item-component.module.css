@@ -1,9 +1,12 @@
-.list_wrapper {
-    position: relative;
+.main {
+}
+
+.cardContainer {
+    max-width: 260px;
+    height: 300px;
 }
 .swipe {
     position: absolute;
-    z-index: 1;
 }
 
 .item_wrapper {

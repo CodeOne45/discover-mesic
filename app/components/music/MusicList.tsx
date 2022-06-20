@@ -9,17 +9,6 @@ import styles from "../../styles/music-list-item-component.module.css";
 import { Context } from "../../store";
 
 
-const ImgDiv = styled.div`
-  display: flex;
-  dlex-direction: row;
-  position: relative;
-  justify-content: flex-start;
-  margin-top: 19rem;
-  width: 300px;
-  height: 300px;
-  background-size: cover;
-`;
-
 interface Props {
   readonly musics: IMusic[];
 }
@@ -46,45 +35,48 @@ const MusicList: React.FC<Props> = ({ musics }) => {
   };
 
   return (
-    <div className={styles.list_wrapper}>
-      {musics.length
-        ? musics.map((music, index) => {
-            playStarted
-              ? console.log("musicStarted")
-              : (setMusic(music), setIsPlay(false), setPlayStarted(true));
-            return (
-              <div>
-                <TinderCard
-                  key={index}
-                  className={styles.swipe}
-                  onSwipe={(dir) => swipe(dir, musics[index - 1])}
-                  onCardLeftScreen={() => onCardLeftScreen("fooBar")}
-                  preventSwipe={["up", "down"]}
-                >
-                  <div className={styles.content}>
-                    <div className={styles.item_wrapper}>
-                      <div className={classNames(styles.item_box)}>
-                        <img
-                          className={styles.thumbnail}
-                          src={thumbnailLink(music.yt_id)}
-                          alt={music.title}
-                        />
+    <div className={styles.main}>
+      <div className={styles.cardContainer}>
+        {musics.length
+          ? musics.map((music, index) => {
+              playStarted
+                ? console.log("musicStarted")
+                : (setMusic(music), setIsPlay(false), setPlayStarted(true));
+              return (
+                <div>
+                  <TinderCard
+                    key={index}
+                    className={styles.swipe}
+                    onSwipe={(dir) => swipe(dir, musics[index - 1])}
+                    onCardLeftScreen={() => onCardLeftScreen("fooBar")}
+                    preventSwipe={["up", "down"]}
+                  >
+                    <div className={styles.content}>
+                      <div className={styles.item_wrapper}>
+                        <div className={classNames(styles.item_box)}>
+                          <img
+                            className={styles.thumbnail}
+                            src={thumbnailLink(music.yt_id)}
+                            alt={music.title}
+                          />
+                        </div>
+                        <h2 className={classNames(styles.title, "font-nunito")}>
+                          {music.title}
+                        </h2>
+                        <h3 className={classNames(styles.author, "font-nunito")}>
+                          {music.author}
+                        </h3>
                       </div>
-                      <h2 className={classNames(styles.title, "font-nunito")}>
-                        {music.title}
-                      </h2>
-                      <h3 className={classNames(styles.author, "font-nunito")}>
-                        {music.author}
-                      </h3>
                     </div>
-                  </div>
-                </TinderCard>
-              </div>
-            );
-          })
-        : `No music found!`}
-       
+                  </TinderCard>
+                </div>
+              );
+            })
+          : `No music found!`}
+        
+      </div>
     </div>
+    
   );
 };
 

@@ -4,7 +4,7 @@
 }
 @media all and (min-width: 800px) {
   .music_lister { order: 1; }
-  .other_music    { order: 2; }
+  .top_music    { order: 2; }
 }
 
 .music_lister {
