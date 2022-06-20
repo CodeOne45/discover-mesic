@@ -1,6 +1,6 @@
-const passport = require('passport');
-const express = require("express");
-const app = express();
+ passport = require('passport');
+ express = require("express");
+ app = express();
 app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser(function(user, cb) {
@@ -26,19 +26,10 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-async function loginWithGoogle(){
-    passport.authenticate('google', { scope : ['profile', 'email'] });
-}
-async function callBackGoogle(){
-    passport.authenticate('google', { failureRedirect: '/error' }),
-    function(req, res) {
-      // Successful authentication, redirect success.
-      res.redirect('/success');
-    };
-}
+
 
 
 module.exports = {
-    loginWithGoogle,
-    callBackGoogle,
+    passport
+
 }

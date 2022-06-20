@@ -15,7 +15,7 @@ function jwt() {
       "/users/login",
       "/auth/google",
       "/auth/google/callback",
-      "/success",
+      "/logGoogle/success",
       /^\/users\/verify\/.*/,
     ],  
   });
