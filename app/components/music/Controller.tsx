@@ -1,8 +1,8 @@
 import React, { useCallback, useContext } from "react";
-import styles from "../styles/controller-component.module.css";
+import styles from "../../styles/controller-component.module.css";
 import classNames from "classnames";
-import { Context } from "../store";
-import { thumbnailLink } from "../constant/url";
+import { Context } from "../../store";
+import { thumbnailLink } from "../../constant/url";
 
 /* eslint-disable @next/next/no-img-element */
 const Controller: React.FC = () => {

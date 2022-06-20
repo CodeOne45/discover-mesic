@@ -1,5 +1,5 @@
 {
-  "connectionString": "mongodb://localhost/api-food-guessr",
+  "connectionString": "mongodb://localhost/api-discover-mesic",
   "secret": "uoNzkh0VMwbu7IsGVbIpUfZCO60K8Afx",
   "view_max": 50000
 }

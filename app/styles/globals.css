@@ -54,6 +54,16 @@ button {
   --shadow-40: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
   --shadow-41: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
 
+  --bleu-1: #8CCAFF;
+  --bleu-2: #0E6BFF;
+  --bleu-3: #3D54A0;
+
+  --dark-1: #000000;
+  --dark-2: #2C3856;
+  --dark-3: #2C3856;
+
+  --purple-1: #373A75;
+  
   --orange-42: #73001E;
   --orange-43: rgba(195, 73, 46, 0.8);
   --orange-44: rgba(252, 226, 132, 0.8);
@@ -70,4 +80,59 @@ button {
 
 #keydown_event_handler:focus {
   outline: none;
+}
+
+
+
+#light {
+  background-color: var(--color-text-1);
+}
+#dark {
+  background: linear-gradient(var(--bleu-3), var(--purple-1));
+}
+
+.switch_color {
+  padding: 100px 10px 0 0;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+.switch_color label {
+  margin: 5px 10px 10px 10px;
+}
+#light .switch_color label {
+  color: var(--color-text-100);
+}
+#dark .switch_color label {
+  color: var(--color-text-1);
+}
+
+
+/*Landing Page*/
+#light .home_content_container__RTI_R span {
+  color: var(--color-text-50);
+}
+#dark .home_content_container__RTI_R span {
+  color: var(--color-text-1);
+}
+#light .home_image_container_block__xs8QG {
+  background-color: var(--color-text-50);
+}
+#dark .home_image_container_block__xs8QG {
+  background-color: var(--purple-1);
+}
+#light .home_catchphrase__PXl2q {
+  color: var(--color-text-50);
+}
+#dark .home_catchphrase__PXl2q {
+  color: var(--color-text-1);
+}
+
+/*Discover Page*/
+
+#dark h1 {
+  color: var(--bleu-1);
+}
+#dark h2, #dark h3, #dark p, #dark span{
+  color: var(--color-text-1);
 }

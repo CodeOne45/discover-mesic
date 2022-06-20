@@ -1,6 +1,6 @@
 /** Music Hook store */
 import React, { useCallback, useEffect, useState } from "react";
-import Controller from "../components/Controller";
+import Controller from "../components/music/Controller";
 import type { IMusic } from "../types/music";
 
 export const Context = React.createContext({});
@@ -14,6 +14,7 @@ const Container: React.FC<Props> = ({ children }) => {
   const [playStarted, setPlayStarted] = useState<boolean>(false);
   const [isPlay, setIsPlay] = useState<boolean>(false);
   const [music, setMusic] = useState<IMusic>();
+  
 
   const handleKeydown = useCallback((event: any) => {
     if (event.code === 'Space') {

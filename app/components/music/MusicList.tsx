@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 //import { Button } from 'react-native'
-import { IMusic } from "../types/music";
+import { IMusic } from "../../types/music";
 import classNames from "classnames";
 import TinderCard from "react-tinder-card";
-import { thumbnailLink } from "../constant/url";
+import { thumbnailLink } from "../../constant/url";
 import styled from "styled-components";
-import styles from "../styles/music-list-item-component.module.css";
-import { Context } from "../store";
+import styles from "../../styles/music-list-item-component.module.css";
+import { Context } from "../../store";
 
 
 const ImgDiv = styled.div`
@@ -53,31 +53,33 @@ const MusicList: React.FC<Props> = ({ musics }) => {
               ? console.log("musicStarted")
               : (setMusic(music), setIsPlay(false), setPlayStarted(true));
             return (
-              <TinderCard
-                key={index}
-                className={styles.swipe}
-                onSwipe={(dir) => swipe(dir, musics[index - 1])}
-                onCardLeftScreen={() => onCardLeftScreen("fooBar")}
-                preventSwipe={["up", "down"]}
-              >
-                <div className={styles.content}>
-                  <div className={styles.item_wrapper}>
-                    <div className={classNames(styles.item_box)}>
-                      <img
-                        className={styles.thumbnail}
-                        src={thumbnailLink(music.yt_id)}
-                        alt={music.title}
-                      />
+              <div>
+                <TinderCard
+                  key={index}
+                  className={styles.swipe}
+                  onSwipe={(dir) => swipe(dir, musics[index - 1])}
+                  onCardLeftScreen={() => onCardLeftScreen("fooBar")}
+                  preventSwipe={["up", "down"]}
+                >
+                  <div className={styles.content}>
+                    <div className={styles.item_wrapper}>
+                      <div className={classNames(styles.item_box)}>
+                        <img
+                          className={styles.thumbnail}
+                          src={thumbnailLink(music.yt_id)}
+                          alt={music.title}
+                        />
+                      </div>
+                      <h2 className={classNames(styles.title, "font-nunito")}>
+                        {music.title}
+                      </h2>
+                      <h3 className={classNames(styles.author, "font-nunito")}>
+                        {music.author}
+                      </h3>
                     </div>
-                    <h2 className={classNames(styles.title, "font-nunito")}>
-                      {music.title}
-                    </h2>
-                    <h3 className={classNames(styles.author, "font-nunito")}>
-                      {music.author}
-                    </h3>
                   </div>
-                </div>
-              </TinderCard>
+                </TinderCard>
+              </div>
             );
           })
         : `No music found!`}

@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const userService = require("./user.service");
 
+
+
 // routes
 router.post("/register", register);
 router.get("/", getAll);
@@ -15,8 +17,12 @@ router.put("/playlist/:userId", updateUserPlaylistSongs);
 router.delete("/playlist/:userId", deleteUserPlaylistSongs);
 router.get("/playlistToLeft/:userId",getUserPlaylistSongsLeftById);
 router.put("/playlistToLeft/:userId",updateUserPlaylistSongsSwipLeft);
+//EMAIL Verification
+router.get("/verify/:token", getUserEmailVerify);
+router.post("/resend", resendTokenEmailVerification);
 router.put("/updatePassword/:userId", updateUserPassword);
 module.exports = router;
+
 
 
 function authenticate(req, res, next) {
@@ -31,9 +37,9 @@ function authenticate(req, res, next) {
 }
 
 function register(req, res, next) {
+  console.log(req.body)
   userService
-    .create(req.body)
-    .then((user) => res.json({ user }))
+    .create(req.body,req, res)
     .catch((err) => next(err));
 }
 
@@ -104,5 +110,17 @@ function _delete(req, res, next) {
   userService
     .delete(req.params._id)
     .then(() => res.json({}))
+    .catch((err) => next(err));
+}
+
+function getUserEmailVerify(req, res, next){
+  userService
+    .verify(req, res)
+    .catch((err) => next(err));
+}
+
+function resendTokenEmailVerification(req, res, next){
+  userService
+    .resendToken(req, res)
     .catch((err) => next(err));
 }

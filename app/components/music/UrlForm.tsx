@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { API_URL } from "../constant/url";
+import { API_URL } from "../../constant/url";
 import axios from "axios";
 
 
@@ -17,10 +17,7 @@ const UrlForm: React.FC = () => {
       author: author,
     };
     try {
-      console.log(data);
-
       let res = await axios.post(API_URL+"/songs/newsong", data);
-      console.log(res.status);
       if (res.status === 200) {
         setyt_id("");
         settitle("");
@@ -38,7 +35,7 @@ const UrlForm: React.FC = () => {
 
   //TODO: Verify if input are empty or not
   return (
-    <div >
+    <div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
