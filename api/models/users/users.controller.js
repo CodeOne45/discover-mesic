@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const userService = require("./user.service");
-module.exports = router;
+
+
 
 // routes
 router.post("/register", register);
@@ -20,6 +21,8 @@ router.put("/playlistToLeft/:userId",updateUserPlaylistSongsSwipLeft);
 router.get("/verify/:token", getUserEmailVerify);
 router.post("/resend", resendTokenEmailVerification);
 router.put("/updatePassword/:userId", updateUserPassword);
+module.exports = router;
+
 
 
 function authenticate(req, res, next) {
