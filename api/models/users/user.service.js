@@ -5,6 +5,7 @@ const db = require("_helpers/db");
 const User = db.User;
 const mongoose = require('mongoose');
 const emailCheck = require('email-check');
+
 module.exports = {
   getAll,
   getById,

@@ -12,7 +12,10 @@ function jwt() {
       "/users/register",
       "/songs/newsong",
       "/songs/songs",
-      "/users/login"
+      "/users/login",
+      "/auth/google",
+      "/auth/google/callback",
+      "/success"
     ],
   });
 }

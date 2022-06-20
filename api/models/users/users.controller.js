@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userService = require("./user.service");
+
 // routes
 router.post("/register", register);
 router.get("/", getAll);
@@ -15,8 +16,8 @@ router.delete("/playlist/:userId", deleteUserPlaylistSongs);
 router.get("/playlistToLeft/:userId",getUserPlaylistSongsLeftById);
 router.put("/playlistToLeft/:userId",updateUserPlaylistSongsSwipLeft);
 router.put("/updatePassword/:userId", updateUserPassword);
-
 module.exports = router;
+
 
 function authenticate(req, res, next) {
   userService
