@@ -14,8 +14,12 @@ function jwt() {
       "/songs/songs",
       "/songs/topten",
       "/users/login",
+      "/auth/google",
+      "/auth/google/callback",
+      "/logGoogle/success",
       /^\/users\/verify\/.*/,
       "/users/resend",
+      "/songs/artistSongs",
     ],  
   });
 }

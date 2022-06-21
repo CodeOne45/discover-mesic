@@ -7,13 +7,19 @@ router.get("/songs", getAll);
 router.get("/byUser/:userId", getSongsByUser)
 router.get("/randomSong",getRandomMusic)
 router.get("/topten",getTopTenSongs)
+router.get("/artistSongs", getSongByArtist);
+
 module.exports = router;
 
 function addSong(req, res, next) {
   songService
-    .create(req.body)
-    .then((song) => res.json({ song }))
+    .create(req.body, res)
     .catch((err) => next(err));
+}
+function getSongByArtist(req, res, next){
+  songService
+  .getSongByArtist(req.body, res)
+  .catch((err) => next(err));
 }
 
 function getAll(req, res, next) {
@@ -25,8 +31,7 @@ function getAll(req, res, next) {
 
 function getSongsByUser(req, res, next){
   songService.
-  getSongsByUser(req.params.userId)
-  .then((listSongs) => (listSongs ? res.json(listSongs) : res.sendStatus(404)))
+  getSongsByUser(req.params.userId, res)
   .catch((err) => next(err));
 }
 function getRandomMusic(req, res,next){
