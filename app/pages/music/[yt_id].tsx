@@ -4,41 +4,62 @@ import styles from "../../styles/music-page.module.css";
 import { useRouter } from "next/router";
 import { FRONTEND_URL, thumbnailLink, API_URL } from "../../constant/url";
 import { Context } from "../../store";
-import axios from "axios";
 import classNames from "classnames";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import type { IMusic } from "../../types/music";
+import {songService} from '../../services/music.service';
+import PreloaderComp from '../../components/preloader/preloaderComp';
 
 /**
- * Handle /music/[id] type url 
+ * Handle /music/[yt_id] type url 
  */
 const Music: React.FC<IMusic | any> = (data) => {
+  console.log(data)
+
   const router = useRouter();
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const { music, setMusic, setIsPlay } = useContext(Context) as any;
+  const {musics, setMusics, music, setMusic, setIsPlay } = useContext(Context) as any;
 
-  const id = data?.id ?? undefined;
+  const yt_id = data?.yt_id ?? undefined;
+  
+  useEffect(() => {
+    (async () => {
+      if(musics.length === 0){
+        const { data } = (await songService.songsList());
+        if (data.length) setMusics(data);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
-    if (id) {
-      setMusic(data);
+    if (yt_id && musics) {
+      //setMusic(data);
       setIsLoaded(true);
       setIsPlay(true);
+      const databis = songService.findMusicById(yt_id as string, musics);
+      console.log(databis)
+
+      if (databis) setMusic(databis);
     } else router?.push("/404");
-  }, [id]);
+  }, [yt_id, musics]);
 
+
+  console.log(music)
   const TITLE = data ? `${data.title} - Discover Me'sic` : undefined;
-  const URL = `${FRONTEND_URL}/music/${id}`;
+  const URL = `${FRONTEND_URL}/music/${yt_id}`;
 
+  if (!music) {
+    return <PreloaderComp />
+  }
   return (
     <>
-      {id && (
+      {yt_id && (
         <Head>
           <title>{TITLE}</title>
 
           <meta property="og:title" content={TITLE} />
-          <meta property="og:image" content={thumbnailLink(id)} />
+          <meta property="og:image" content={thumbnailLink(yt_id)} />
           <meta property="og:url" content={URL} />
 
           <link rel="canonical" href={URL} />
@@ -50,7 +71,7 @@ const Music: React.FC<IMusic | any> = (data) => {
             <div>
               <div
                 className={styles.thumbnail}
-                style={{ background: `url('${thumbnailLink(id as string)}')` }}
+                style={{ background: `url('${thumbnailLink(yt_id as string)}')` }}
               >
                 <div className={styles.dot} />
               </div>
@@ -75,10 +96,10 @@ const Music: React.FC<IMusic | any> = (data) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const id = context.query?.id;
-  if (id) {
-    const { data } = (await axios.get(API_URL+"/songs/songs")) as any;
-    if (data) return { props: data };
+
+  const yt_id = context.query?.yt_id;
+  if (yt_id) {;
+    return { props: {yt_id} };
   }
   return { props: {} } as any;
 };
