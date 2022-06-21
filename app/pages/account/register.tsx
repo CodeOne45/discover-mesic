@@ -1,15 +1,17 @@
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import React, { useState } from "react";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
 import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import {userService} from '../../services/user.service';
-import {alertService} from '../../services/alert.service';
 
 function Register() {
     const router = useRouter();
+    const [message, setMessage] = useState("");
+    const [color, setColor] = useState("");
 
     // form validation rules 
     const validationSchema = Yup.object().shape({
@@ -34,13 +36,15 @@ function Register() {
         delete user["confirmPwd"];
         return userService.register(user)
             .then(() => {
-                alertService.success('Registration successful', { keepAfterRouteChange: true });
                 router.push({
                     pathname: '/account/verification',
                     query: { email: user["email"] }
                 },'/account/verification');
             })
-            .catch(alertService.error);
+            .catch(error => {
+                setColor("red")
+                setMessage("Error: " +  error.response.data.message)
+            });
     }
 
     return (
@@ -74,6 +78,7 @@ function Register() {
                             />
                             <div className="invalid-feedback">{errors.confirmPwd?.message}</div>
                         </div>
+                        <div className="message">{message ? <p style={{ color: `${color}` }}>{message}</p> : null}</div>
                         <button disabled={formState.isSubmitting} className="btn btn-primary">
                             {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
                             Register

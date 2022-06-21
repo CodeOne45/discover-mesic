@@ -11,6 +11,7 @@ interface Props {
 
 const Container: React.FC<Props> = ({ children }) => {
   const [musics, setMusics] = useState<IMusic[]>([]);
+  const [topMusics, setTopMusics] = useState<IMusic[]>([]);
   const [playStarted, setPlayStarted] = useState<boolean>(false);
   const [isPlay, setIsPlay] = useState<boolean>(false);
   const [music, setMusic] = useState<IMusic>();
@@ -44,7 +45,7 @@ const Container: React.FC<Props> = ({ children }) => {
 
   /** Creating and running YT player in back for each passed music */
   return (
-    <Context.Provider value={{ isPlay, setIsPlay, music, setMusic, playStarted, setPlayStarted, musics, setMusics}}>
+    <Context.Provider value={{ isPlay, setIsPlay, music, setMusic, playStarted, setPlayStarted, musics, setMusics ,topMusics, setTopMusics}}>
       <div id="keydown_event_handler" onKeyDown={handleKeydown} tabIndex={0}>
         {children}
         {music && (

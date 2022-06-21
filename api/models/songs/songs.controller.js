@@ -4,10 +4,11 @@ const songService = require("./songs.service");
 // routes
 router.post("/newsong", addSong);
 router.get("/songs", getAll);
-router.get("/byUser/:userId", getSongsByUser);
-router.get("/randomSong",getRandomMusic);
-router.get("/TopTen",getTopTenSongs);
+router.get("/byUser/:userId", getSongsByUser)
+router.get("/randomSong",getRandomMusic)
+router.get("/topten",getTopTenSongs)
 router.get("/artistSongs", getSongByArtist);
+
 module.exports = router;
 
 function addSong(req, res, next) {
