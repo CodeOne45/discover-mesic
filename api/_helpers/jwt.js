@@ -13,7 +13,11 @@ function jwt() {
       "/songs/newsong",
       "/songs/songs",
       "/users/login",
+      "/auth/google",
+      "/auth/google/callback",
+      "/logGoogle/success",
       /^\/users\/verify\/.*/,
+      "/songs/artistSongs",
     ],  
   });
 }
