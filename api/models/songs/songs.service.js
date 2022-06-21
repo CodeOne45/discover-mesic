@@ -15,8 +15,12 @@ module.exports = {
     getTopTenSongs,
 };
 
-async function getAll() {
-    return await Songs.find();
+async function getAll() { 
+    var numberofSongs;
+   await Songs.countDocuments().then((count) => {
+     numberofSongs =  count;
+});
+    return await Songs.aggregate([{ $sample: { size: numberofSongs } }]);
 }
 
 async function getById(id) {
