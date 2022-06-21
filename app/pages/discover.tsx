@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import 'font-awesome/css/font-awesome.min.css';
 
-import Carousel from "../components/Carousel";
+import Carousel from "../components/music/Carousel";
 import Layout from "../components/Layout";
 import styles from "../styles/discover.module.css";
 import MusicList from "../components/music/MusicList";
