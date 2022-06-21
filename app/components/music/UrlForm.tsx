@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { API_URL } from "../../constant/url";
-import axios from "axios";
+import {songService} from '../../services/music.service';
 
 
 const UrlForm: React.FC = () => {
@@ -17,7 +17,7 @@ const UrlForm: React.FC = () => {
       author: author,
     };
     try {
-      let res = await axios.post(API_URL+"/songs/newsong", data);
+      let res = await songService.addSong(data);
       if (res.status === 200) {
         setyt_id("");
         settitle("");

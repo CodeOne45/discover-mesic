@@ -12,8 +12,10 @@ function jwt() {
       "/users/register",
       "/songs/newsong",
       "/songs/songs",
+      "/songs/topten",
       "/users/login",
       /^\/users\/verify\/.*/,
+      "/users/resend",
     ],  
   });
 }

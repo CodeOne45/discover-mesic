@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import React, { useState } from "react";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -6,11 +7,14 @@ import * as Yup from 'yup';
 import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import {userService} from '../../services/user.service';
-import {alertService} from '../../services/alert.service';
 
 
 function Login() {
     const router = useRouter();
+    const [message, setMessage] = useState("");
+    const [color, setColor] = useState("");
+
+
 
     // form validation rules 
     const validationSchema = Yup.object().shape({
@@ -30,7 +34,10 @@ function Login() {
                 const returnUrl = router.query.returnUrl || '/discover';
                 router.push(returnUrl);
             })
-            .catch(alertService.error);
+            .catch(error => {
+                setColor("red")
+                setMessage("Error: " +  error.response.data.message)
+            });
     }
 
     return (
@@ -49,6 +56,7 @@ function Login() {
                             <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.password?.message}</div>
                         </div>
+                        <div className="message">{message ? <p style={{ color: `${color}` }}>{message}</p> : null}</div>
                         <button disabled={formState.isSubmitting} className="btn btn-primary">
                             {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
                             Login

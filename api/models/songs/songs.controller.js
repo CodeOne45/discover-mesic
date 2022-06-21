@@ -6,7 +6,7 @@ router.post("/newsong", addSong);
 router.get("/songs", getAll);
 router.get("/byUser/:userId", getSongsByUser)
 router.get("/randomSong",getRandomMusic)
-router.get("/TopTen",getTopTenSongs)
+router.get("/topten",getTopTenSongs)
 module.exports = router;
 
 function addSong(req, res, next) {
