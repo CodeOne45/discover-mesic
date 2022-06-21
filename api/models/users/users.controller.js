@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const userService = require("./user.service");
-module.exports = router;
+
+
 
 // routes
 router.post("/register", register);
@@ -20,23 +21,29 @@ router.put("/playlistToLeft/:userId",updateUserPlaylistSongsSwipLeft);
 router.get("/verify/:token", getUserEmailVerify);
 router.post("/resend", resendTokenEmailVerification);
 router.put("/updatePassword/:userId", updateUserPassword);
+module.exports = router;
+
 
 
 function authenticate(req, res, next) {
   userService
-    .authenticate(req.body)
+    .authenticate(req.body, res)
     .then((user) =>
-      user
-        ? res.json(user)
-        : res.status(400).json({ message: "Username or password is incorrect" })
-    )
+    user
+      ? res.json(user)
+      : res.status(400).json({ message: "Username or password is incorrect" })
+  )
     .catch((err) => next(err));
 }
 
 function register(req, res, next) {
-  console.log(req.body)
   userService
     .create(req.body,req, res)
+    .catch((err) => next(err));
+}
+function update(req, res, next) {
+  userService
+    .update(req.params._id, req.body,res)
     .catch((err) => next(err));
 }
 
@@ -61,46 +68,35 @@ function getById(req, res, next) {
     .catch((err) => next(err));
 }
 
-function update(req, res, next) {
-  userService
-    .update(req.params._id, req.body)
-    .then(() => res.json({}))
-    .catch((err) => next(err));
-}
+
 function getUserPlaylistSongsById(req, res, next) {
   userService
-    .getUserPlaylistSongs(req.params.userId)
-    .then((playlistIdSongs) => (playlistIdSongs ? res.json(playlistIdSongs) : res.sendStatus(404)))
+    .getUserPlaylistSongs(req.params.userId, res)
     .catch((err) => next(err));
 }
 function getUserPlaylistSongsLeftById(req, res, next) {
   userService
-    .getUserPlaylistSongsLeftById(req.params.userId)
-    .then((listIdSongsSwiptoLeft) => (listIdSongsSwiptoLeft ? res.json(listIdSongsSwiptoLeft) : res.sendStatus(404)))
+    .getUserPlaylistSongsLeftById(req.params.userId, res)
     .catch((err) => next(err));
 }
 function updateUserPlaylistSongsSwipLeft(req, res, next) {
   userService
-  .updateUserPlaylistSongsSwipLeft(req.params.userId, req.body)
-  .then((user) => res.json({ user }))
+  .updateUserPlaylistSongsSwipLeft(req.params.userId, req.body, res)
   .catch((err) => next(err));
 }
 function updateUserPlaylistSongs(req, res, next) {
     userService
-    .updateUserPlaylistSongs(req.params.userId, req.body)
-    .then((user) => res.json({ user }))
+    .updateUserPlaylistSongs(req.params.userId, req.body, res)
     .catch((err) => next(err));
 }
 function deleteUserPlaylistSongs(req, res, next) {
     userService
-  .deleteUserPlaylistSongs(req.params.userId, req.body)
-  .then(() => res.json({}))
+  .deleteUserPlaylistSongs(req.params.userId, req.body, res)
   .catch((err) => next(err));
 }
 function updateUserPassword(req, res, next){
   userService
-  .updateUserPassword(req.params.userId, req.body)
-  .then((user) => res.json({ user }))
+  .updateUserPassword(req.params.userId, req.body, res)
   .catch((err) => next(err));
 }
 function _delete(req, res, next) {
