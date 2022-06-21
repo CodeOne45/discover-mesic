@@ -13,8 +13,18 @@ module.exports = {
     getSongsByUser,
     getRandomMusic,
     getTopTenSongs,
+    getSongByArtist,
 };
 
+async function getSongByArtist(artistName, res){
+    const listSongByArtist = await Songs.find({ author:
+          { $regex: new RegExp("^" + artistName.author.toLowerCase(), "i") } });
+    if (listSongByArtist.length === 0) {
+        return res.status(400).json({message : "artist has no song"});
+    }
+    return res.status(200).json(listSongByArtist);
+
+}
 async function getAll() { 
     var numberofSongs;
    await Songs.countDocuments().then((count) => {
@@ -43,6 +53,7 @@ async function create(songParam, res) {
     await song.save();
 
     console.log("------> Song added !");
+    return res.status(200).json(song);
 
 }
 // get all musics added by a user with its id
@@ -51,7 +62,7 @@ async function getSongsByUser(id, res) {
     if (listSongByUser.length === 0) {
         return res.status(400).json({message : "list is empty"});
     }
-    return listSongByUser;
+    return res.status(200).json(listSongByUser);
 }
 async function getRandomMusic() {
     const randomSong = await Songs.aggregate([{ $sample: { size: 1 } }]);

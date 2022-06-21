@@ -17,6 +17,7 @@ function jwt() {
       "/auth/google/callback",
       "/logGoogle/success",
       /^\/users\/verify\/.*/,
+      "/songs/artistSongs",
     ],  
   });
 }
