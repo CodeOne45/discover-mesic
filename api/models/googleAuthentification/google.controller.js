@@ -12,34 +12,39 @@ router.get("/auth/google/callback", passport.authenticate('google', { failureRed
     res.redirect('/logGoogle/success');
     ;
   });
-router.get('/logGoogle/success', (req, res) => res.send(loginWithGoogle(userProfile)));
+
+ router.get('/logGoogle/success', async function (req, res){ 
+  var vUsername = userProfile.emails[0].value.split("@")[0];
+  var vEmail = userProfile.emails[0].value;
+  var user = await User.findOne( { email: vEmail });
+  let userParam;
+  if(user){
+   userParam = {
+    username: user.username,
+    email: user.email,
+    isVerified: true
+  };
+}
+  if(!user){
+   userParam = {
+    username: vUsername,
+    email: vEmail,
+    password: " ",
+    isVerified: true
+  };
+   // create User
+    user = new User(userParam);
+   // save user
+    user = await user.save();
+}
+    const token = jwt.sign({ sub: user._id }, config.secret, {
+      expiresIn: "7d",
+    });
+    
+  
+  res.send({userParam :userParam, token : token});
+});
+
+
 module.exports = router;
 
-async function loginWithGoogle(userProfile) {
-  
-    console.log(userProfile)
-    var vUsername = userProfile.emails[0].value.split("@")[0];
-    var vEmail = userProfile.emails[0].value;
-    console.log(vUsername)
-    let userParam = {
-      username: vUsername,
-      email: vEmail,
-      password: " ",
-      isVerified: true
-    };
-     // create User
-     const user = new User(userParam);
-     // save user
-     const user_ = await user.save();
-    if (user_) {
-      console.log("dd")
-      const token = jwt.sign({ sub: user_._id }, config.secret, {
-        expiresIn: "7d",
-      });
-      return {
-        ...user_.toJSON(),
-        token,
-      };
-    }
-    
-}
