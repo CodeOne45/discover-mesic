@@ -27,7 +27,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 25px;
 }
+
+
+.Link:hover { text-decoration: none; }
+
+.Link:active { text-decoration: none; }
 
 .card:nth-child(1) {
  padding-left: 0;
@@ -37,7 +43,6 @@
   width: 100%;
   height: 180px;
   margin: auto;
-
 }
 
 .card_image_circle img{
@@ -51,8 +56,8 @@
   padding-right: 20px;
 }
 .card_image img{
-  width: 100%;
-  height: 100%;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
   border-top-left-radius: 10px 10px;
   border-bottom-left-radius: 10px 10px;
@@ -64,9 +69,9 @@
 }
 
 .card_content {
-  padding: 10px;
+  padding-top: -10px;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
 }
 .card_content h2{
   color: var(--color-text-100);
@@ -98,6 +103,11 @@
 .card:hover > .Link .icon,
 .on_hover > .Link .icon {
     opacity: 1;
+}
+
+.card:hover > .Link p,
+.on_hover > .Link p {
+    color: var(--color-icon-heart);
 }
 
 .card:hover,

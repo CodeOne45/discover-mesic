@@ -5,8 +5,6 @@ import Carousel from "../components/music/Carousel";
 import Layout from "../components/Layout";
 import styles from "../styles/discover.module.css";
 import MusicList from "../components/music/MusicList";
-import UrlForm from "../components/music/UrlForm";
-import Controller from "../components/music/Controller";
 import { Context } from "../store";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -64,14 +62,12 @@ const Discover: NextPage = () => {
       </Head>
       <Layout>
         <div className={`${styles.music_lister}, ${styles.block}`}>
-          <MusicList musics={musics}/>
-          <UrlForm />
+            <MusicList musics={musics}/>
         </div>
         <div className={`${styles.other_music}, ${styles.block}`}>
           <Carousel topTenSongs={topMusics} slide_type="song"/>
           <Carousel topTenSongs={topMusics} slide_type="artiste"/>
         </div>
-        {isPlay && <Controller />}
       </Layout>
     </>
   );

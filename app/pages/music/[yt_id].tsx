@@ -8,25 +8,26 @@ import classNames from "classnames";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import type { IMusic } from "../../types/music";
-import {songService} from '../../services/music.service';
-import PreloaderComp from '../../components/preloader/preloaderComp';
+import { songService } from "../../services/music.service";
+import PreloaderComp from "../../components/preloader/preloaderComp";
 
 /**
- * Handle /music/[yt_id] type url 
+ * Handle /music/[yt_id] type url
  */
 const Music: React.FC<IMusic | any> = (data) => {
-  console.log(data)
 
   const router = useRouter();
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const {musics, setMusics, music, setMusic, setIsPlay } = useContext(Context) as any;
+  const { musics, setMusics, music, setMusic, setIsPlay } = useContext(
+    Context
+  ) as any;
 
   const yt_id = data?.yt_id ?? undefined;
-  
+
   useEffect(() => {
     (async () => {
-      if(musics.length === 0){
-        const { data } = (await songService.songsList());
+      if (musics.length === 0) {
+        const { data } = await songService.songsList();
         if (data.length) setMusics(data);
       }
     })();
@@ -34,23 +35,21 @@ const Music: React.FC<IMusic | any> = (data) => {
 
   useEffect(() => {
     if (yt_id && musics) {
-      //setMusic(data);
       setIsLoaded(true);
       setIsPlay(true);
       const databis = songService.findMusicById(yt_id as string, musics);
-      console.log(databis)
+      console.log(databis);
 
       if (databis) setMusic(databis);
     } else router?.push("/404");
   }, [yt_id, musics]);
 
-
-  console.log(music)
+  console.log(music);
   const TITLE = data ? `${data.title} - Discover Me'sic` : undefined;
   const URL = `${FRONTEND_URL}/music/${yt_id}`;
 
   if (!music) {
-    return <PreloaderComp />
+    return <PreloaderComp />;
   }
   return (
     <>
@@ -71,7 +70,9 @@ const Music: React.FC<IMusic | any> = (data) => {
             <div>
               <div
                 className={styles.thumbnail}
-                style={{ background: `url('${thumbnailLink(yt_id as string)}')` }}
+                style={{
+                  background: `url('${thumbnailLink(yt_id as string)}')`,
+                }}
               >
                 <div className={styles.dot} />
               </div>
@@ -96,10 +97,9 @@ const Music: React.FC<IMusic | any> = (data) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-
   const yt_id = context.query?.yt_id;
-  if (yt_id) {;
-    return { props: {yt_id} };
+  if (yt_id) {
+    return { props: { yt_id } };
   }
   return { props: {} } as any;
 };

@@ -4,4 +4,6 @@ export interface IMusic {
     yt_id: string;
     title: string;
     author: string;
+    numberOfLikes: double;
+    addedBy: string;
 }

@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   };
   const router = useRouter();
   const [user, setUser] = useState(null);
-  const [authorized, setAuthorized] = useState(false);
+  const [authorized, setAuthorized] = useState<boolean>(false);
   
   useEffect(() => {
       // on initial load - run auth check 
