@@ -113,7 +113,7 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
                         <div className={styles.card_image_circle}>
                             <img src={thumbnailLink(card.yt_id)} />
                         </div>
-                        <div key={index} className={styles.card_content_artist}>
+                        <div key={index} className={styles.card_content}>
                             <h4>{card.author}</h4>
                         </div>
                     </div> 
