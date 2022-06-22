@@ -42,6 +42,8 @@ button {
   --color-text-90: #303538;
   --color-text-100: #212529;
 
+  --color-icon-heart: #ff375f;
+
   --color-midnight: #2c3e50;
   --color-asphart: #34495e;
 
@@ -71,6 +73,8 @@ button {
   --orange-43: rgba(195, 73, 46, 0.8);
   --orange-44: rgba(252, 226, 132, 0.8);
   --red-45: #C60000;
+
+  --brown-btn: #8c3343;
 }
 
 .font-nunito {
@@ -91,7 +95,7 @@ button {
   background-color: var(--color-text-1);
 }
 #dark {
-  background: var(--dark-4);
+  background: var(--dark-1);
 }
 
 .switch_color {
@@ -130,6 +134,8 @@ button {
 #dark .home_catchphrase__PXl2q {
   color: var(--color-text-1);
 }
+
+
 
 /*Discover Page*/
 

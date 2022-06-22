@@ -1,6 +1,5 @@
 /** Music Hook store */
 import React, { useCallback, useEffect, useState } from "react";
-import Controller from "../components/music/Controller";
 import type { IMusic } from "../types/music";
 
 export const Context = React.createContext({});
@@ -60,7 +59,6 @@ const Container: React.FC<Props> = ({ children }) => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           ></iframe>
         )}
-        {music && <Controller />}
       </div>
     </Context.Provider>
   );

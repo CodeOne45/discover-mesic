@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import Slider from 'react-slick';
-import { FaChevronLeft,  FaChevronRight} from 'react-icons/fa'
+import { FaChevronLeft,  FaChevronRight, FaHeart} from 'react-icons/fa'
 
 import { thumbnailLink } from "../../constant/url";
 
@@ -73,17 +73,17 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
             </div>
         </div>
         <Slider ref={setSliderRef} {...sliderSettings}>
-            {topTenSongs.map((card: { id: srting ; title: string; author: string; yt_id: string; }, index: any) => ( 
+            {topTenSongs.map((card: { id: srting ; title: string; author: string; yt_id: string; numberOfLikes:double; }, index: any) => ( 
                 <div className={styles.card}>  
                     <Link className={styles.Link} href={`/music/${card.yt_id}`}>   
                         <div className={styles.card_image}>
                             <img src={thumbnailLink(card.yt_id)} />
+                            <p><FaHeart /> {card.numberOfLikes}</p>
                         </div>
                         <div className={styles.icon}>
                             <i className="fas fa-play-circle" />
                         </div>
                     </Link>
-
                     <div key={index} className={styles.card_content}>
                         <h4>{card.title}</h4>
                         <p>{card.author}</p>

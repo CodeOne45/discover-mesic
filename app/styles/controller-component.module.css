@@ -1,15 +1,11 @@
 .controller {
-    position: fixed;
-    right: 25px;
-    bottom: 25px;
+    position: relative;
     width: 70px;
     height: 70px;
     border-radius: 100%;
     padding: 5px 12px;
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-    background-size: cover !important;
-    background-color: rgba(0, 0, 0, .45) !important;
-    background-blend-mode: multiply !important;
+    background-color: #fcfafa;
 }
 
 .button {
@@ -24,7 +20,7 @@
 
 .button .icon {
     font-size: 23px;
-    color: var(--color-text-5);
+    color: var(--color-text-100);
 }
 
 @media screen and ( max-width: 700px ) {
