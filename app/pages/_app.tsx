@@ -4,7 +4,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Container from "../store";
 
-import React, { createContext, useState } from 'react';
+import React, { createContext } from 'react';
 import ReactSwitch from 'react-switch';
 //import Head from "next/head";
 import PreloaderComp from '../components/preloader/preloaderComp';
