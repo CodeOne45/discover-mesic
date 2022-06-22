@@ -23,6 +23,7 @@ services:
       - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 
   api:
+    image: discover-mesic-api:dev
     build:
       context: ./api
       dockerfile: Dockerfile
