@@ -64,6 +64,7 @@ button {
   --dark-2: #2C3856;
   --dark-3: #2C3856;
   --dark-4: #2C3856;
+  --dark-5: #2c3856;
 
   --light-on-dark: #8996B8;
 
@@ -116,7 +117,7 @@ button {
 
 /*NavBar */
 #dark .header-component_topnav__JpB0H {
-  background-color: var(--purple-1);
+  background-color: var(--dark-5);
 }
 #dark .header-component_topnav__JpB0H *{
   color: var(--color-text-1);

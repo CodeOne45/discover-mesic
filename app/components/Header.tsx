@@ -1,4 +1,3 @@
-
 import React, {
   ChangeEvent,
   FormEvent,
@@ -13,6 +12,7 @@ import {userService} from '../services/user.service';
 import Link from "next/link";
 import styles from "../styles/header-component.module.css";
 
+import logo from '../asset/logo_large.png';
 
 const Header: React.FC = () => {
   const [keyword, setKeyword] = useState<string>("");
@@ -62,23 +62,21 @@ const Header: React.FC = () => {
   }
 
   return (
-    <div className={styles.topnav} id="myTopnav">
+    <nav className={styles.topnav} id="myTopnav">
       <div className={styles.logo_wrapper}>
         <Link href={"/"}>
-          <a className={styles.active}>
-            Discover Mesic
-          </a>
+          <img className={styles.image_container_logo} src={logo.src} alt="Logo Discover Me-sic"/>
         </Link>
       </div>
 
-      <a href="#news">Top 10</a>
-      <a href="#news">About Us</a>
+      <a href="/discover">Top 10</a>
+      <a href="#">About Us</a>
       
       <form className={styles.search_form} onSubmit={submitSearchHandler}>
         <div className={styles.text_box}>
           <input
             type="text"
-            placeholder="music"
+            placeholder="Search for a song"
             className={classNames(styles.text, "font-nanum")}
             value={keyword}
             onChange={changeKeywordHandler}
@@ -88,13 +86,19 @@ const Header: React.FC = () => {
           </button>
         </div>
       </form>
-      {user?         
-        <a className={styles.log_btn} onClick={logout}>Logout</a> : <a className={styles.log_btn} href="/account/login">Login</a>
-      }
+      <div className={styles.auth_btn}>
+        {user?
+          <a style={"display: none"}></a> : <a className={styles.register_btn} href="/account/register">Register</a>
+        }
+        {user?         
+          <a className={styles.log_btn} onClick={logout}>Logout</a> : <a className={styles.log_btn} href="/account/login">Login</a>
+        }
+      </div>
+      
 
       
       <a className={styles.icon} onClick={myFunction}>&#9776;</a>
-    </div>
+    </nav>
   )
 };
 

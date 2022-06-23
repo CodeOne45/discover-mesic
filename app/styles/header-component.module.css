@@ -1,13 +1,32 @@
+.image_container_logo{
+  height: 45px;
+  width: 120px;
+  padding-top: 10px;
+  cursor: pointer;
+}
 .text_box {
   display: flex;
   align-items: center;
 
-  width: 210px;
+  width: 300px;
   height: 38px;
   
   padding: 0 14px;
   border-radius: 8px;
   background: rgba(0, 0, 0, .06);
+  float: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.topnav-centered a {
+  float: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .text_box .text {
@@ -59,14 +78,11 @@
   float: left;
   color: var(--dark-1);
   text-align: center;
-  padding: 14px 16px;
+  padding: 14px 16px ;
   text-decoration: none;
   font-size: 17px;
 }
 
-.topnav .search_form {
-  padding: 8px 16px;
-}
 
 .active {
   background-color: var(--color-text-70);
@@ -75,15 +91,42 @@
 
 .topnav .icon {
   display: none;
-  font-size: 15px;
+  font-size: 20px;
 }
 
+
+.topnav .auth_btns {
+  float: left;
+}
+
+
+.log_btn { 
+  display: flex;
+  height:30px;
+  width: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-text-80);
+  color: var(--color-text-1)!important;
+  border-radius: 10px;
+  border: 0;
+}
+.auth_btn{ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register_btn{
+  color: var(--color-icon-heart)!important;
+}
+
+
 @media screen and (min-width: 600px) {
-  .log_btn { 
-    margin: 14px 0 14px auto;
-    background-color: var(--color-text-80);
-    color: var(--color-text-1)!important;
-    border-radius: 10px;
+  .auth_btn{ 
+    margin: 0 0 0 auto;
   }
 }
 @media screen and (max-width: 600px) {
@@ -96,26 +139,47 @@
   .topnav .search_form {
     display: none;
   }
+  .topnav .auth_btn{ 
+    display: none;
+  }
   .topnav a.icon {
-    float: right;
+    float: left;
     display: block;
+  }
+  .topnav .register_btn{
+    display: none;
+  }
+  .topnav .image_container_logo{
+    display: none;
   }
 }
 
 @media screen and (max-width: 600px) {
   .topnav.responsive .icon {
     position: absolute;
-    right: 0;
+    left: 0;
     top: 0;
   }
-  .topnav.responsive .search_form {
-    float: none;
-    display: block;
-    position: unset;
-    text-align: center;
-  }
+  
   .topnav.responsive a {
     float: none;
     display: block;
   }
+  .topnav .auth_btn{ 
+    display: block;
+  }
+  .topnav.responsive .logo_wrapper{
+    display: flex;
+    height:30px;
+    width: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .topnav.responsive .image_container_logo{
+    display: block;
+  }
+  
 }
