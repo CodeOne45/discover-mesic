@@ -128,8 +128,11 @@
   .auth_btn{ 
     margin: 0 0 0 auto;
   }
+  .topnav .humburger_icon{
+    display: none;
+  }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
   .topnav  {
     display: block!important;
   }
@@ -142,10 +145,6 @@
   .topnav .auth_btn{ 
     display: none;
   }
-  .topnav a.icon {
-    float: left;
-    display: block;
-  }
   .topnav .register_btn{
     display: none;
   }
@@ -154,11 +153,11 @@
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
   .topnav.responsive{
     height: 100%
   }
-  .topnav.responsive .icon {
+  .topnav.responsive .humburger_icon {
     position: absolute;
     left: 0;
     top: 0;
