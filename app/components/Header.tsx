@@ -14,6 +14,8 @@ import styles from "../styles/header-component.module.css";
 
 import logo from '../asset/logo_large.png';
 
+import Hamburger from 'hamburger-react'
+
 const Header: React.FC = () => {
   const [keyword, setKeyword] = useState<string>("");
 
@@ -94,10 +96,12 @@ const Header: React.FC = () => {
           <a className={styles.log_btn} onClick={logout}>Logout</a> : <a className={styles.log_btn} href="/account/login">Login</a>
         }
       </div>
-      
 
-      
-      <a className={styles.icon} onClick={myFunction}>&#9776;</a>
+      <Hamburger onToggle={toggled => {
+          myFunction();
+        }}
+        size={20} />
+
     </nav>
   )
 };

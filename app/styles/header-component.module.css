@@ -155,6 +155,9 @@
 }
 
 @media screen and (max-width: 600px) {
+  .topnav.responsive{
+    height: 100%
+  }
   .topnav.responsive .icon {
     position: absolute;
     left: 0;
@@ -165,8 +168,18 @@
     float: none;
     display: block;
   }
-  .topnav .auth_btn{ 
+  .topnav.responsive .auth_btn{ 
     display: block;
+  }
+
+  .topnav.responsive .auth_btn .log_btn{
+    display: flex;
+    height:30px;
+    width: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
   }
   .topnav.responsive .logo_wrapper{
     display: flex;
@@ -183,3 +196,5 @@
   }
   
 }
+
+
