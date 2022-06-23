@@ -1,19 +1,26 @@
 import {useState} from 'react';
 import Slider from 'react-slick';
-import { FaChevronLeft,  FaChevronRight} from 'react-icons/fa'
+import { FaChevronLeft,  FaChevronRight, FaHeart} from 'react-icons/fa'
 
+import { thumbnailLink } from "../../constant/url";
 
-import styles from "../../app/styles/carousel--like-music-component.module.css";
+import styles from "../../styles/carousel--like-music-component.module.css";
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import type { IMusic } from "../../types/music";
+
+import PreloaderComp from '../preloader/preloaderComp';
+import Link from '../Link';
+
 
 
 interface Props {
-    readonly hotelCards: any;
-    readonly slide_type: any;
+    readonly topTenSongs?: IMusic[];
+    readonly slide_type?: any;
 }
 
-const Carousel: React.FC<Props> = ({ hotelCards, slide_type }) => {
+const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
+    
     const [sliderRef, setSliderRef] = useState(null);
     
     const settings = { 
@@ -53,25 +60,35 @@ const Carousel: React.FC<Props> = ({ hotelCards, slide_type }) => {
         <div className={styles.content_header}>
             <h1 className={styles.content_title}>Most Like song</h1>
             <div className={styles.button_container}>
-                <button onClick={sliderRef?.slickPrev}>
-                    <FaChevronLeft />
-                </button>
-                <button onClick={sliderRef?.slickNext}>
-                    <FaChevronRight />
-                </button>
+                {sliderRef ? (
+                    <>
+                    <button onClick={sliderRef?.slickPrev}>
+                        <FaChevronLeft />
+                    </button>
+                    <button onClick={sliderRef?.slickNext}>
+                        <FaChevronRight />
+                    </button>
+                    </>
+                ): null}
             </div>
         </div>
         <Slider ref={setSliderRef} {...sliderSettings}>
-            {hotelCards.map((card: { title: string; artiste: string; imageSrc: string; }, index: any) => ( 
-            <div className={styles.card}>     
-                <div className={styles.card_image}>
-                    <img src={card.imageSrc} />
+            {topTenSongs.map((card: { id: srting ; title: string; author: string; yt_id: string; numberOfLikes:double; }, index: any) => ( 
+                <div className={styles.card}>  
+                    <Link className={styles.Link} href={`/music/${card.yt_id}`}>   
+                        <div className={styles.card_image}>
+                            <img src={thumbnailLink(card.yt_id)} />
+                            <p><FaHeart /> {card.numberOfLikes}</p>
+                        </div>
+                        <div className={styles.icon}>
+                            <i className="fas fa-play-circle" />
+                        </div>
+                    </Link>
+                    <div key={index} className={styles.card_content}>
+                        <h4>{card.title}</h4>
+                        <p>{card.author}</p>
+                    </div>
                 </div>
-                <div key={index} className={styles.card_content}>
-                    <h2>{card.title}</h2>
-                    <p>{card.artiste}</p>
-                </div>
-            </div> 
             ))}
         </Slider>
         </div>
@@ -91,13 +108,13 @@ const Carousel: React.FC<Props> = ({ hotelCards, slide_type }) => {
                     </div>
                 </div>
                 <Slider ref={setSliderRef} {...sliderSettings}>
-                    {hotelCards.map((card: { title: string; artiste: string; imageSrc: string; }, index: any) => ( 
+                    {topTenSongs.map((card: { title: string; author: string; yt_id: string; }, index: any) => ( 
                     <div className={styles.card}>     
                         <div className={styles.card_image_circle}>
-                            <img src={card.imageSrc} />
+                            <img src={thumbnailLink(card.yt_id)} />
                         </div>
                         <div key={index} className={styles.card_content}>
-                            <h2>{card.title}</h2>
+                            <h4>{card.author}</h4>
                         </div>
                     </div> 
                     ))}
@@ -105,6 +122,8 @@ const Carousel: React.FC<Props> = ({ hotelCards, slide_type }) => {
             </div>
         ) 
     }
+
+    return (<PreloaderComp />);
 
 }
 

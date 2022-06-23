@@ -1,45 +1,66 @@
-import React, { useContext } from "react";
-//import { Button } from 'react-native'
+import React, { useContext, useState , useMemo, useEffect, useRef} from "react";
 import { IMusic } from "../../types/music";
 import classNames from "classnames";
 import TinderCard from "react-tinder-card";
 import { thumbnailLink } from "../../constant/url";
-import styled from "styled-components";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 import styles from "../../styles/music-list-item-component.module.css";
 import { Context } from "../../store";
+import UrlForm from "./UrlForm";
+import Controller from "./Controller";
 
-
-const ImgDiv = styled.div`
-  display: flex;
-  dlex-direction: row;
-  position: relative;
-  justify-content: flex-start;
-  margin-top: 19rem;
-  width: 300px;
-  height: 300px;
-  background-size: cover;
-`;
 
 interface Props {
   readonly musics: IMusic[];
 }
 
 const MusicList: React.FC<Props> = ({ musics }) => {
-  const { setMusic, isPlay, setIsPlay, playStarted, setPlayStarted } =
-    useContext(Context) as any;
+  const {  setMusic, setIsPlay, playStarted, setPlayStarted } = useContext(Context) as any;
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const currentIndexRef = useRef(currentIndex)
+  const canSwipe = currentIndex >= 0;
 
-  const swipe = (dir : any, music : IMusic) => {
+  const updateCurrentIndex = (val) => {
+    setCurrentIndex(val)
+    currentIndexRef.current = val
+  }
+
+  const childRefs = useMemo(
+    () =>
+      Array(musics.length)
+        .fill(0)
+        .map((i) => React.createRef()),
+    [musics]
+  )
+  useEffect(() => {
+    if (musics) {
+      setCurrentIndex(musics.length - 1);
+    } else router?.push("/404");
+  }, [musics]);
+  
+  const swiped =  (dir : any, music : IMusic, index : integer) => {
     console.log("You swiped: " + dir);
-    if (music != null) {
+    if (music != null && canSwipe ) {
       setMusic(music);
-      setIsPlay(!isPlay);
+      setIsPlay(true);
       if (dir === "right") {
         console.log("Music added to your favrotes !");
       } else {
         console.log("Music skiped !");
       }
+      updateCurrentIndex(index - 1);
     }
   };
+
+  const swipe = async (dir : any) => {
+    console.log(currentIndex);
+    if (canSwipe && currentIndex < musics.length) {
+      console.log("Swiping");
+      await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
+    }
+  }
 
   const onCardLeftScreen = (myIdentifier : any) => {
     console.log(myIdentifier + " left the screen");
@@ -51,13 +72,14 @@ const MusicList: React.FC<Props> = ({ musics }) => {
         ? musics.map((music, index) => {
             playStarted
               ? console.log("musicStarted")
-              : (setMusic(music), setIsPlay(false), setPlayStarted(true));
+              : (setMusic(music), setIsPlay(true), setPlayStarted(true));
             return (
               <div>
                 <TinderCard
                   key={index}
+                  ref={childRefs[index]}
                   className={styles.swipe}
-                  onSwipe={(dir) => swipe(dir, musics[index - 1])}
+                  onSwipe={(dir) => swiped(dir, musics[index - 1], index)}
                   onCardLeftScreen={() => onCardLeftScreen("fooBar")}
                   preventSwipe={["up", "down"]}
                 >
@@ -83,7 +105,23 @@ const MusicList: React.FC<Props> = ({ musics }) => {
             );
           })
         : `No music found!`}
-       
+        <div className={styles.buttons_swipe}>
+          <IconButton className={styles.close} onClick={() => swipe('left')}>
+            <CloseIcon className={styles.close_icon} fontSize="large" />
+          </IconButton>
+          <Controller />
+          <IconButton
+            className={styles.fav}
+            onClick={() => {
+              swipe('right');
+            }}  
+          >
+            <FavoriteIcon fontSize="large" />
+          </IconButton>
+        </div>
+        <div className={styles.input}>
+          <UrlForm />
+        </div>
     </div>
   );
 };

@@ -7,6 +7,18 @@
   .other_music    { order: 2; }
 }
 
+.cards:after {
+  content: "*";
+  position: absolute;
+  top: 5px;
+  right: 35px;
+  font-size: 85px;
+  color: #fff;
+}
+.input {
+  position: relative;
+}
+
 .music_lister {
   display: flex;
   flex-flow: row wrap;

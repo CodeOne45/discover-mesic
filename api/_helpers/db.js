@@ -12,7 +12,7 @@ mongoose.connect(
   process.env.MONGODB_URI || config.connectionString,
   connectionOptions
 ).then(() => {
-  console.log('-----> DB Coonected');
+  console.log('-----> DB connected');
   console.log('-----> API running...');
 }).catch(err => {
   console.error('App starting error:', err.stack);

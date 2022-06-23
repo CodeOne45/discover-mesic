@@ -42,6 +42,8 @@ button {
   --color-text-90: #303538;
   --color-text-100: #212529;
 
+  --color-icon-heart: #ff375f;
+
   --color-midnight: #2c3e50;
   --color-asphart: #34495e;
 
@@ -61,6 +63,9 @@ button {
   --dark-1: #000000;
   --dark-2: #2C3856;
   --dark-3: #2C3856;
+  --dark-4: #2C3856;
+
+  --light-on-dark: #8996B8;
 
   --purple-1: #373A75;
   
@@ -68,6 +73,8 @@ button {
   --orange-43: rgba(195, 73, 46, 0.8);
   --orange-44: rgba(252, 226, 132, 0.8);
   --red-45: #C60000;
+
+  --brown-btn: #8c3343;
 }
 
 .font-nunito {
@@ -88,7 +95,7 @@ button {
   background-color: var(--color-text-1);
 }
 #dark {
-  background: linear-gradient(var(--bleu-3), var(--purple-1));
+  background: var(--dark-1);
 }
 
 .switch_color {
@@ -139,11 +146,17 @@ button {
   color: var(--color-text-1);
 }
 
+
+
 /*Discover Page*/
 
 #dark h1 {
   color: var(--bleu-1);
 }
-#dark h2, #dark h3, #dark p, #dark span{
+#dark h2, #dark h3, #dark h4, #dark span{
   color: var(--color-text-1);
+}
+
+#dark p{
+  color: var(--light-on-dark);
 }

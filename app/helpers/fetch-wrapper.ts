@@ -16,9 +16,10 @@ export const fetchWrapper = {
 function get(url: any) {
     const requestOptions = {
         method: 'GET',
+        url: url,
         headers: authHeader(url)
     };
-    return fetch(url, requestOptions).then(handleResponse);
+    return axios(requestOptions);
 }
 
 function post(url: any, body: any) {
@@ -30,26 +31,27 @@ function post(url: any, body: any) {
         data: JSON.stringify(body)  
     };
     const response = axios(requestOptions);
-    console.log(response);
     return response;
 }
 
 function put(url: any, body: any) {
     const requestOptions = {
         method: 'PUT',
+        url: url,
         headers: { 'Content-Type': 'application/json', ...authHeader(url) },
-        body: JSON.stringify(body)
+        data: JSON.stringify(body)
     };
-    return fetch(url, requestOptions).then(handleResponse);    
+    return axios(requestOptions);    
 }
 
 // prefixed with underscored because delete is a reserved word in javascript
 function _delete(url: any) {
     const requestOptions = {
         method: 'DELETE',
+        url: url,
         headers: authHeader(url)
     };
-    return fetch(url, requestOptions).then(handleResponse);
+    return axios(requestOptions);    
 }
 
 // helper functions

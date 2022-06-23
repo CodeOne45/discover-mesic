@@ -2,6 +2,7 @@
   max-width: 640px;
   overflow-x: hidden;
   margin: 0 auto;
+
 }
 .content_header {
   display: flex;
@@ -23,40 +24,107 @@
 }
 
 .card {
-  width: 450px;
-  padding: 0 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
 }
+
+
+.Link:hover { text-decoration: none; }
+
+.Link:active { text-decoration: none; }
+
 .card:nth-child(1) {
  padding-left: 0;
 }
 
 .card_image_circle {
   width: 100%;
-  height: 180px;
-
+  height: 200px;
+  margin: auto;
 }
+
 .card_image_circle img{
-  width: 100%;
-  height: 100%;
+  width: 60%;
+  height: 60%;
   border-radius: 50%;
+  margin-left: 20%;
 }
 .card_image {
   width: 100%;
-  height: 250px;
-  box-shadow: var(--shadow-34);
+  height: 200px;
+  padding-right: 20px;
 }
 .card_image img{
-  width: 100%;
-  height: 100%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 10px 10px;
+  border-bottom-left-radius: 10px 10px;
+}
+
+.card:hover > .Link .card_image img{
+  filter: brightness(50%);
+  transition: .3s;
 }
 
 .card_content {
-  padding: 10px;
+  padding-top: -10px;
   text-align: center;
+  font-size: 12px;
 }
 .card_content h2{
   color: var(--color-text-100);
 }
 .card_content p{
   color: var(--color-midnight);
+}
+
+.card_content_artist {
+  margin-top: -20%;
+  text-align: center;
+}
+.card_content_artist h2{
+  color: var(--color-text-100);
+}
+.icon {
+  border-radius: 5px;
+  transition: .3s;
+}
+
+.icon {
+  padding-right: 20px;
+  bottom: 120px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 50px;
+  color: var(--color-text-5);
+}
+
+.card:hover > .Link .icon,
+.on_hover > .Link .icon {
+    opacity: 1;
+}
+
+.card:hover > .Link p,
+.on_hover > .Link p {
+    color: var(--color-icon-heart);
+}
+
+.card:hover,
+.card:hover > .card_image,
+.card:hover > .icon,
+.on_hover,
+.on_hover > .card_image,
+.on_hover > .icon
+{
+    border-radius: 100% !important;
 }
