@@ -7,7 +7,7 @@ router.get("/songs", getAll);
 router.get("/byUser/:userId", getSongsByUser)
 router.get("/randomSong",getRandomMusic)
 router.get("/topten",getTopTenSongs)
-router.get("/artistSongs", getSongByArtist);
+router.post("/artistsongs", getSongByArtist);
 
 module.exports = router;
 
@@ -18,8 +18,8 @@ function addSong(req, res, next) {
 }
 function getSongByArtist(req, res, next){
   songService
-  .getSongByArtist(req.body, res)
-  .catch((err) => next(err));
+    .getSongByArtist(req.body, res)
+    .catch((err) => next(err));
 }
 
 function getAll(req, res, next) {

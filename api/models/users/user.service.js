@@ -25,6 +25,7 @@ module.exports = {
   verify,
   updateUserPassword,
   resendToken,
+  getUserProfilById,
 };
 
 async function authenticate(userAuthentification,res) {
@@ -38,7 +39,6 @@ async function authenticate(userAuthentification,res) {
       const token = jwt.sign({ sub: user._id }, config.secret, {
         expiresIn: "7d",
       });
-      console.log(user)
       return {
         id: user.id,
         username: user.username,
@@ -61,6 +61,10 @@ async function getAll() {
 
 async function getById(id) {
   return await User.findById(id);
+}
+async function getUserProfilById(id, res){
+ const user = await User.findById(id);
+ res.status(200).json({username : user.username});
 }
 
 async function create(userParam, req, res) {
