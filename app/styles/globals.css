@@ -114,6 +114,17 @@ button {
   color: var(--color-text-1);
 }
 
+/*NavBar */
+#dark .header-component_topnav__JpB0H {
+  background-color: var(--purple-1);
+}
+#dark .header-component_topnav__JpB0H *{
+  color: var(--color-text-1);
+}#E6E6E6
+#dark .header-component_text_box____wzW{
+  background-color: var(--color-text-70);
+  color: var(--color-text-1);
+}
 
 /*Landing Page*/
 #light .home_content_container__RTI_R span {
