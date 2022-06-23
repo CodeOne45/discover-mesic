@@ -1,7 +1,31 @@
-.list_wrapper {
-  max-width: 1280px;
-  margin: 0 auto;
-
-  display: flex;
-  flex-direction: row;  
+@media all and (min-width: 600px) {
+  /* We tell both sidebars to share a row */
+  .block { flex: 1 0 0!important; }
 }
+@media all and (min-width: 800px) {
+  .music_lister { order: 1; }
+  .other_music    { order: 2; }
+}
+
+.cards:after {
+  content: "*";
+  position: absolute;
+  top: 5px;
+  right: 35px;
+  font-size: 85px;
+  color: #fff;
+}
+.input {
+  position: relative;
+}
+
+.music_lister {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.music_lister > *{
+  flex: 1 1 100%;
+}
+
+

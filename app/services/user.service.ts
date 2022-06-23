@@ -15,6 +15,7 @@ export const userService = {
     getAll,
     getById,
     update,
+    resendEmail,
     delete: _delete
 };
 
@@ -65,7 +66,12 @@ function update(id, params) {
         });
 }
 
+function resendEmail(email){
+    return fetchWrapper.post(`${API_URL}/users/resend`,email);
+}
+
 // prefixed with underscored because delete is a reserved word in javascript
 function _delete(id) {
     return fetchWrapper.delete(`${API_URL}/users/${id}`);
 }
+

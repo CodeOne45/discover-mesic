@@ -6,7 +6,9 @@ const db = require("_helpers/db");
 const User = db.User;
 const Tokens = db.Tokens;
 const emailCheck = require('email-check');
+
 const {sendEmail} = require('_helpers/tools');
+
 
 module.exports = {
   getAll,
@@ -25,7 +27,7 @@ module.exports = {
   resendToken,
 };
 
-async function authenticate(userAuthentification) {
+async function authenticate(userAuthentification,res) {
   try {
     var user = await User.findOne({ $or: [{ username: userAuthentification.username }, { email: userAuthentification.username }] });
     const comparePassword = await bcrypt.compare(userAuthentification.password, user.password);
@@ -37,20 +39,17 @@ async function authenticate(userAuthentification) {
         expiresIn: "7d",
       });
       console.log(user)
-
       return {
         id: user.id,
         username: user.username,
         email: user.email,
         token,
       };
-    } else {
-      throw "Wrong username or password.";
-    }
+    
+    } 
 
   } catch (error) {
-    throw "Wrong username or password.";
-
+    res.status(500).json({message: error.message});
   }
 
 
@@ -68,25 +67,25 @@ async function create(userParam, req, res) {
   try {
     // validate
     if (await User.findOne({ username: userParam.username })) {
-      throw 'Username "' + userParam.username + '" is already taken';
+      return res.status(400).json({ message: 'Username "' + userParam.username + '" is already taken' });
     }
 
     if (await User.findOne({ email: userParam.email })) {
-      throw 'Email "' + userParam.email + '" is already taken';
+      return res.status(400).json({message : 'Email "' + userParam.email + '" is already taken'});
     }
     // tester mail
     
     if (!emailCheck(userParam.email)) {
-      throw 'Email do not exist';
+      return res.status(400).json({message : 'Email do not exist'});
     }
 
     if (!isValidEmail(userParam.email) || userParam.email == '') {
-      throw 'Email is invalid';
+      return res.status(400).json({message : 'Email is invalid'});
     }
 
     // test password
     if (isValidatePassword(userParam.password) == false || userParam.password == '') {
-      throw 'Password is invalid';
+      return res.status(400).json({message : 'Password is invalid'});
     }
 
     userParam.password = bcrypt.hashSync(userParam.password);
@@ -105,38 +104,46 @@ async function create(userParam, req, res) {
         ...newUser.toJSON(),
         token,
       };
-    }    
+    }
+   res.status(200).send("The account has been created");    
     } catch (error) {
-        res.status(500).json({message: error.message})
+        return res.status(500).json({message: error.message})
     }
 }
 
-async function update(id, userParam) {
+async function update(id, userParam, res) {
+  try{
   const user = await User.findById(id);
   // validate
-  if (!user) throw "User not found";
+  if (!user) return res.status(400).json({message : "User not found" });
   // hash password if it was entered
   if (userParam.password) {
     // verify new password
     if (isValidatePassword(userParam.password)) {
       userParam.hash = bcrypt.hashSync(userParam.password, 10);
     } else {
-      throw 'Password is invalid, you need to have 1 Maj, 1 Min, 1 Number and 1 Caracter special';
+     return res.status(400).json({message :'Password is invalid, you need to have 1 Maj, 1 Min, 1 Number and 1 Caracter special'});
     }
   }
   // copy userParam properties to user
   Object.assign(user, userParam);
   await user.save();
+  res.status(200).send("The account has been updated");
+}catch(error){
+  res.status(500).json({message: error.message})
+}
 }
 // recuperer la playlist de l'utilisateur connecté
-async function getUserPlaylistSongs(id) {
+async function getUserPlaylistSongs(id, res) {
   const user = await User.findById(id);
-  return user.playlistIdSongs;
+  if(!user) res.status(404).json({message: "erreur get playlist"});
+  return res.status(200).json(user.playlistIdSongs);
 }
 // recuperer la list de l'utilisateur connecté swipé à gauche
-async function getUserPlaylistSongsLeftById(id) {
+async function getUserPlaylistSongsLeftById(id,res) {
   const user = await User.findById(id);
-  return user.listIdSongsSwiptoLeft;
+  if(!user) res.status(404).json({message: "erreur get playlist"});
+  return res.status(200).json(user.listIdSongsSwiptoLeft);
 }
 // update la playlist utilisateur quand il ajoute une musique
 async function updateUserPlaylistSongsSwipLeft(id, param) {
@@ -146,35 +153,35 @@ async function updateUserPlaylistSongsSwipLeft(id, param) {
   return user.toJSON();
 }
 // update la playlist utilisateur quand il ajoute une musique
-async function updateUserPlaylistSongs(id, param) {
+async function updateUserPlaylistSongs(id, param, res) {
   const user = await User.findById(id);
-  user.playlistIdSongs.push(param.idMusic)
+  user.playlistIdSongs.push(param.idMusic);
   user.save();
   return user.toJSON();
 }
-async function deleteUserPlaylistSongs(id, param) {
-
+async function deleteUserPlaylistSongs(id, param, res) {
   var listSongToRemove = param.idMusic.map(s => s.toString());
   await User.updateOne( // select your doc in moongo
     { _id: id }, // your query, usually match by _id
     { $pullAll: { playlistIdSongs: listSongToRemove } }, // item(s) to match from array you want to pull/remove
     { multi: true } // set this to true if you want to remove multiple elements.
   )
+  return res.status(200).json("Songs " +listSongToRemove+" deleted");
 }
 
-async function updateUserPassword(id, param) {
+async function updateUserPassword(id, param, res) {
   const user = await User.findById(id);
   // test password
   if (isValidatePassword(param.newPassword) == false || param.newPassword == '') {
-    throw 'Password is invalid';
+    return res.status(400).json({message : "Password is invalid" });
   }
   var oldPasswordisSameThanNew = await bcrypt.compare(param.newPassword,user.password);
   if(oldPasswordisSameThanNew){
-    throw 'This password is the same that your last password';
+    return res.status(400).json({message : 'This password is the same that your last password' });
   }
   user.password = bcrypt.hashSync(param.newPassword);
   await user.save();
-  return user.toJSON();
+  return res.status(200).json(user);
 }
 async function _delete(id) {
   await User.findByIdAndRemove(id);
@@ -197,6 +204,7 @@ function isValidatePassword(password) {
 
   }
   return true;
+
 }
 
 
@@ -453,4 +461,5 @@ async function sendVerificationEmail(user, req, res){
   }catch (error) {
       res.status(500).json({message: error.message})
   }
+
 }

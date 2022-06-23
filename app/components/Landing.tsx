@@ -2,46 +2,36 @@
 import { useEffect } from "react";
 import pochetteImage from '../asset/pochette.png';
 import styles from "../styles/home.module.css";
-const TITLE = "Dicover Me'sic";
+const TITLE_1 = "Dicover";
+const TITLE_2 = "Me'sic";
 const CATCHPHRASE = "Always the most beautiful things are hidden, like diamonds";
-const SUBTITLE_1 = "With DISCOVER ME’SIC, ";
+const SUBTITLE_1 = "With DISCOVER ME’SIC,";
 const SUBTITLE_2 = "Discover or make shine a unknown artist";
+const SUBTITLE_3_1 = "More than ";
+const SUBTITLE_3_2 = "Unknown Song To Discover";
+const SUBTITLE_Number = '10 000';
+
 const BUTTON_TEXT = "Discover";
 import Link from "next/link";
 
 const Landing: React.FC = () => {
-    useEffect(() => {
-        (async () => {    
-          document.body.addEventListener("mousemove", (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-          
-            const bleu = y / width * 100;
-            const green = y / height * 100;
-            const  red = (x / width) + (y / height) * 100;
-          
-            document.body.style.backgroundColor = `rgb(${red}%, ${green}%, ${bleu}%)`
-          })
-        })();
-      }, []);
     
     return (
-        <div className={styles.list_wrapper}>
-          <span className={styles.switch_language_btn}>FR | EN</span>
-          <span className={styles.catchphrase}>“{CATCHPHRASE}”</span>
-
-          <div className={styles.content}>
-            <h1 className={styles.content_title}>{TITLE}</h1>
-            <span className={styles.content_subtitle}>{SUBTITLE_1}</span>
-            <span className={styles.content_subtitle}>{SUBTITLE_2}</span>
-            <Link href="/discover" >
-                <a className={styles.content_button}>
-                  {BUTTON_TEXT}
-                </a>
-            </Link>
+      <div id={styles.container} className={styles.container}>
+        <div className={styles.content}>
+          <div className={styles.title}>
+            <span>{TITLE_1}</span>
+            <span>{TITLE_2}</span>
           </div>
+          <div className={styles.content_container}>
+            <span>{SUBTITLE_1}</span>
+            <span>{SUBTITLE_2}</span>
+            <span>
+              {SUBTITLE_3_1}<span className={styles.music_number}>{SUBTITLE_Number}</span> {SUBTITLE_3_2}
+            </span>
+          </div>
+        </div>
+        <div className={styles.image}>
           <div className={styles.image_container}>
             <div className={styles.image_container_block}></div>
             <img className={styles.image_container_img} src={pochetteImage.src} alt="Landing pochette"/>
@@ -50,8 +40,17 @@ const Landing: React.FC = () => {
               <i id={styles.image_container_icon_heart} className={"fa fa-solid fa-heart "+ styles.image_container_icon}></i>
             </div>
           </div>
+        </div>   
+        <Link href="/discover" >
+          <a className={styles.content_button}>
+            {BUTTON_TEXT}
+          </a>
+        </Link>
+        <div className={styles.catchphrase}>
+          “{CATCHPHRASE}”
         </div>
+      </div>
     );
   };
-  
+  //https://css-tricks.com/snippets/css/a-guide-to-flexbox/
   export default Landing;

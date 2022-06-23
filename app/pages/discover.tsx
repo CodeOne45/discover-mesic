@@ -1,16 +1,15 @@
 import { useContext, useEffect } from "react";
-import axios from "axios";
 import 'font-awesome/css/font-awesome.min.css';
 
+import Carousel from "../components/music/Carousel";
 import Layout from "../components/Layout";
 import styles from "../styles/discover.module.css";
 import MusicList from "../components/music/MusicList";
-import UrlForm from "../components/music/UrlForm";
-import Controller from "../components/music/Controller";
 import { Context } from "../store";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { FRONTEND_URL, API_URL } from "../constant/url";
+import { FRONTEND_URL } from "../constant/url";
+import {songService} from '../services/music.service';
 
 
 /**
@@ -18,14 +17,25 @@ import { FRONTEND_URL, API_URL } from "../constant/url";
  */
 const Discover: NextPage = () => {
   const {musics, setMusics} = useContext(Context) as any;
+  const {topMusics, setTopMusics} = useContext(Context) as any;
 
   const { isPlay } = useContext(Context) as any;
+
 
   useEffect(() => {
     (async () => {
       if(musics.length === 0){
-        const { data } = (await axios.get(API_URL+"/songs/songs")) as any;
+        const { data } = (await songService.songsList());
         if (data.length) setMusics(data);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      if(topMusics.length === 0){
+        const { data } = (await songService.topTen());
+        if (data.length) setTopMusics(data);
       }
     })();
   }, []);
@@ -34,7 +44,7 @@ const Discover: NextPage = () => {
   const DESCRIPTION = "Descover unknown artists";
   const OG_IMAGE = `${FRONTEND_URL}/og-image.jpg`;
 
-
+  
   return (
     <>
       <Head>
@@ -51,11 +61,13 @@ const Discover: NextPage = () => {
         <link rel="canonical" href={FRONTEND_URL} />
       </Head>
       <Layout>
-        <div className={styles.list_wrapper}>
-          <MusicList musics={musics} />
-          <UrlForm />          
+        <div className={`${styles.music_lister}, ${styles.block}`}>
+            <MusicList musics={musics}/>
         </div>
-        {isPlay && <Controller />}
+        <div className={`${styles.other_music}, ${styles.block}`}>
+          <Carousel topTenSongs={topMusics} slide_type="song"/>
+          <Carousel topTenSongs={topMusics} slide_type="artiste"/>
+        </div>
       </Layout>
     </>
   );

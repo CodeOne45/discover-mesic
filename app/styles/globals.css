@@ -42,6 +42,8 @@ button {
   --color-text-90: #303538;
   --color-text-100: #212529;
 
+  --color-icon-heart: #ff375f;
+
   --color-midnight: #2c3e50;
   --color-asphart: #34495e;
 
@@ -54,10 +56,25 @@ button {
   --shadow-40: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
   --shadow-41: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
 
+  --bleu-1: #8CCAFF;
+  --bleu-2: #0E6BFF;
+  --bleu-3: #3D54A0;
+
+  --dark-1: #000000;
+  --dark-2: #2C3856;
+  --dark-3: #2C3856;
+  --dark-4: #2C3856;
+
+  --light-on-dark: #8996B8;
+
+  --purple-1: #373A75;
+  
   --orange-42: #73001E;
   --orange-43: rgba(195, 73, 46, 0.8);
   --orange-44: rgba(252, 226, 132, 0.8);
   --red-45: #C60000;
+
+  --brown-btn: #8c3343;
 }
 
 .font-nunito {
@@ -70,4 +87,65 @@ button {
 
 #keydown_event_handler:focus {
   outline: none;
+}
+
+
+
+#light {
+  background-color: var(--color-text-1);
+}
+#dark {
+  background: var(--dark-1);
+}
+
+.switch_color {
+  padding: 100px 10px 0 0;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+.switch_color label {
+  margin: 5px 10px 10px 10px;
+}
+#light .switch_color label {
+  color: var(--color-text-100);
+}
+#dark .switch_color label {
+  color: var(--color-text-1);
+}
+
+
+/*Landing Page*/
+#light .home_content_container__RTI_R span {
+  color: var(--color-text-50);
+}
+#dark .home_content_container__RTI_R span {
+  color: var(--color-text-1);
+}
+#light .home_image_container_block__xs8QG {
+  background-color: var(--color-text-50);
+}
+#dark .home_image_container_block__xs8QG {
+  background-color: var(--purple-1);
+}
+#light .home_catchphrase__PXl2q {
+  color: var(--color-text-50);
+}
+#dark .home_catchphrase__PXl2q {
+  color: var(--color-text-1);
+}
+
+
+
+/*Discover Page*/
+
+#dark h1 {
+  color: var(--bleu-1);
+}
+#dark h2, #dark h3, #dark h4, #dark span{
+  color: var(--color-text-1);
+}
+
+#dark p{
+  color: var(--light-on-dark);
 }

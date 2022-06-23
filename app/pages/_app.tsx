@@ -1,18 +1,27 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import { useRouter } from 'next/router';
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Container from "../store";
+
+import ReactSwitch from 'react-switch';
 //import Head from "next/head";
 import PreloaderComp from '../components/preloader/preloaderComp';
 
 import {userService} from '../services/user.service';
 
+export const ThemeContext = createContext(null);
+
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [theme, setTheme] = useState('light');
+
+  const toggleTheme = () => {
+      setTheme((curr) => (curr === 'light' ? 'dark' : 'light'));
+  };
   const router = useRouter();
   const [user, setUser] = useState(null);
-  const [authorized, setAuthorized] = useState(false);
+  const [authorized, setAuthorized] = useState<boolean>(false);
   
   useEffect(() => {
       // on initial load - run auth check 
@@ -37,7 +46,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   function authCheck(url) {
     // redirect to login page if accessing a private page and not logged in 
     setUser(userService.userValue);
-    const publicPaths = [ '/','/discover','/account/login', '/account/register', '/account/verification'];
+    const publicPaths = [ '/','/discover','/account/login', '/account/register', '/account/verification', '/^\/music\/.*/', '/music/[yt_id]'];
     const path = url.split('?')[0];
     if (!userService.userValue && !publicPaths.includes(path)) {
         setAuthorized(false);
@@ -55,11 +64,22 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
 
   return (
-    <>
+    /*<>
       <Container>
         <Component {...pageProps} />
       </Container>
-    </>
+    </>*/
+    <ThemeContext.Provider value={{theme, toggleTheme}}>
+      <div id={theme}>
+        <Container>
+            <div className='switch_color'>
+              <label>{theme === 'light' ? 'Light Mode' : 'Dark Mode'}</label>
+              <ReactSwitch onChange={toggleTheme} checked={theme === 'dark'}/>
+            </div>
+          <Component {...pageProps} />
+        </Container>
+      </div>
+    </ThemeContext.Provider>
   );
 }
 

@@ -2,11 +2,10 @@ import React, { useCallback, useContext } from "react";
 import styles from "../../styles/controller-component.module.css";
 import classNames from "classnames";
 import { Context } from "../../store";
-import { thumbnailLink } from "../../constant/url";
 
 /* eslint-disable @next/next/no-img-element */
 const Controller: React.FC = () => {
-  const { music, isPlay, setIsPlay } = useContext(
+  const { isPlay, setIsPlay } = useContext(
     Context
   ) as any;
 
@@ -15,7 +14,7 @@ const Controller: React.FC = () => {
   }, [isPlay]);
 
   return (
-    <div className={styles.controller} style={{ background: `url('${thumbnailLink(music?.yt_id)}')` }}>
+    <div className={styles.controller} >
       <button className={styles.button} onClick={handleClickPlayButton}>
         <i
           className={classNames(
