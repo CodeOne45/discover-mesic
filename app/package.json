@@ -1,5 +1,5 @@
 {
-  "name": "lofi-music",
+  "name": "discover-mesic",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -26,10 +26,12 @@
     "react-hook-form": "^7.32.0",
     "react-icons": "^4.4.0",
     "react-native": "^0.68.0",
+    "react-router-dom": "^6.3.0",
     "react-slick": "^0.29.0",
     "react-switch": "^7.0.0",
     "react-tinder-card": "^1.4.5",
     "rxjs": "^7.5.5",
+    "rxjs-compat": "^6.6.7",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.3",
     "yup": "^0.32.11"

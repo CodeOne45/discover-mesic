@@ -13,13 +13,17 @@ services:
     ports:
       - "3050:80"
   app:
+    image: discover-mesic-app:dev
     build:
       context: ./app
       dockerfile: Dockerfile
     container_name: app
     restart: always
+    environment:
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 
   api:
+    image: discover-mesic-api:dev
     build:
       context: ./api
       dockerfile: Dockerfile
@@ -29,4 +33,6 @@ services:
       - MONGODB_URI=${MONGODB_URI}
       - SENDGRID_API_KEY=${SENDGRID_API_KEY}
       - FROM_EMAIL=${FROM_EMAIL}
+      - CLIENT_ID=${CLIENT_ID}
+      - CLIENT_SECRET=${CLIENT_SECRET}
 
