@@ -10,6 +10,7 @@ export const songService = {
     findMusics,
     findMusicsBySearch,
     findMusicById,
+    findMusicsByArtists,
 };
 
 function songsList(){
@@ -61,4 +62,8 @@ function findMusicById(id: string, musics :IMusic[]): IMusic | null {
     if (id === music.yt_id) return music;
   }
   return null;
+}
+function findMusicsByArtists(author: any){
+  return fetchWrapper.post(`${API_URL}/songs/artistsongs`, {author: author});
+
 }

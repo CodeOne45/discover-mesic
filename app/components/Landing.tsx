@@ -1,5 +1,5 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import pochetteImage from '../asset/pochette.png';
 import styles from "../styles/home.module.css";
 const TITLE_1 = "Dicover";
@@ -11,11 +11,26 @@ const SUBTITLE_3_1 = "More than ";
 const SUBTITLE_3_2 = "Unknown Song To Discover";
 const SUBTITLE_Number = '10 000';
 
+import { thumbnailLink } from "../constant/url";
 const BUTTON_TEXT = "Discover";
 import Link from "next/link";
+import { songService } from "../services/music.service";
 
 const Landing: React.FC = () => {
-    
+
+  const  [ytBackground, setYtBackground] = useState<string>();
+
+  useEffect(() => {
+    (async () => {
+        const { data } = (await songService.randomSong());
+        if (data.length){
+          setYtBackground(data[0].yt_id);
+
+        }
+        
+    })();
+  }, []);   
+
     return (
       <div id={styles.container} className={styles.container}>
         <div className={styles.content}>
@@ -34,7 +49,7 @@ const Landing: React.FC = () => {
         <div className={styles.image}>
           <div className={styles.image_container}>
             <div className={styles.image_container_block}></div>
-            <img className={styles.image_container_img} src={pochetteImage.src} alt="Landing pochette"/>
+            <img className={styles.image_container_img} src={ytBackground?thumbnailLink(ytBackground): pochetteImage.src} alt="Landing pochette"/>
             <div className={styles.image_container_icon_container} >
               <i id={styles.image_container_icon_cancel} className={"fa fa-window-close "+ styles.image_container_icon}></i>
               <i id={styles.image_container_icon_heart} className={"fa fa-solid fa-heart "+ styles.image_container_icon}></i>

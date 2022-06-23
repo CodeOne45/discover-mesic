@@ -4,9 +4,11 @@ import Router from 'next/router';
 import {fetchWrapper} from '../helpers/fetch-wrapper';
 
 import { API_URL } from "../constant/url";
-const userSubject = new BehaviorSubject(process.browser && JSON.parse(localStorage.getItem('user')));
+
+const userSubject = new BehaviorSubject(typeof window!== "undefined"?JSON.parse(localStorage.getItem('user')):"" )
 
 export const userService = {
+    
     user: userSubject.asObservable(),
     get userValue () { return userSubject.value },
     login,
