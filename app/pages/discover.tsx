@@ -40,8 +40,8 @@ const Discover: NextPage = () => {
     })();
   }, []);
 
-  const TITLE = "Dicover Me'sic";
-  const DESCRIPTION = "Descover unknown artists";
+  const TITLE = "Discover Me'sic";
+  const DESCRIPTION = "Discover unknown artists";
   const OG_IMAGE = `${FRONTEND_URL}/og-image.jpg`;
 
   

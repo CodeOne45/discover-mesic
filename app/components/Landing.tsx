@@ -2,22 +2,22 @@
 import { useEffect, useState } from "react";
 import pochetteImage from '../asset/pochette.png';
 import styles from "../styles/home.module.css";
-const TITLE_1 = "Dicover";
+import { useTranslation } from 'next-export-i18n';
+
+
+
+const TITLE_1 = "Discover";
 const TITLE_2 = "Me'sic";
-const CATCHPHRASE = "Always the most beautiful things are hidden, like diamonds";
-const SUBTITLE_1 = "With DISCOVER ME’SIC,";
-const SUBTITLE_2 = "Discover or make shine a unknown artist";
-const SUBTITLE_3_1 = "More than ";
-const SUBTITLE_3_2 = "Unknown Song To Discover";
 const SUBTITLE_Number = '10 000';
 
 import { thumbnailLink } from "../constant/url";
-const BUTTON_TEXT = "Discover";
 import Link from "next/link";
 import { songService } from "../services/music.service";
 
 const Landing: React.FC = () => {
 
+  const { t } = useTranslation();
+  
   const  [ytBackground, setYtBackground] = useState<string>();
 
   useEffect(() => {
@@ -39,10 +39,10 @@ const Landing: React.FC = () => {
             <span>{TITLE_2}</span>
           </div>
           <div className={styles.content_container}>
-            <span>{SUBTITLE_1}</span>
-            <span>{SUBTITLE_2}</span>
+            <span>{t('landing.with')}</span>
+            <span>{t('landing.make_shine')}</span>
             <span>
-              {SUBTITLE_3_1}<span className={styles.music_number}>{SUBTITLE_Number}</span> {SUBTITLE_3_2}
+              {t('landing.more_than')}<span className={styles.music_number}>{SUBTITLE_Number}</span> {t('landing.unknown')}
             </span>
           </div>
         </div>
@@ -58,11 +58,11 @@ const Landing: React.FC = () => {
         </div>   
         <Link href="/discover" >
           <a className={styles.content_button}>
-            {BUTTON_TEXT}
+            {t('landing.Discover')}
           </a>
         </Link>
         <div className={styles.catchphrase}>
-          “{CATCHPHRASE}”
+          “{t('landing.beautiful')}”
         </div>
       </div>
     );

@@ -4,7 +4,41 @@
       "Login": "Log in",
       "Logout": "Log out",
       "Register": "Register",
-      "Search_for_a_song": "Search for a song"
+      "Search_for_a_song": "Search for a song",
+      "About_us" : "About Us"
+    },
+    "index": {
+      "Discover_unknown_artists" : "Discover unknown artists"
+    },
+    "landing": {
+      "beautiful": "Always the most beautiful things are hidden, like diamonds",
+      "make_shine": "Discover or make an unknown artist shine",
+      "with" : "With DISCOVER ME’SIC,",
+      "unknown" : "Unknown Song To Discover",
+      "more_than" : "More than ",
+      "Discover" : "Discover"
+    },
+    "carousel": {
+      "Most_Liked_Artists" : "Most Liked Artists",
+      "Most_Liked_Songs" : "Most Liked Songs"
+    },
+    "UrlForm" :{
+      "make_shine" : "Make it shine",
+      "Youtube" : "YouTube link"
+    },
+    "register":{
+      "register" : "Register",
+      "Username" : "Username",
+      "Email" : "Email",
+      "Password": "Password",
+      "Confirm_Password" : "Confirm Password",
+      "Cancel" : "Cancel"
+    },
+    "login":{
+      "Login" : "Log in",
+      "Username_Email" : "Email or Username",
+      "Password": "Password",
+      "Register" : "Register"
     }
   }
 }

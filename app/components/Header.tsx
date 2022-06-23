@@ -69,8 +69,6 @@ const Header: React.FC = () => {
 
   return (
     <nav className={styles.topnav} id="myTopnav">
-      <LanguageSwitcher lang="fr">fr</LanguageSwitcher> |{' '}
-					<LanguageSwitcher lang="en">en</LanguageSwitcher>
       <div className={styles.logo_wrapper}>
         <Link href={"/"}>
           <img className={styles.image_container_logo} src={logo.src} alt="Logo Discover Me-sic"/>
@@ -78,13 +76,14 @@ const Header: React.FC = () => {
       </div>
 
       <a href="/discover">Top 10</a>
-      <a href="#">About Us</a>
+      <a href="#">{t('header.About_us')}</a>
+
       
       <form className={styles.search_form} onSubmit={submitSearchHandler}>
         <div className={styles.text_box}>
           <input
             type="text"
-            placeholder="Search for a song"
+            placeholder={t('header.Search_for_a_song')}
             className={classNames(styles.text, "font-nanum")}
             value={keyword}
             onChange={changeKeywordHandler}
@@ -94,6 +93,10 @@ const Header: React.FC = () => {
           </button>
         </div>
       </form>
+      <div className="d-flex justify-content-end align-items-center language-select-root">
+        <LanguageSwitcher lang="fr">FR</LanguageSwitcher> |{' '}
+				<LanguageSwitcher lang="en">EN</LanguageSwitcher>
+      </div>
       <div className={styles.auth_btn}>
         {user?
           <a style={"display: none"}></a> : <a className={styles.register_btn} href="/account/register"> {t('header.Register')}</a>
