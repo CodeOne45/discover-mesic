@@ -46,9 +46,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   function authCheck(url) {
     // redirect to login page if accessing a private page and not logged in 
     setUser(userService.userValue);
-    const publicPaths = [ '/','/discover','/account/login', '/account/register', '/account/verification', '/^\/music\/.*/', '/music/[yt_id]'];
+    const privatePaths = ['/music/[yt_id]'];
     const path = url.split('?')[0];
-    if (!userService.userValue && !publicPaths.includes(path)) {
+    if (!userService.userValue && privatePaths.includes(path)) {
         setAuthorized(false);
         router.push({
             pathname: '/account/login',

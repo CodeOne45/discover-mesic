@@ -64,6 +64,7 @@ button {
   --dark-2: #2C3856;
   --dark-3: #2C3856;
   --dark-4: #2C3856;
+  --dark-5: #2c3856;
 
   --light-on-dark: #8996B8;
 
@@ -114,6 +115,17 @@ button {
   color: var(--color-text-1);
 }
 
+/*NavBar */
+#dark .header-component_topnav__JpB0H {
+  background-color: var(--dark-5);
+}
+#dark .header-component_topnav__JpB0H *{
+  color: var(--color-text-1);
+}#E6E6E6
+#dark .header-component_text_box____wzW{
+  background-color: var(--color-text-70);
+  color: var(--color-text-1);
+}
 
 /*Landing Page*/
 #light .home_content_container__RTI_R span {
