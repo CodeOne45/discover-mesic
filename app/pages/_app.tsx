@@ -3,6 +3,9 @@ import { useRouter } from 'next/router';
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Container from "../store";
+import { useTranslation } from 'next-export-i18n';
+
+
 
 import ReactSwitch from 'react-switch';
 //import Head from "next/head";
@@ -14,6 +17,7 @@ export const ThemeContext = createContext(null);
 
 
 function MyApp({ Component, pageProps }: AppProps) {
+
   const [theme, setTheme] = useState('light');
 
   const toggleTheme = () => {
@@ -22,7 +26,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [authorized, setAuthorized] = useState<boolean>(false);
-  
+  const {t} = useTranslation();
+
+
   useEffect(() => {
       // on initial load - run auth check 
       authCheck(router.asPath);
@@ -73,7 +79,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <div id={theme}>
         <Container>
             <div className='switch_color'>
-              <label>{theme === 'light' ? 'Light Mode' : 'Dark Mode'}</label>
+              <label>{theme === 'light' ? 'light mode' : 'Dark Mode'}</label>
               <ReactSwitch onChange={toggleTheme} checked={theme === 'dark'}/>
             </div>
           <Component {...pageProps} />

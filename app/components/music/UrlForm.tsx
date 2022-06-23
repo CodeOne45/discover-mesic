@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styles from "../../styles/music-list-item-component.module.css";
 import {songService} from '../../services/music.service';
+import { useTranslation } from 'next-export-i18n';
+
 
 
 const UrlForm: React.FC = () => {
@@ -9,6 +11,8 @@ const UrlForm: React.FC = () => {
   //const [author, setauthor] = useState("");
   const [message, setMessage] = useState("");
   const [color, setColor] = useState("");
+
+  const {t} = useTranslation();
 
 
   let handleSubmit = async (e : any) => {
@@ -48,7 +52,7 @@ const UrlForm: React.FC = () => {
           className={styles.input_box}
           type="text"
           value={yt_id}
-          placeholder="Youtube URL"
+          placeholder={t('UrlForm.Youtube')}
           onChange={(e) => setyt_id(e.target.value)}
         />
         {/*<input
@@ -64,7 +68,7 @@ const UrlForm: React.FC = () => {
           onChange={(e) => settitle(e.target.value)}
         />*/}
 
-        <button className={styles.btn} type="submit">Make shine</button>
+        <button className={styles.btn} type="submit">{t('UrlForm.make_shine')}</button>
 
         <div className="message">{message ? <p style={{ color: `${color}` }}>{message}</p> : null}</div>
       </form>
