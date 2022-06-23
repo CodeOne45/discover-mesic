@@ -19,7 +19,9 @@ function jwt() {
       "/logGoogle/success",
       /^\/users\/verify\/.*/,
       "/users/resend",
-      "/songs/artistSongs",
+      "/songs/artistsongs",
+      "/songs/randomSong",
+      /^\/users\/userprofile\/.*/
     ],  
   });
 }

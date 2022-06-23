@@ -8,7 +8,9 @@ import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import {userService} from '../../services/user.service';
 
+import { useCookies } from 'react-cookie';
 
+const [cookies,setCookie,removeCookie]=useCookies(['user']);
 function Login() {
     const router = useRouter();
     const [message, setMessage] = useState("");
@@ -29,16 +31,22 @@ function Login() {
 
     function onSubmit({ username, password }) {
         return userService.login(username, password)
-            .then(() => {
+            .then((user) => {
                 // get return url from query parameters or default to '/'
                 const returnUrl = router.query.returnUrl || '/discover';
+                console.log("================")  
+                console.log(user.data.token)
                 router.push(returnUrl);
+                
             })
             .catch(error => {
                 setColor("red")
                 setMessage("Error: " +  error.response.data.message)
             });
     }
+    const handleCookie = (user: any) => {
+        setCookie("user",user.data.token);
+      };
 
     return (
         <Layout>
