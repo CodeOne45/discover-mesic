@@ -9,6 +9,8 @@ import classNames from "classnames";
 import { useRouter } from "next/router";
 import {userService} from '../services/user.service';
 
+import { useTranslation, LanguageSwitcher } from 'next-export-i18n';
+
 import Link from "next/link";
 import styles from "../styles/header-component.module.css";
 
@@ -17,6 +19,8 @@ import logo from '../asset/logo_large.png';
 import Hamburger from 'hamburger-react'
 
 const Header: React.FC = () => {
+  const { t } = useTranslation();
+
   const [keyword, setKeyword] = useState<string>("");
 
   const router = useRouter();
@@ -65,6 +69,8 @@ const Header: React.FC = () => {
 
   return (
     <nav className={styles.topnav} id="myTopnav">
+      <LanguageSwitcher lang="fr">fr</LanguageSwitcher> |{' '}
+					<LanguageSwitcher lang="en">en</LanguageSwitcher>
       <div className={styles.logo_wrapper}>
         <Link href={"/"}>
           <img className={styles.image_container_logo} src={logo.src} alt="Logo Discover Me-sic"/>
@@ -90,10 +96,10 @@ const Header: React.FC = () => {
       </form>
       <div className={styles.auth_btn}>
         {user?
-          <a style={"display: none"}></a> : <a className={styles.register_btn} href="/account/register">Register</a>
+          <a style={"display: none"}></a> : <a className={styles.register_btn} href="/account/register"> {t('header.Register')}</a>
         }
         {user?         
-          <a className={styles.log_btn} onClick={logout}>Logout</a> : <a className={styles.log_btn} href="/account/login">Login</a>
+          <a className={styles.log_btn} onClick={logout}>Logout</a> : <a className={styles.log_btn} href="/account/login">{t('header.Login')}</a>
         }
       </div>
 

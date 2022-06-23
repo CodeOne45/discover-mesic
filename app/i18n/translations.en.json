@@ -1,0 +1,10 @@
+{  
+  "i18n": {
+    "header": {
+      "Login": "Log in",
+      "Logout": "Log out",
+      "Register": "Register",
+      "Search_for_a_song": "Search for a song"
+    }
+  }
+}

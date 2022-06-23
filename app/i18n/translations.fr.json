@@ -1,0 +1,10 @@
+{  
+    "i18n": {
+        "header": {
+            "Login": "Se connecter",
+            "Logout": "Déconnexion",
+            "Register": "S'inscire",
+            "Search_for_a_song": "Chercher un morceau"
+        }
+    }
+}

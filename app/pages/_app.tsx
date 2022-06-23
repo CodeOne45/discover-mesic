@@ -4,6 +4,8 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Container from "../store";
 
+
+
 import ReactSwitch from 'react-switch';
 //import Head from "next/head";
 import PreloaderComp from '../components/preloader/preloaderComp';
@@ -14,6 +16,7 @@ export const ThemeContext = createContext(null);
 
 
 function MyApp({ Component, pageProps }: AppProps) {
+
   const [theme, setTheme] = useState('light');
 
   const toggleTheme = () => {
