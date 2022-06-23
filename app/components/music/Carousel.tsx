@@ -11,6 +11,7 @@ import type { IMusic } from "../../types/music";
 
 import PreloaderComp from '../preloader/preloaderComp';
 import Link from '../Link';
+import { useTranslation } from 'next-export-i18n';
 
 
 
@@ -23,6 +24,8 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
     
     const [sliderRef, setSliderRef] = useState(null);
     
+    const {t} = useTranslation();
+
     const settings = { 
         fade: true ,
         speed: 500, // ms
@@ -58,7 +61,7 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
         return (
         <div className={styles.content}>
         <div className={styles.content_header}>
-            <h1 className={styles.content_title}>Most Like song</h1>
+            <h1 className={styles.content_title}>{t('carousel.Most_Liked_Songs')}</h1>
             <div className={styles.button_container}>
                 {sliderRef ? (
                     <>
@@ -97,7 +100,7 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
         return (
             <div className={styles.content}>
                 <div className={styles.content_header}>
-                    <h1 className={styles.content_title}>Most Like Artiste</h1>
+                    <h1 className={styles.content_title}>{t('carousel.Most_Liked_Artists')}</h1>
                     <div className={styles.button_container}>
                         <button onClick={sliderRef?.slickPrev}>
                             <FaChevronLeft />
