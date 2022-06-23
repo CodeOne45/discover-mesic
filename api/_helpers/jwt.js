@@ -21,7 +21,8 @@ function jwt() {
       "/users/resend",
       "/songs/artistsongs",
       "/songs/randomSong",
-      /^\/users\/userprofile\/.*/
+      /^\/users\/userprofile\/.*/,
+      /^\/songs\/totallikes\/.*/
     ],  
   });
 }

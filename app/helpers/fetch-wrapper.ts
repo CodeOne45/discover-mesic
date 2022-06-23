@@ -29,7 +29,6 @@ function get(url: any) {
         credentials: 'include',
         data: JSON.stringify(body)  
     };
-    console.log(requestOptions)
     const response = axios(requestOptions);
     return response;
 }
@@ -60,9 +59,6 @@ function _delete(url: any) {
 function authHeader(url: any) {
     // return auth header with jwt if user is logged in and request is to the api url
     var user = userService.userValue;
-    console.log("++++++++++")
-    console.log(user);
-    console.log(user)
     const isLoggedIn = user && user.token;
     const isApiUrl = url.startsWith(publicRuntimeConfig.apiUrl);
     if (isLoggedIn && isApiUrl) {

@@ -11,49 +11,85 @@ import { Context } from "../../store";
 import { IMusic } from "../../types/music";
 import pochetteImage from '../../asset/pochette.png';
 import { userService } from "../../services/user.service";
-
-
+import styles from "../../styles/artist.module.css";
+import { FaHeart, FaPlay, FaYoutube } from "react-icons/fa";
+import Controller from "../../components/music/Controller";
 
 /**
  * Handle /artist/[author] type url 
  */
  const Author: React.FC<IMusic | any> = (props) => {
-    const router = useRouter();
-    const author = props.data[0]?.author ?? undefined;
-    const { music, setMusic, user, setUser } = useContext(Context) as any;
-    const TITLE = props.data[0]? ` Songs of ${props.data[0].author}` : undefined;
+  const {  setMusic, setIsPlay, playStarted, setPlayStarted } = useContext(Context) as any;
+  const author = props.data[0]?.author ?? undefined;
+    const [user, setUser] = useState<any>();
+    const [totallikes, setTotallikes] = useState<number>();
+    const TITLE = props.data[0]? ` Songs of ${author}` : undefined;
     const URL = `${FRONTEND_URL}/artist/${author}`;
-    console.log(author)
-    console.log(TITLE)
+    console.log( "id added by " +props.data[0].addedBy)
+
+    const boutton =  (music : IMusic) => {
+      if (music != null) {
+        setMusic(music);
+        setIsPlay(true);
+      
+      }
+    };
+
     useEffect(() => {
         (async () => {
-            const  addedBy  = (await userService.getById(props.data[0].addedBy));
-            if (addedBy){
-              setUser(addedBy);
-              console.log(user);
+            const  addedBy  = (await userService.getUserProfilById(props.data[0].addedBy));
+            const allLikes = (await songService.findTotalLikesbyUsername(author))            
+            if (addedBy.data.username){
+              setUser(JSON.stringify(addedBy.data.username));
+            }
+            if(allLikes.data.totalLikes){
+              setTotallikes(Number(JSON.stringify(allLikes.data.totalLikes)));
             }
         })();
 
-      }, [props.data[0].addedBy]);
+      }, []);
 
     if (!props.data) {
         return <PreloaderComp />;
       }
     return (
         <>
+        
+              <div className={styles.content}>
+              
+              <div className={styles.card}>     
+                  <div className={styles.card_image_circle}>
+              <img src={props.data[0].yt_id?thumbnailLink(props.data[0].yt_id): pochetteImage.src} alt="Landing pochette"/>
+            </div>
+            </div>
+           
+            <div className={styles.card_content}>
+            <h1>{TITLE}</h1>
+              <p> {author}<a href={"https://www.youtube.com/watch?v=" + `${props.data[0].yt_id}`} target="_blank" ><FaYoutube   className={styles.youtube} /></a> </p>
+              <div className={styles.bold}>  Added by</div> <p> {user} </p>
+          <p> <FaHeart  className={styles.logo}/>  {totallikes} </p> 
+          </div>
+          <div>         
+          
+          </div>
             <Layout>
+              
             <div>
+              <div className={styles.bold}>
+<h3> More content from {props.data[0].author}</h3></div>
       {props.data.map((artist: any) => (
         <div>
-        <p> Artist's name :  {artist.author}</p>
         <p key={artist.id}> Title : {artist.title}</p>
         <img src={artist.yt_id?thumbnailLink(artist.yt_id): pochetteImage.src} alt="Landing pochette"/>
-        <p> Number of likes :{artist.numberOfLikes}</p>
+         <p>   <FaPlay /> <FaHeart  className={styles.heart}/> {artist.numberOfLikes}</p>
+       
         <p>Date insertion : {artist.dateInsertion}</p>
         </div>
       ))}
     </div>
             </Layout>
+            </div>
+
         </>
     );
  };

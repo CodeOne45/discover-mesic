@@ -18,7 +18,8 @@ export const userService = {
     getById,
     update,
     resendEmail,
-    delete: _delete
+    delete: _delete,
+    getUserProfilById,
 };
 
 function login(username: string, password: string) {
@@ -50,6 +51,10 @@ function getAll() {
 
 function getById(id: string) {
     return fetchWrapper.get(`${API_URL}/users/${id}`);
+}
+
+function getUserProfilById (id: string){
+    return fetchWrapper.get(`${API_URL}/users/userprofile/${id}`);
 }
 
 function update(id, params) {
