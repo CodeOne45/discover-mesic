@@ -25,8 +25,6 @@ import Controller from "../../components/music/Controller";
     const [totallikes, setTotallikes] = useState<number>();
     const TITLE = props.data[0]? ` Songs of ${author}` : undefined;
     const URL = `${FRONTEND_URL}/artist/${author}`;
-    console.log( "id added by " +props.data[0].addedBy)
-
     const boutton =  (music : IMusic) => {
       if (music != null) {
         setMusic(music);

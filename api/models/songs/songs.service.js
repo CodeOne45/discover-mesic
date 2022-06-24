@@ -52,7 +52,6 @@ async function create(songParam, res) {
     /*if (await Songs.findOne({ username: songParam.yt_id })) {
         throw 'Song name "' + songParam.title + '" is already taken';
     }*/
-    console.log("Body :" + songParam)
     songParam.yt_id = tools.YouTubeGetID(songParam.yt_id);
 
     if (!tools.checkYTview(songParam.yt_id)) {
@@ -62,8 +61,6 @@ async function create(songParam, res) {
     const song = new Songs(songParam);
     //save song in db
     await song.save();
-
-    console.log("------> Song added !");
     return res.status(200).json(song);
 
 }

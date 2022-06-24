@@ -29,7 +29,6 @@ module.exports = router;
 function authenticate(req, res, next) {
   userService
     .authenticate(req.body, res)
-    .then((users) => res.json(users))
     .catch((err) => next(err));
 }
 

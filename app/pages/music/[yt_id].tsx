@@ -38,13 +38,9 @@ const Music: React.FC<IMusic | any> = (data) => {
       setIsLoaded(true);
       setIsPlay(true);
       const databis = songService.findMusicById(yt_id as string, musics);
-      console.log(databis);
-
       if (databis) setMusic(databis);
     } else router?.push("/404");
   }, [yt_id, musics]);
-
-  console.log(music);
   const TITLE = data ? `${data.title} - Discover Me'sic` : undefined;
   const URL = `${FRONTEND_URL}/music/${yt_id}`;
 

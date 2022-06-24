@@ -42,8 +42,7 @@ const MusicList: React.FC<Props> = ({ musics }) => {
   }, [musics]);
   
   const swiped =  (dir : any, music : IMusic, index : integer) => {
-    console.log("You swiped: " + dir);
-    if (music != null && canSwipe ) {
+    if (music != null) {
       setMusic(music);
       setIsPlay(true);
       if (dir === "right") {
@@ -56,9 +55,7 @@ const MusicList: React.FC<Props> = ({ musics }) => {
   };
 
   const swipe = async (dir : any) => {
-    console.log(currentIndex);
     if (canSwipe && currentIndex < musics.length) {
-      console.log("Swiping");
       await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
     }
   }
