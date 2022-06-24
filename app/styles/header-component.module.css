@@ -103,7 +103,7 @@
 .log_btn { 
   display: flex;
   height:30px;
-  width: 80px;
+  width: 130px;
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
@@ -121,6 +121,10 @@
 
 .register_btn{
   color: var(--color-icon-heart)!important;
+}
+
+.none_btn{
+  display:none;
 }
 
 

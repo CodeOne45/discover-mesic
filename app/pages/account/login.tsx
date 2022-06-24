@@ -8,10 +8,8 @@ import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import {userService} from '../../services/user.service';
 
-import { useCookies } from 'react-cookie';
 import { useTranslation } from 'next-export-i18n';
 
-const [cookies,setCookie,removeCookie]=useCookies(['user']);
 function Login() {
     const router = useRouter();
     const [message, setMessage] = useState("");
@@ -62,7 +60,7 @@ function Login() {
                             <div className="invalid-feedback">{errors.username?.message}</div>
                         </div>
                         <div className="form-group">
-                            <label>{('login.Password')}</label>
+                            <label>{t('login.Password')}</label>
                             <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.password?.message}</div>
                         </div>

@@ -99,10 +99,10 @@ const Header: React.FC = () => {
       </div>
       <div className={styles.auth_btn}>
         {user?
-          <a style={"display: none"}></a> : <a className={styles.register_btn} href="/account/register"> {t('header.Register')}</a>
+          <a className={styles.none_btn}></a> : <a className={styles.register_btn} href="/account/register"> {t('header.Register')}</a>
         }
         {user?         
-          <a className={styles.log_btn} onClick={logout}>Logout</a> : <a className={styles.log_btn} href="/account/login">{t('header.Login')}</a>
+          <button className={styles.log_btn} onClick={logout}>{t('header.Logout')}</button> : <a className={styles.log_btn} href="/account/login">{t('header.Login')}</a>
         }
       </div>
       <div className={styles.humburger_icon}>
