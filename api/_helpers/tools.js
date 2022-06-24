@@ -1,5 +1,6 @@
 const Datauri = require('datauri');
 const path = require('path');
+const fetch = require('node-fetch');
 
 const cloudinary = require('../config/cloudinary');
 const sgMail = require('@sendgrid/mail');
@@ -59,28 +60,72 @@ function YouTubeGetID(url){
 }
 
 async function checkYTview(id){
-  try {
-      const response = fetch(process.env.YOUTUBE_VIEW_API + id, {
-          "method": "GET",
-          "headers": {
-              "x-rapidapi-host": process.env.YOUTUBE_VIEW_API_KEY,
-              "x-rapidapi-key": process.env.YOUTUBE_VIEW_API_HOST
-          }
-      });
+  const url = "https://www.googleapis.com/youtube/v3/videos?id="+ id + "&key=" + process.env.YOUTUBE_VIEW_API + "&part=statistics";
 
-      const res = await response.json;
-      //if()....
+  return fetch(url)
+    .then(res =>{
+      if (res.status !== 200) {
+        throw new Error(`Invalid status code (!= 200)`)
+       }
+       return res.json();
+    })
+    .then(yt_video =>  {
+      if(yt_video.items[0].statistics.viewCount < 50000){
+        return true;
+      }
+      return false
+  });
 
-  } catch(e) {
-      console.log(process.env.YOUTUBE_VIEW_API + id);
-      console.log("Error : Youtube view api connection failed!!");
-  }
-  
-  return true;
 }
-async function checkYTVideoURL(id){
 
+async function get_yt_profile_pic(chaneel_id){
+  const url = "https://www.googleapis.com/youtube/v3/channels?part=snippet&id="+ chaneel_id + "&fields=items%2Fsnippet%2Fthumbnails&key=" + process.env.YOUTUBE_VIEW_API + "&part=statistics";
+
+  return fetch(url)
+    .then(res =>{
+      if (res.status !== 200) {
+        throw new Error(`Invalid status code (!= 200)`)
+       }
+       return res.json();
+    })
+    .then(yt_video =>  {
+      return yt_video.items[0].snippet.thumbnails.high.url;
+  });
+}
+
+async function video_details(id){
+  const url = "https://www.googleapis.com/youtube/v3/videos?part=id%2C+snippet&id="+ id + "&key=" + process.env.YOUTUBE_VIEW_API;
+
+  return fetch(url)
+    .then(res =>{
+      if (res.status !== 200) {
+        throw new Error(`Invalid status code (!= 200)`)
+       }
+       return res.json();
+    })
+    .then(yt_video =>  {
+      //const profile_pic_url = await get_yt_profile_pic(yt_video.items[0].snippet.channelId);
+      /*let data = {
+        yt_id: id,
+        title: yt_video.items[0].snippet.title,
+        author: yt_video.items[0].snippet.channelTitle,
+        profile_pic_url: profile_pic_url,
+        channelID: yt_video.items[0].snippet.channelId
+      };*/
+      let data = {
+        yt_id: id,
+        title: yt_video.items[0].snippet.title,
+        author: yt_video.items[0].snippet.channelTitle,
+        channelID: yt_video.items[0].snippet.channelId
+      };
+      return data;
+  });
+}
+
+
+async function checkYTVideoURL(chaneel_id){
+ 
   // check si la video est une musique, si le temps est inférieur à <
 }
 
-module.exports = { YouTubeGetID, stringToint, checkYTview, uploader, sendEmail };
+module.exports = { YouTubeGetID, stringToint, checkYTview, uploader, sendEmail, video_details, get_yt_profile_pic};

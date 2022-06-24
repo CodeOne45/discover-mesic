@@ -49,20 +49,24 @@ async function getById(id) {
 }
 
 async function create(songParam, res) {
-    /*if (await Songs.findOne({ username: songParam.yt_id })) {
-        throw 'Song name "' + songParam.title + '" is already taken';
-    }*/
+    
     songParam.yt_id = tools.YouTubeGetID(songParam.yt_id);
 
-    if (!tools.checkYTview(songParam.yt_id)) {
-         return res.status(400).json({message :'Song is already famous !'});
+    if (await Songs.findOne({ username: songParam.yt_id })) {
+        throw 'Song already taken';
+    }
+    const vaild_view = await tools.checkYTview(songParam.yt_id);
+
+    if (!vaild_view) {
+        return res.status(400).json({message :'Song is already famous !'});
     }
 
-    const song = new Songs(songParam);
+    const newSongParam = await tools.video_details(songParam.yt_id);
+    
+    const song = new Songs(newSongParam);
     //save song in db
     await song.save();
     return res.status(200).json(song);
-
 }
 // get all musics added by a user with its id
 async function getSongsByUser(id, res) {
