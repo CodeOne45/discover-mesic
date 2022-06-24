@@ -103,7 +103,7 @@
 .log_btn { 
   display: flex;
   height:30px;
-  width: 80px;
+  width: 130px;
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
@@ -123,13 +123,20 @@
   color: var(--color-icon-heart)!important;
 }
 
+.none_btn{
+  display:none;
+}
+
 
 @media screen and (min-width: 600px) {
   .auth_btn{ 
     margin: 0 0 0 auto;
   }
+  .topnav .humburger_icon{
+    display: none;
+  }
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
   .topnav  {
     display: block!important;
   }
@@ -142,10 +149,6 @@
   .topnav .auth_btn{ 
     display: none;
   }
-  .topnav a.icon {
-    float: left;
-    display: block;
-  }
   .topnav .register_btn{
     display: none;
   }
@@ -154,8 +157,11 @@
   }
 }
 
-@media screen and (max-width: 600px) {
-  .topnav.responsive .icon {
+@media screen and (max-width: 900px) {
+  .topnav.responsive{
+    height: 100%
+  }
+  .topnav.responsive .humburger_icon {
     position: absolute;
     left: 0;
     top: 0;
@@ -165,8 +171,18 @@
     float: none;
     display: block;
   }
-  .topnav .auth_btn{ 
+  .topnav.responsive .auth_btn{ 
     display: block;
+  }
+
+  .topnav.responsive .auth_btn .log_btn{
+    display: flex;
+    height:30px;
+    width: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
   }
   .topnav.responsive .logo_wrapper{
     display: flex;
@@ -183,3 +199,5 @@
   }
   
 }
+
+

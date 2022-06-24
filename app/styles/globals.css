@@ -146,6 +146,29 @@ button {
 #dark .home_catchphrase__PXl2q {
   color: var(--color-text-1);
 }
+#dark .music-list-item-component_item_wrapper__E5q9Y{
+  background-color: var(--dark-1);
+}
+
+#dark .music-list-item-component_item_box__FCbzn{
+  box-shadow: 20px 20px 30px var(--dark-2), -20px -20px 60px var(--dark-1);
+}
+
+#dark .music-list-item-component_buttons_swipe__SuSSA .music-list-item-component_fav__ke9Fj .MuiIconButton-label{
+  color: red;
+}
+#dark .music-list-item-component_buttons_swipe__SuSSA .music-list-item-component_close__sizQb .MuiIconButton-label{
+  color:var(--dark-2);
+}
+
+#dark .music-list-item-component_buttons_swipe__SuSSA .music-list-item-component_close__sizQb {
+  box-shadow: none;
+}
+#dark .music-list-item-component_buttons_swipe__SuSSA .music-list-item-component_fav__ke9Fj{
+  box-shadow: none;
+}
+
+
 
 
 

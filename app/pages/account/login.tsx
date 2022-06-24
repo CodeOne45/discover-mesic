@@ -8,11 +8,14 @@ import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import {userService} from '../../services/user.service';
 
+import { useTranslation } from 'next-export-i18n';
+
 function Login() {
     const router = useRouter();
     const [message, setMessage] = useState("");
     const [color, setColor] = useState("");
 
+    const {t} = useTranslation();
 
 
     // form validation rules 
@@ -40,25 +43,25 @@ function Login() {
     return (
         <Layout>
             <div className="card">
-                <h4 className="card-header">Login</h4>
+                <h4 className="card-header">{t('login.Login')}</h4>
                 <div className="card-body">
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group">
-                            <label>Username or Email</label>
+                            <label>{t('login.Username_Email')}</label>
                             <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.username?.message}</div>
                         </div>
                         <div className="form-group">
-                            <label>Password</label>
+                            <label>{t('login.Password')}</label>
                             <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.password?.message}</div>
                         </div>
                         <div className="message">{message ? <p style={{ color: `${color}` }}>{message}</p> : null}</div>
                         <button disabled={formState.isSubmitting} className="btn btn-primary">
                             {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                            Login
+                            {t('login.Login')}
                         </button>
-                        <Link href="/account/register" className="btn btn-link">Register</Link>
+                        <Link href="/account/register" className="btn btn-link">{t('login.Register')}</Link>
                     </form>
                 </div>
             </div>

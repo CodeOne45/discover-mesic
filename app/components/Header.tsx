@@ -9,12 +9,18 @@ import classNames from "classnames";
 import { useRouter } from "next/router";
 import {userService} from '../services/user.service';
 
+import { useTranslation, LanguageSwitcher } from 'next-export-i18n';
+
 import Link from "next/link";
 import styles from "../styles/header-component.module.css";
 
 import logo from '../asset/logo_large.png';
 
+import Hamburger from 'hamburger-react'
+
 const Header: React.FC = () => {
+  const { t } = useTranslation();
+
   const [keyword, setKeyword] = useState<string>("");
 
   const router = useRouter();
@@ -70,13 +76,14 @@ const Header: React.FC = () => {
       </div>
 
       <a href="/discover">Top 10</a>
-      <a href="#">About Us</a>
+      <a href="#">{t('header.About_us')}</a>
+
       
       <form className={styles.search_form} onSubmit={submitSearchHandler}>
         <div className={styles.text_box}>
           <input
             type="text"
-            placeholder="Search for a song"
+            placeholder={t('header.Search_for_a_song')}
             className={classNames(styles.text, "font-nanum")}
             value={keyword}
             onChange={changeKeywordHandler}
@@ -86,18 +93,26 @@ const Header: React.FC = () => {
           </button>
         </div>
       </form>
+      <div className="d-flex justify-content-end align-items-center language-select-root">
+        <LanguageSwitcher lang="fr">FR</LanguageSwitcher> |{' '}
+				<LanguageSwitcher lang="en">EN</LanguageSwitcher>
+      </div>
       <div className={styles.auth_btn}>
         {user?
-          <a style={"display: none"}></a> : <a className={styles.register_btn} href="/account/register">Register</a>
+          <a className={styles.none_btn}></a> : <a className={styles.register_btn} href="/account/register"> {t('header.Register')}</a>
         }
         {user?         
-          <a className={styles.log_btn} onClick={logout}>Logout</a> : <a className={styles.log_btn} href="/account/login">Login</a>
+          <button className={styles.log_btn} onClick={logout}>{t('header.Logout')}</button> : <a className={styles.log_btn} href="/account/login">{t('header.Login')}</a>
         }
+      </div>
+      <div className={styles.humburger_icon}>
+        <Hamburger onToggle={toggled => {
+          myFunction();
+        }}
+        size={20} />  
       </div>
       
 
-      
-      <a className={styles.icon} onClick={myFunction}>&#9776;</a>
     </nav>
   )
 };
