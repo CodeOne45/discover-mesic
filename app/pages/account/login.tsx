@@ -8,9 +8,7 @@ import Link from '../../components/Link';
 import Layout from '../../components/Layout';
 import {userService} from '../../services/user.service';
 
-import { useCookies } from 'react-cookie';
 
-const [cookies,setCookie,removeCookie]=useCookies(['user']);
 function Login() {
     const router = useRouter();
     const [message, setMessage] = useState("");

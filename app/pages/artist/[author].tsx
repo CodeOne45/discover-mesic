@@ -47,13 +47,13 @@ import Controller from "../../components/music/Controller";
             }
         })();
 
-      }, []);
+      }, [props.data[0].yt_id]);
 
     if (!props.data) {
         return <PreloaderComp />;
       }
     return (
-        <>
+      <Layout>
         
               <div className={styles.content}>
               
@@ -72,25 +72,22 @@ import Controller from "../../components/music/Controller";
           <div>         
           
           </div>
-            <Layout>
               
             <div>
               <div className={styles.bold}>
-<h3> More content from {props.data[0].author}</h3></div>
-      {props.data.map((artist: any) => (
-        <div>
-        <p key={artist.id}> Title : {artist.title}</p>
-        <img src={artist.yt_id?thumbnailLink(artist.yt_id): pochetteImage.src} alt="Landing pochette"/>
-         <p>   <FaPlay /> <FaHeart  className={styles.heart}/> {artist.numberOfLikes}</p>
-       
-        <p>Date insertion : {artist.dateInsertion}</p>
-        </div>
-      ))}
-    </div>
-            </Layout>
+                <h3> More content from {props.data[0].author}</h3></div>
+                {props.data.map((artist: any) => (
+                  <div>
+                    <p key={artist.id}> Title : {artist.title}</p>
+                    <img src={artist.yt_id?thumbnailLink(artist.yt_id): pochetteImage.src} alt="Landing pochette"/>
+                    <p>   <FaPlay /> <FaHeart  className={styles.heart}/> {artist.numberOfLikes}</p>
+                  
+                    <p>Date insertion : {artist.dateInsertion}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-
-        </>
+      </Layout>
     );
  };
 
