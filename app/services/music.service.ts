@@ -11,8 +11,13 @@ export const songService = {
     findMusicsBySearch,
     findMusicById,
     findMusicsByArtists,
+    findTotalLikesbyUsername,
 };
 
+function findTotalLikesbyUsername(username: string){
+  return fetchWrapper.get(`${API_URL}/songs/totallikes/${username}`);
+
+}
 function songsList(){
     return fetchWrapper.get(`${API_URL}/songs/songs`);
 }

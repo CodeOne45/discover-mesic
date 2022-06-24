@@ -34,17 +34,17 @@ async function authenticate(userAuthentification,res) {
     const comparePassword = await bcrypt.compare(userAuthentification.password, user.password);
     if (comparePassword) {
       // Make sure the user has been verified
-      //if (!user.isVerified) return res.status(401).json({ type: 'not-verified', message: 'Your account has not been verified.' });
+      if (!user.isVerified) return res.status(401).json({ type: 'not-verified', message: 'Your account has not been verified.' });
       
       const token = jwt.sign({ sub: user._id }, config.secret, {
         expiresIn: "7d",
       });
-      return {
+      return res.status(200).json( {
         id: user.id,
         username: user.username,
         email: user.email,
         token,
-      };
+      });
     
     } 
 
@@ -64,7 +64,9 @@ async function getById(id) {
 }
 async function getUserProfilById(id, res){
  const user = await User.findById(id);
- res.status(200).json({username : user.username});
+ if(user)return res.status(200).json({username : user.username});
+ 
+ return res.status(200).json({username: "Unknow"});
 }
 
 async function create(userParam, req, res) {
@@ -99,17 +101,17 @@ async function create(userParam, req, res) {
     const user_ = await user.save();
 
     await sendVerificationEmail(user_, req, res);
-    
+   /* 
     if (user_) {
-      const token = jwt.sign({ sub: newUser._id }, config.secret, {
+      const token = jwt.sign({ sub: user_._id }, config.secret, {
         expiresIn: "7d",
       });
-      return {
-        ...newUser.toJSON(),
+      return res.status(200).json( {
+        ...user_.toJSON(),
         token,
-      };
+      });
     }
-   res.status(200).send("The account has been created");    
+    */
     } catch (error) {
         return res.status(500).json({message: error.message})
     }

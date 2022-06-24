@@ -14,13 +14,24 @@ module.exports = {
     getRandomMusic,
     getTopTenSongs,
     getSongByArtist,
+    getTotalLikesbyUsername
 };
 
+async function getTotalLikesbyUsername(artistName, res){
+    let totalLikes = 0;
+    const listSongs = await Songs.find({ author:
+        { $regex: new RegExp("^" + artistName.toLowerCase(), "i") }});
+    listSongs.forEach(song => totalLikes+=song.numberOfLikes);
+    if (totalLikes == 0) {
+        return res.status(200).json({totalLikes : totalLikes});
+    }
+    return res.status(200).json({totalLikes : totalLikes});
+}
 async function getSongByArtist(artistName, res){
     const listSongByArtist = await Songs.find({ author:
           { $regex: new RegExp("^" + artistName.author.toLowerCase(), "i") } });
     if (listSongByArtist.length === 0) {
-        return res.status(400).json({message : "artist has no song"});
+        return res.status(400).json({message : "Artist has no song"});
     }
     return res.status(200).json(listSongByArtist);
 
@@ -41,7 +52,6 @@ async function create(songParam, res) {
     /*if (await Songs.findOne({ username: songParam.yt_id })) {
         throw 'Song name "' + songParam.title + '" is already taken';
     }*/
-    console.log("Body :" + songParam)
     songParam.yt_id = tools.YouTubeGetID(songParam.yt_id);
 
     if (!tools.checkYTview(songParam.yt_id)) {
@@ -51,8 +61,6 @@ async function create(songParam, res) {
     const song = new Songs(songParam);
     //save song in db
     await song.save();
-
-    console.log("------> Song added !");
     return res.status(200).json(song);
 
 }

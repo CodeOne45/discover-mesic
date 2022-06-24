@@ -8,9 +8,14 @@ router.get("/byUser/:userId", getSongsByUser)
 router.get("/randomSong",getRandomMusic)
 router.get("/topten",getTopTenSongs)
 router.post("/artistsongs", getSongByArtist);
-
+router.get("/totallikes/:username",getTotalLikesbyUsername);
 module.exports = router;
 
+function getTotalLikesbyUsername(req, res , next){
+  songService
+    .getTotalLikesbyUsername(req.params.username,res)
+    .catch((err)=>next(err));
+}
 function addSong(req, res, next) {
   songService
     .create(req.body, res)

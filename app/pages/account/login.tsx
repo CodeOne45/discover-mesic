@@ -33,21 +33,14 @@ function Login() {
         return userService.login(username, password)
             .then((user) => {
                 // get return url from query parameters or default to '/'
-                const returnUrl = router.query.returnUrl || '/discover';
-                console.log("================")  
-                console.log(user.data.token)
-                router.push(returnUrl);
-                
+                const returnUrl = router.query.returnUrl || '/discover';   
+                router.push(returnUrl);             
             })
             .catch(error => {
                 setColor("red")
                 setMessage("Error: " +  error.response.data.message)
             });
     }
-    const handleCookie = (user: any) => {
-        setCookie("user",user.data.token);
-      };
-
     return (
         <Layout>
             <div className="card">

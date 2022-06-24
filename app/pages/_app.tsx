@@ -79,7 +79,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <div id={theme}>
         <Container>
             <div className='switch_color'>
-              <label>{theme === 'light' ? 'light mode' : 'Dark Mode'}</label>
+              <label>{theme === 'light' ? 'Light mode' : 'Dark Mode'}</label>
               <ReactSwitch onChange={toggleTheme} checked={theme === 'dark'}/>
             </div>
           <Component {...pageProps} />

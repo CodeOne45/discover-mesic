@@ -18,13 +18,13 @@ export const userService = {
     getById,
     update,
     resendEmail,
-    delete: _delete
+    delete: _delete,
+    getUserProfilById,
 };
 
 function login(username: string, password: string) {
     return fetchWrapper.post(`${API_URL}/users/login`, { username, password })
         .then(user => {
-            console.log("okay")
             // publish user to subscribers and store in local storage to stay logged in between page refreshes
             userSubject.next(user);
             localStorage.setItem('user', JSON.stringify(user));
@@ -50,6 +50,10 @@ function getAll() {
 
 function getById(id: string) {
     return fetchWrapper.get(`${API_URL}/users/${id}`);
+}
+
+function getUserProfilById (id: string){
+    return fetchWrapper.get(`${API_URL}/users/userprofile/${id}`);
 }
 
 function update(id, params) {
