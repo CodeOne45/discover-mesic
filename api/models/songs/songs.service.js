@@ -14,7 +14,8 @@ module.exports = {
     getRandomMusic,
     getTopTenSongs,
     getSongByArtist,
-    getTotalLikesbyUsername
+    getTotalLikesbyUsername,
+    getLikeOfSongbyId
 };
 
 async function getTotalLikesbyUsername(artistName, res){
@@ -93,4 +94,11 @@ async function update(id, songParam) {
 
 async function _delete(id) {
     await User.findByIdAndRemove(id);
+}
+async function getLikeOfSongbyId(idMusic){
+   const song =  await Songs.findOne({yt_id : idMusic});
+   song.numberOfLikes+=1;
+   song.save();
+   return song.numberOfLikes;
+
 }
