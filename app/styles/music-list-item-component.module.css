@@ -4,7 +4,6 @@
 
 .swipe {
     flex-grow: 1;
-    padding-top: 10px;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -106,7 +105,7 @@
 .buttons_swipe .close {
     background: #fcfafa;
     box-shadow: 20px 20px 30px #bebebe, -20px -20px 60px #ffffff;
-    color: #bebebe;s
+    color: #bebebe;
     margin-right: 5%;
 }
 
