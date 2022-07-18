@@ -26,12 +26,15 @@ const Container: React.FC<Props> = ({ children }) => {
   useEffect(() => {
     if (music) {
       const iframe = document.querySelector("#player") as any;
+      //let player = new YT.Player('player');
       if (iframe) {
         if (isPlay) {
           iframe?.contentWindow.postMessage(
             '{"event":"command","func":"playVideo","args":""}',
             "*"
           );
+          //console.log(player.playerInfo["currentTime"]);
+
         } else {
           iframe?.contentWindow.postMessage(
             '{"event":"command","func":"pauseVideo","args":""}',
@@ -60,6 +63,7 @@ const Container: React.FC<Props> = ({ children }) => {
           ></iframe>
         )}
       </div>
+      
     </Context.Provider>
   );
 };

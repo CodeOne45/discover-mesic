@@ -19,11 +19,14 @@ import logo from '../asset/logo_large.png';
 import Hamburger from 'hamburger-react'
 
 const Header: React.FC = () => {
+  const router = useRouter();
+  
   const { t } = useTranslation();
+  const accessPaths = ['/discover'];
 
   const [keyword, setKeyword] = useState<string>("");
+  const path = router.asPath.split('?')[0];
 
-  const router = useRouter();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -79,7 +82,7 @@ const Header: React.FC = () => {
       <a href="#">{t('header.About_us')}</a>
 
       
-      <form className={styles.search_form} onSubmit={submitSearchHandler}>
+      { accessPaths.includes(path) ? (<form className={styles.search_form} onSubmit={submitSearchHandler}>
         <div className={styles.text_box}>
           <input
             type="text"
@@ -92,11 +95,7 @@ const Header: React.FC = () => {
             <i className={classNames("fas fa-search", styles.icon)} />
           </button>
         </div>
-      </form>
-      <div className="d-flex justify-content-end align-items-center language-select-root">
-        <LanguageSwitcher lang="fr">FR</LanguageSwitcher> |{' '}
-				<LanguageSwitcher lang="en">EN</LanguageSwitcher>
-      </div>
+      </form>) : "" }
       <div className={styles.auth_btn}>
         {user?
           <a className={styles.none_btn}></a> : <a className={styles.register_btn} href="/account/register"> {t('header.Register')}</a>

@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Container from "../store";
-import { useTranslation } from 'next-export-i18n';
+import { useTranslation, LanguageSwitcher } from 'next-export-i18n';
+
 
 
 
@@ -79,6 +80,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       <div id={theme}>
         <Container>
             <div className='switch_color'>
+              <div className="language-selector">
+                <LanguageSwitcher lang="fr">FR</LanguageSwitcher> |{' '}
+                <LanguageSwitcher lang="en">EN</LanguageSwitcher>
+              </div>
               <label>{theme === 'light' ? 'Light mode' : 'Dark Mode'}</label>
               <ReactSwitch onChange={toggleTheme} checked={theme === 'dark'}/>
             </div>

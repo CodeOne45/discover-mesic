@@ -3,6 +3,10 @@ import React, { useState } from "react";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import styles from "../../styles/login.module.css";
+import login_img from '../../asset/login_img.svg';
+import { FcGoogle } from 'react-icons/fc'
+
 
 import Link from '../../components/Link';
 import Layout from '../../components/Layout';
@@ -43,26 +47,34 @@ function Login() {
     }
     return (
         <Layout>
-            <div className="card">
-                <h4 className="card-header">{t('login.Login')}</h4>
-                <div className="card-body">
+            <div className={styles.block_login}>
+                <div className={styles.block_login__header}>
+                    <h2 className={styles.header__title}>{t('login.Login')}</h2>
+                    <p className={styles.header__desc}> {t('login.Register_info')} <Link href="/account/register" className={styles.header__desc_btn}>{t('login.Register')}</Link> </p>
+                    <img className={styles.header__img} src={login_img.src}/>
+                </div>
+                
+                <div className={styles.block_login__body}>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="form-group">
-                            <label>{t('login.Username_Email')}</label>
-                            <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
+                        <div className={styles.body__form}>
+                            <p>{t('login.Username_Email')}</p>
+                            <input placeholder="example@mail.com" name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.username?.message}</div>
                         </div>
-                        <div className="form-group">
-                            <label>{t('login.Password')}</label>
-                            <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
+                        <div className={styles.body__form_groupe}>
+                            <p>{t('login.Password')}</p>
+                            <input placeholder="*******" name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.password?.message}</div>
                         </div>
                         <div className="message">{message ? <p style={{ color: `${color}` }}>{message}</p> : null}</div>
-                        <button disabled={formState.isSubmitting} className="btn btn-primary">
+                        <button disabled={formState.isSubmitting} className={styles.body__form_btn}>
                             {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
                             {t('login.Login')}
                         </button>
-                        <Link href="/account/register" className="btn btn-link">{t('login.Register')}</Link>
+                        <div className={styles.body__form_other_options}> 
+                            <p>{t('login.login_option')}</p>
+                            <FcGoogle onClick="" className={styles.form_other_options__icon} />
+                        </div>
                     </form>
                 </div>
             </div>

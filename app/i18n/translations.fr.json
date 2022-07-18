@@ -36,9 +36,11 @@
           },
           "login":{
             "Login" : "Se connecter",
+            "Register_info" : "Si vous n'avez pas de compte enregistré, vous pouvez",
             "Username_Email" : "Email ou Identifiant",
             "Password": "Mot de passe",
-            "Register" : "S'inscrire"
+            "Register" : "S'inscrire",
+            "login_option" : "ou continuer avec"
           }
     }
 }

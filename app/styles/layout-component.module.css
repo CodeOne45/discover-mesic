@@ -1,8 +1,21 @@
 .main {
     display: flex;
     flex-flow: row wrap;
+    align-content: center;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .main > * {
     flex: 1 100%;
+}
+
+/* desktop */
+
+@media (min-width: 700px) {
+
+    .main {
+      max-width: 1400px;
+    }
+
 }

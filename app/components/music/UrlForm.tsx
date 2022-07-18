@@ -28,7 +28,7 @@ const UrlForm: React.FC = () => {
     try {
       let res = await songService.addSong(data);
       if (res.status === 200) {
-        //setyt_id("");
+        setyt_id("");
         //settitle("");
         setColor("green")
         setMessage("Song added successfully");
@@ -36,9 +36,11 @@ const UrlForm: React.FC = () => {
     } catch (err : any) {
       if(err.response.status === 400) {
         setColor("red")
+        setyt_id("");
         setMessage("Error : empty input !");
       }else{
         setColor("red")
+        setyt_id("");
         setMessage("Eroor : Some error occured !");
       }
     }

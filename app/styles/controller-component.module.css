@@ -1,6 +1,6 @@
 .controller {
     position: relative;
-    width: 70px;
+    width: 90px;
     height: 70px;
     border-radius: 100%;
     padding: 5px 12px;
@@ -23,11 +23,3 @@
     color: var(--color-text-100);
 }
 
-@media screen and ( max-width: 700px ) {
-    
-    .controller {
-        width: 65px;
-        height: 65px;
-    }
-
-}

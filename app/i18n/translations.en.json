@@ -36,9 +36,11 @@
     },
     "login":{
       "Login" : "Log in",
+      "Register_info" : "If you don’t have an account registered You can",
       "Username_Email" : "Email or Username",
       "Password": "Password",
-      "Register" : "Register"
+      "Register" : "Register",
+      "login_option" : "or continue with"
     }
   }
 }

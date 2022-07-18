@@ -32,7 +32,7 @@ const Landing: React.FC = () => {
   }, []);   
 
     return (
-      <div id={styles.container} className={styles.container}>
+      <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.title}>
             <span>{TITLE_1}</span>

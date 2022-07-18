@@ -1,31 +1,52 @@
 @media all and (min-width: 600px) {
   /* We tell both sidebars to share a row */
-  .block { flex: 1 0 0!important; }
+  .block { flex: 1 0 0!important; }  
 }
 @media all and (min-width: 800px) {
   .music_lister { order: 1; }
   .other_music    { order: 2; }
 }
 
-.cards:after {
-  content: "*";
-  position: absolute;
-  top: 5px;
-  right: 35px;
-  font-size: 85px;
-  color: #fff;
-}
-.input {
-  position: relative;
-}
-
-.music_lister {
+.tab_nav_container{
+  background-color: white;
+  border-radius: 20px;
+  box-shadow:0 15px 10px rgba(0,0, 0, 0.16),
+  0 3px 6px rgba(0,0, 0, 0.16);
   display: flex;
-  flex-flow: row wrap;
+  justify-content: center;
+  padding: 15px;
+  margin: 0 auto;
+  width: 340px;
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
 }
-
-.music_lister > *{
-  flex: 1 1 100%;
+.tab{
+  border-radius: 50px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  margin: 0 10px;
+  transition: background 0.4s linear;
 }
-
+.tab i{
+  font-size: 1.2em;
+  margin-top: 5px;
+}
+.tab p{
+  font-weight: lighter;
+  max-width: 0;
+  max-width: 100px;
+  transition: max-width 0.4s linear;
+}
+.tab.active{
+  font-weight: bold;
+  background-color: rgba(91,55, 183, 0.2);
+  color: rgba(91,55, 183, 1);
+}
 

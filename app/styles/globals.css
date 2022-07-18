@@ -100,10 +100,15 @@ button {
 }
 
 .switch_color {
-  padding: 100px 10px 0 0;
+  padding: 70px 10px 0 0;
   display: flex;
   width: 100%;
   justify-content: flex-end;
+}
+.language-selector{
+  font-weight: 500;
+  letter-spacing: .4px;
+  font-size: 22px;
 }
 .switch_color label {
   margin: 5px 10px 10px 10px;
@@ -167,6 +172,7 @@ button {
 #dark .music-list-item-component_buttons_swipe__SuSSA .music-list-item-component_fav__ke9Fj{
   box-shadow: none;
 }
+
 
 
 

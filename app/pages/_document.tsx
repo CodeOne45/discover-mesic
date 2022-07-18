@@ -26,6 +26,9 @@ class MyDocument extends Document {
           <meta property="og:email" content="to@khjcode.com" />
           <meta property="og:type" content="music" />
 
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
           <link
             rel="stylesheet"
             href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
@@ -41,16 +44,17 @@ class MyDocument extends Document {
           <link href="//netdna.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
 
         </Head>
-        <body>
-        <Main/>
-        <NextScript/>
-        <script src={"https://www.youtube.com/iframe_api"}/>
-        <script src="https://unpkg.com/type-hangul"/>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `TypeHangul.type('#recommend_text', { intervalType: 90, humanize: 0.5 })`,
-          }}
-        />
+        <body >
+          <Main/>
+          <NextScript/>
+          <script src="/script/assets.js"/>
+          <script src={"https://www.youtube.com/iframe_api"}/>
+          <script src="https://unpkg.com/type-hangul"/>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `TypeHangul.type('#recommend_text', { intervalType: 90, humanize: 0.5 })`,
+            }}
+          />
         </body>
       </Html>
     );
