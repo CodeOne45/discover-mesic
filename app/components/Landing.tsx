@@ -17,6 +17,10 @@ import { songService } from "../services/music.service";
 const Landing: React.FC = () => {
 
   const { t } = useTranslation();
+
+
+  const  [numberOfSongs, setnumberOfSongs] = useState<number>(0);
+
   
   const  [ytBackground, setYtBackground] = useState<string>();
 
@@ -25,11 +29,18 @@ const Landing: React.FC = () => {
         const { data } = (await songService.randomSong());
         if (data.length){
           setYtBackground(data[0].yt_id);
-
         }
-        
     })();
-  }, []);   
+  }, []);  
+  
+  useEffect(() => {
+    (async () => {
+        const { data } = (await songService.songsList());
+        if (data.length){
+          setnumberOfSongs(data.length);
+        }
+    })();
+  }, []); 
 
     return (
       <div className={styles.container}>
@@ -42,7 +53,7 @@ const Landing: React.FC = () => {
             <span>{t('landing.with')}</span>
             <span>{t('landing.make_shine')}</span>
             <span>
-              {t('landing.more_than')}<span className={styles.music_number}>{SUBTITLE_Number}</span> {t('landing.unknown')}
+              {t('landing.more_than')}<span className={styles.music_number}>{numberOfSongs}</span> {t('landing.unknown')}
             </span>
           </div>
         </div>
@@ -67,5 +78,4 @@ const Landing: React.FC = () => {
       </div>
     );
   };
-  //https://css-tricks.com/snippets/css/a-guide-to-flexbox/
   export default Landing;

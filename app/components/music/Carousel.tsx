@@ -111,10 +111,10 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
                     </div>
                 </div>
                 <Slider ref={setSliderRef} {...sliderSettings}>
-                    {topTenSongs.map((card: { title: string; author: string; yt_id: string; }, index: any) => ( 
+                    {topTenSongs.map((card: { title: string; author: string; profile_pic_url: string; }, index: any) => ( 
                     <div className={styles.card}>     
                         <div className={styles.card_image_circle}>
-                            <img src={thumbnailLink(card.yt_id)} />
+                            <img src={card.profile_pic_url} />
                         </div>
                         <div key={index} className={styles.card_content}>
                             <h4>{card.author}</h4>

@@ -34,5 +34,5 @@ app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log("-----> Running API server...")
-  console.log("-----> Server started on : localhost:" + PORT);
+  console.log("-----> Server started on : " + PORT);
 });

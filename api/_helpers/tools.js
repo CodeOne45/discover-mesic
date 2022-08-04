@@ -77,7 +77,8 @@ async function checkYTview(id){
   });
 }
 
-async function get_yt_profile_pic(chaneel_id){
+
+function get_yt_profile_pic(chaneel_id){
   const url = "https://www.googleapis.com/youtube/v3/channels?part=snippet&id="+ chaneel_id + "&fields=items%2Fsnippet%2Fthumbnails&key=" + process.env.YOUTUBE_VIEW_API + "&part=statistics";
 
   return fetch(url)
@@ -88,6 +89,7 @@ async function get_yt_profile_pic(chaneel_id){
        return res.json();
     })
     .then(yt_video =>  {
+      console.log(yt_video.items[0].snippet.thumbnails.high.url)
       return yt_video.items[0].snippet.thumbnails.high.url;
   });
 }
@@ -103,28 +105,25 @@ async function video_details(id){
        return res.json();
     })
     .then(yt_video =>  {
-      //const profile_pic_url = await get_yt_profile_pic(yt_video.items[0].snippet.channelId);
-      /*let data = {
-        yt_id: id,
-        title: yt_video.items[0].snippet.title,
-        author: yt_video.items[0].snippet.channelTitle,
-        profile_pic_url: profile_pic_url,
-        channelID: yt_video.items[0].snippet.channelId
-      };*/
-      let data = {
-        yt_id: id,
-        title: yt_video.items[0].snippet.title,
-        author: yt_video.items[0].snippet.channelTitle,
-        channelID: yt_video.items[0].snippet.channelId
-      };
-      return data;
+      let profile_pic_url;
+      return (async() => {
+        profile_pic_url = await get_yt_profile_pic(yt_video.items[0].snippet.channelId);
+        let data = {
+          yt_id: id,
+          title: yt_video.items[0].snippet.title,
+          author: yt_video.items[0].snippet.channelTitle,
+          profile_pic_url: profile_pic_url,
+          channelID: yt_video.items[0].snippet.channelId
+        };
+        return data;
+      })();
   });
 }
 
 
 async function checkYTVideoURL(chaneel_id){
  
-  // check si la video est une musique, si le temps est inférieur à <
+  // check si la video est une musique
 }
 
 module.exports = { YouTubeGetID, stringToint, checkYTview, uploader, sendEmail, video_details, get_yt_profile_pic};
