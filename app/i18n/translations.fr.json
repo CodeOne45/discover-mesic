@@ -28,6 +28,7 @@
           },
           "register":{
             "register" : "S'inscire",
+            "login_info" : "Si vous avez déjà un compte Vous pouvez",
             "Username" : "Identifiant",
             "Email" : "Email",
             "Password": "Mot de passe",
@@ -37,6 +38,7 @@
           "login":{
             "Login" : "Se connecter",
             "Register_info" : "Si vous n'avez pas de compte enregistré, vous pouvez",
+            "password_forgot" : "Mot de passe oublié?",
             "Username_Email" : "Email ou Identifiant",
             "Password": "Mot de passe",
             "Register" : "S'inscrire",

@@ -18,6 +18,9 @@ import logo from '../asset/logo_large.png';
 
 import Hamburger from 'hamburger-react'
 
+
+import { Nav, Navbar } from "react-bootstrap"
+
 const Header: React.FC = () => {
   const router = useRouter();
   
@@ -71,11 +74,63 @@ const Header: React.FC = () => {
   }
 
   return (
-    <nav className={styles.topnav} id="myTopnav">
-      <div className={styles.logo_wrapper}>
+    <Navbar
+      collapseOnSelect
+      expand="md"
+      bg="light"
+      variant="light"
+      className="px-4 py-8"
+      fixed="top"
+    >
+      <Navbar.Brand>
         <Link href={"/"}>
           <img className={styles.image_container_logo} src={logo.src} alt="Logo Discover Me-sic"/>
         </Link>
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-na" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav className="mr-auto align-items-end px-3">
+          <Nav.Link href="/discover">Top 10</Nav.Link>
+          <Nav.Link href="#">{t('header.About_us')}</Nav.Link>
+        </Nav>
+        <Nav className="ml-auto align-items-end px-3">
+            { accessPaths.includes(path) ? (<form className={styles.search_form} onSubmit={submitSearchHandler}>
+            <div className={styles.text_box}>
+              <input
+                type="text"
+                placeholder={t('header.Search_for_a_song')}
+                className={classNames(styles.text, "font-nanum")}
+                value={keyword}
+                onChange={changeKeywordHandler}
+              />
+              <button className={styles.button}>
+                <i className={classNames("fas fa-search", styles.icon)} />
+              </button>
+            </div>
+          </form>) : "" }
+          <div className={styles.auth_btn}>
+            {user?
+              <a className={styles.none_btn}></a> : <a className={styles.register_btn} href="/account/register"> {t('header.Register')}</a>
+            }
+            {user?         
+              <button className={styles.log_btn} onClick={logout}>{t('header.Logout')}</button> : <a className={styles.log_btn} href="/account/login">{t('header.Login')}</a>
+            }
+          </div>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+    
+  )
+};
+
+export default Header;
+
+
+/**
+ * 
+ * <nav className={styles.topnav} id="myTopnav">
+      <div className={styles.logo_wrapper}>
+        
       </div>
 
       <a href="/discover">Top 10</a>
@@ -113,7 +168,4 @@ const Header: React.FC = () => {
       
 
     </nav>
-  )
-};
-
-export default Header;
+ */

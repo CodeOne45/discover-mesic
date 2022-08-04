@@ -3,6 +3,7 @@ import styles from "../../styles/music-list-item-component.module.css";
 import {songService} from '../../services/music.service';
 import { useTranslation } from 'next-export-i18n';
 
+import { BiPlusCircle } from 'react-icons/bi';
 
 
 const UrlForm: React.FC = () => {
@@ -71,6 +72,7 @@ const UrlForm: React.FC = () => {
         />*/}
 
         <button className={styles.btn} type="submit">{t('UrlForm.make_shine')}</button>
+        <button className={styles.btn_icon} type="submit"><i><BiPlusCircle /></i></button>
 
         <div className="message">{message ? <p style={{ color: `${color}` }}>{message}</p> : null}</div>
       </form>

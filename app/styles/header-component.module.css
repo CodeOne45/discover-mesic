@@ -1,7 +1,6 @@
 .image_container_logo{
-  height: 45px;
+  height: 35px;
   width: 120px;
-  padding-top: 10px;
   cursor: pointer;
 }
 .text_box {
@@ -103,7 +102,7 @@
 .log_btn { 
   display: flex;
   height:30px;
-  width: 130px;
+  width: 110px;
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
@@ -112,6 +111,7 @@
   color: var(--color-text-1)!important;
   border-radius: 10px;
   border: 0;
+  margin: 10px;
 }
 .auth_btn{ 
   display: flex;

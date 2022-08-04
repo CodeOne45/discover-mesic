@@ -75,7 +75,6 @@ async function checkYTview(id){
       }
       return false
   });
-
 }
 
 async function get_yt_profile_pic(chaneel_id){

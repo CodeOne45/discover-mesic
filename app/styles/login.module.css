@@ -33,6 +33,10 @@
     margin-top: -20px;
 }
 
+.header__img_regitser{
+    margin-top: 80px;
+}
+
 .block_login__body{
     width: 400px;
     padding: 20px;
@@ -106,7 +110,11 @@
     }
 
     .header__img{
-        height: 200px; 
+        height: 150px; 
+    }
+    .header__img_regitser{
+        height: 110px;
+        margin-top: 5px;
     }
 
 }
