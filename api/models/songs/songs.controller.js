@@ -9,6 +9,7 @@ router.get("/randomSong",getRandomMusic)
 router.get("/topten",getTopTenSongs)
 router.post("/artistsongs", getSongByArtist);
 router.get("/totallikes/:username",getTotalLikesbyUsername);
+router.put("/increase/likes/:ytId", updateLikes)
 module.exports = router;
 
 function getTotalLikesbyUsername(req, res , next){
@@ -36,8 +37,8 @@ function getAll(req, res, next) {
 
 function getSongsByUser(req, res, next){
   songService.
-  getSongsByUser(req.params.userId, res)
-  .catch((err) => next(err));
+    getSongsByUser(req.params.userId, res)
+    .catch((err) => next(err));
 }
 function getRandomMusic(req, res,next){
   songService.
@@ -47,7 +48,14 @@ function getRandomMusic(req, res,next){
 }
 function getTopTenSongs(req, res,next){
   songService.
-  getTopTenSongs()
-    .then((listTopSongs) => (listTopSongs ? res.json(listTopSongs) : res.sendStatus(404)))
+    getTopTenSongs()
+      .then((listTopSongs) => (listTopSongs ? res.json(listTopSongs) : res.sendStatus(404)))
+      .catch((err) => next(err));
+}
+
+function updateLikes(req, res,next){
+  songService.
+  getLikeOfSongbyId(req.params.ytId)
+    .then((numberOfLikes) => (numberOfLikes ? res.status(200).json(numberOfLikes) : res.sendStatus(404)))
     .catch((err) => next(err));
 }

@@ -50,7 +50,6 @@ async function getById(id) {
 }
 
 async function create(songParam, res) {
-    console.log("okay")
     songParam.yt_id = tools.YouTubeGetID(songParam.yt_id);
 
     if (await Songs.findOne({ yt_id: songParam.yt_id })) {
@@ -87,17 +86,21 @@ async function getTopTenSongs() {
 
 }
 
-async function update(id, songParam) {
-
+// TODO : Update likes after each swipe
+async function update(id, res) {
+    
 }
 
 async function _delete(id) {
-    await User.findByIdAndRemove(id);
+    await Songs.findByIdAndRemove(id);
 }
 async function getLikeOfSongbyId(idMusic){
-   const song =  await Songs.findOne({yt_id : idMusic});
-   song.numberOfLikes+=1;
-   song.save();
-   return song.numberOfLikes;
+    console.log(idMusic)
+    const song =  await Songs.findOne({yt_id : idMusic});
+    song.numberOfLikes+=1;
+    song.save();
 
+    console.log(song)
+
+    return song.numberOfLikes;
 }

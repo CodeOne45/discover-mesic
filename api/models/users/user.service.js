@@ -119,25 +119,25 @@ async function create(userParam, req, res) {
 
 async function update(id, userParam, res) {
   try{
-  const user = await User.findById(id);
-  // validate
-  if (!user) return res.status(400).json({message : "User not found" });
-  // hash password if it was entered
-  if (userParam.password) {
-    // verify new password
-    if (isValidatePassword(userParam.password)) {
-      userParam.hash = bcrypt.hashSync(userParam.password, 10);
-    } else {
-     return res.status(400).json({message :'Password is invalid, you need to have 1 Maj, 1 Min, 1 Number and 1 Caracter special'});
+    const user = await User.findById(id);
+    // validate
+    if (!user) return res.status(400).json({message : "User not found" });
+    // hash password if it was entered
+    if (userParam.password) {
+      // verify new password
+      if (isValidatePassword(userParam.password)) {
+        userParam.hash = bcrypt.hashSync(userParam.password, 10);
+      } else {
+      return res.status(400).json({message :'Password is invalid, you need to have 1 Maj, 1 Min, 1 Number and 1 Caracter special'});
+      }
     }
+    // copy userParam properties to user
+    Object.assign(user, userParam);
+    await user.save();
+    res.status(200).send("The account has been updated");
+  }catch(error){
+    res.status(500).json({message: error.message})
   }
-  // copy userParam properties to user
-  Object.assign(user, userParam);
-  await user.save();
-  res.status(200).send("The account has been updated");
-}catch(error){
-  res.status(500).json({message: error.message})
-}
 }
 // recuperer la playlist de l'utilisateur connecté
 async function getUserPlaylistSongs(id, res) {

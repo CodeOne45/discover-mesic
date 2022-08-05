@@ -22,7 +22,8 @@ function jwt() {
       "/songs/artistsongs",
       "/songs/randomSong",
       /^\/users\/userprofile\/.*/,
-      /^\/songs\/totallikes\/.*/
+      /^\/songs\/totallikes\/.*/,
+      /^\/songs\/increase\/likes\/.*/
     ],  
   });
 }
