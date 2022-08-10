@@ -1,3 +1,10 @@
+.dropdown > a::after {
+  display: none !important; 
+}
+
+.dropdown{
+  margin-left: -80px;
+}
 .image_container_logo{
   height: 35px;
   width: 120px;

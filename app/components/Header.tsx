@@ -16,8 +16,10 @@ import styles from "../styles/header-component.module.css";
 
 import logo from '../asset/logo_large.png';
 
-
 import { Nav, Navbar } from "react-bootstrap"
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
+import AvatarLayout from "./account/AvatarLayout"
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -32,7 +34,6 @@ const Header: React.FC = () => {
 
   useEffect(() => {
       const subscription = userService.user.subscribe(x => setUser(x));
-      //console.log(user.data)
       return () => subscription.unsubscribe();
   }, []);
 
@@ -112,7 +113,13 @@ const Header: React.FC = () => {
               <a className={styles.none_btn}></a> : <a className={styles.register_btn} href="/account/register"> {t('header.Register')}</a>
             }
             {user?         
-              <button className={styles.log_btn} onClick={logout}>{t('header.Logout')} {user.username}</button> : <a className={styles.log_btn} href="/account/login">{t('header.Login')}</a>
+              <NavDropdown title={<AvatarLayout user={user} />} id="basic-nav-dropdown" className={styles.dropdown}> 
+               <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+               <NavDropdown.Divider />
+               <NavDropdown.Item href="#action/3.4" onClick={logout}>
+                {t('header.Logout')}
+               </NavDropdown.Item>
+             </NavDropdown> : <a className={styles.log_btn} href="/account/login">{t('header.Login')}</a>
             }
           </div>
         </Nav>
