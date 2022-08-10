@@ -9,14 +9,12 @@ import classNames from "classnames";
 import { useRouter } from "next/router";
 import {userService} from '../services/user.service';
 
-import { useTranslation, LanguageSwitcher } from 'next-export-i18n';
+import { useTranslation } from 'next-export-i18n';
 
 import Link from "next/link";
 import styles from "../styles/header-component.module.css";
 
 import logo from '../asset/logo_large.png';
-
-import Hamburger from 'hamburger-react'
 
 
 import { Nav, Navbar } from "react-bootstrap"
@@ -34,6 +32,7 @@ const Header: React.FC = () => {
 
   useEffect(() => {
       const subscription = userService.user.subscribe(x => setUser(x));
+      //console.log(user.data)
       return () => subscription.unsubscribe();
   }, []);
 
@@ -113,7 +112,7 @@ const Header: React.FC = () => {
               <a className={styles.none_btn}></a> : <a className={styles.register_btn} href="/account/register"> {t('header.Register')}</a>
             }
             {user?         
-              <button className={styles.log_btn} onClick={logout}>{t('header.Logout')}</button> : <a className={styles.log_btn} href="/account/login">{t('header.Login')}</a>
+              <button className={styles.log_btn} onClick={logout}>{t('header.Logout')} {user.username}</button> : <a className={styles.log_btn} href="/account/login">{t('header.Login')}</a>
             }
           </div>
         </Nav>

@@ -95,6 +95,14 @@ button {
 #light {
   background-color: var(--color-text-1);
 }
+
+/*#light{
+  background: url("../asset/Landpage.png") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}*/
 #dark {
   background: var(--dark-1);
 }
@@ -131,6 +139,8 @@ button {
   background-color: var(--color-text-70);
   color: var(--color-text-1);
 }
+
+
 
 /*Landing Page*/
 #light .home_content_container__RTI_R span {

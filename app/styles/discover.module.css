@@ -1,11 +1,15 @@
 @media all and (min-width: 600px) {
   /* We tell both sidebars to share a row */
-  .block { flex: 1 0 0!important; }  
+  .block { flex: 1 0 0!important;}  
 }
 @media all and (min-width: 800px) {
   .music_lister { order: 1; }
   .other_music    { order: 2; }
 }
+
+.block {  
+  margin-bottom: 80px;
+} 
 
 .tab_nav_container{
   background-color: white;
