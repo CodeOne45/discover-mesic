@@ -1,24 +1,15 @@
 .list_wrapper {
-    position: relative;
+    margin-top: 10px;
+    align-items: center;
+    display: flex;
+    flex-direction: column ;
+    flex-wrap:wrap;
+    height: 650px;
 }
 
-.swipe {
-    flex-grow: 1;
-    padding-top: 10px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;    
-}
 
 .item_wrapper {
-    display: inline-block;
     width: 290px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
     cursor: pointer;
     border-radius: 15px;
     overflow: hidden;
@@ -26,11 +17,7 @@
     cursor: -webkit-grab;
     cursor: -moz-grab;
     cursor: grab;
-    margin-left: -20%;
-    margin-top: 20%;
-    margin-right: 80%;
-    margin-bottom: 70%;
-    transform: translateY(-50%);
+    transform: translateX(-50%);
     background-color: white;
 }
 
@@ -95,11 +82,10 @@
 }
 
 .buttons_swipe{
+    margin-top: 370px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 40%;
-    margin-left: 30%;
     padding: 10px 18px;
 }
 
@@ -125,12 +111,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 5%;
-    margin-right: 5%;
+    margin-top: 30px;
 }
 
 .form .input_box {
-    width: 350px;
+    width: 200px;
     background: #fff;
     color: var(--color-text-60);
     box-shadow: 0 6px 10px 0 rgba(0, 0, 0 , .1);
@@ -151,4 +136,49 @@
     padding: 10px 18px;
     margin-left: 15px;
     cursor: pointer;
+    width: 100px;
+    height: 35px;
+}
+
+.btn_icon{
+    background: var(--brown-btn);
+    color: var(--color-text-1);
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0 , .1);
+    border: 0;
+    outline: 0;
+    border-radius: 10px;
+    padding: 5px 30px;
+    cursor: pointer;
+}
+
+
+@media (min-width: 700px) {
+
+    .list_wrapper {
+        margin-top: 40px;
+    }
+
+    .form .input_box{
+        width: 350px;
+    }
+
+    .btn{
+        width: auto;
+        height: auto;
+    }
+
+    .btn_icon{
+        display: none;
+    }
+
+}
+
+@media (max-width: 1000px) {
+    .btn{
+        display: none;
+    }    
+
+    .btn_icon{
+        display: block;
+    }
 }

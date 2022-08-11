@@ -6,7 +6,7 @@ const db = require("_helpers/db");
 const User = db.User;
 const Tokens = db.Tokens;
 const emailCheck = require('email-check');
-
+const songService = require("../songs/songs.service"); 
 const {sendEmail} = require('_helpers/tools');
 
 
@@ -25,6 +25,7 @@ module.exports = {
   verify,
   updateUserPassword,
   resendToken,
+  getUserProfilById,
 };
 
 async function authenticate(userAuthentification,res) {
@@ -33,18 +34,17 @@ async function authenticate(userAuthentification,res) {
     const comparePassword = await bcrypt.compare(userAuthentification.password, user.password);
     if (comparePassword) {
       // Make sure the user has been verified
-      //if (!user.isVerified) return res.status(401).json({ type: 'not-verified', message: 'Your account has not been verified.' });
+      if (!user.isVerified) return res.status(401).json({ type: 'not-verified', message: 'Your account has not been verified.' });
       
       const token = jwt.sign({ sub: user._id }, config.secret, {
         expiresIn: "7d",
       });
-      console.log(user)
-      return {
+      return res.status(200).json( {
         id: user.id,
         username: user.username,
         email: user.email,
         token,
-      };
+      });
     
     } 
 
@@ -61,6 +61,12 @@ async function getAll() {
 
 async function getById(id) {
   return await User.findById(id);
+}
+async function getUserProfilById(id, res){
+ const user = await User.findById(id);
+ if(user)return res.status(200).json({username : user.username});
+ 
+ return res.status(200).json({username: "Unknow"});
 }
 
 async function create(userParam, req, res) {
@@ -95,17 +101,17 @@ async function create(userParam, req, res) {
     const user_ = await user.save();
 
     await sendVerificationEmail(user_, req, res);
-    
+   /* 
     if (user_) {
-      const token = jwt.sign({ sub: newUser._id }, config.secret, {
+      const token = jwt.sign({ sub: user_._id }, config.secret, {
         expiresIn: "7d",
       });
-      return {
-        ...newUser.toJSON(),
+      return res.status(200).json( {
+        ...user_.toJSON(),
         token,
-      };
+      });
     }
-   res.status(200).send("The account has been created");    
+    */
     } catch (error) {
         return res.status(500).json({message: error.message})
     }
@@ -113,51 +119,57 @@ async function create(userParam, req, res) {
 
 async function update(id, userParam, res) {
   try{
-  const user = await User.findById(id);
-  // validate
-  if (!user) return res.status(400).json({message : "User not found" });
-  // hash password if it was entered
-  if (userParam.password) {
-    // verify new password
-    if (isValidatePassword(userParam.password)) {
-      userParam.hash = bcrypt.hashSync(userParam.password, 10);
-    } else {
-     return res.status(400).json({message :'Password is invalid, you need to have 1 Maj, 1 Min, 1 Number and 1 Caracter special'});
+    const user = await User.findById(id);
+    // validate
+    if (!user) return res.status(400).json({message : "User not found" });
+    // hash password if it was entered
+    if (userParam.password) {
+      // verify new password
+      if (isValidatePassword(userParam.password)) {
+        userParam.hash = bcrypt.hashSync(userParam.password, 10);
+      } else {
+      return res.status(400).json({message :'Password is invalid, you need to have 1 Maj, 1 Min, 1 Number and 1 Caracter special'});
+      }
     }
+    // copy userParam properties to user
+    Object.assign(user, userParam);
+    await user.save();
+    res.status(200).send("The account has been updated");
+  }catch(error){
+    res.status(500).json({message: error.message})
   }
-  // copy userParam properties to user
-  Object.assign(user, userParam);
-  await user.save();
-  res.status(200).send("The account has been updated");
-}catch(error){
-  res.status(500).json({message: error.message})
-}
 }
 // recuperer la playlist de l'utilisateur connecté
 async function getUserPlaylistSongs(id, res) {
   const user = await User.findById(id);
-  if(!user) res.status(404).json({message: "erreur get playlist"});
+  if(!user) return res.status(404).json({message: "erreur get playlist"});
   return res.status(200).json(user.playlistIdSongs);
 }
 // recuperer la list de l'utilisateur connecté swipé à gauche
 async function getUserPlaylistSongsLeftById(id,res) {
   const user = await User.findById(id);
-  if(!user) res.status(404).json({message: "erreur get playlist"});
+  if(!user) return res.status(404).json({message: "erreur get playlist left"});
   return res.status(200).json(user.listIdSongsSwiptoLeft);
 }
-// update la playlist utilisateur quand il ajoute une musique
-async function updateUserPlaylistSongsSwipLeft(id, param) {
+// update la playlist utilisateur des musiques non likées
+async function updateUserPlaylistSongsSwipLeft(id, param, res) {
   const user = await User.findById(id);
+  if(!user) return res.status(404).json({message: "erreur uppdate playlist left"});
+  if( typeof param.idMusic === 'undefined' || param.idMusic === null || param.idMusic === "" ) return res.status(402).json({message: "champ id music est vide"});
   user.listIdSongsSwiptoLeft.push(param.idMusic)
   user.save();
-  return user.toJSON();
+  return res.status(200).json({playlistuserLeft: user.listIdSongsSwiptoLeft , username : user.username});
 }
-// update la playlist utilisateur quand il ajoute une musique
+// update la playlist utilisateur quand il ajoute une musique (on peut ajouter plusieurs fois une même musique)
 async function updateUserPlaylistSongs(id, param, res) {
   const user = await User.findById(id);
+  if(!user) return res.status(404).json({message: "erreur update playlist"});
+  if( typeof param.idMusic === 'undefined' || param.idMusic === null || param.idMusic === "" ) return res.status(402).json({message: "champ id music est vide"});
   user.playlistIdSongs.push(param.idMusic);
   user.save();
-  return user.toJSON();
+  //call service song for +1 like
+  var nbrLikes = await songService.getLikeOfSongbyId(param.idMusic);
+  return res.status(200).json({playlistuser: user.playlistIdSongs , username : user.username, nombreLikes : nbrLikes});
 }
 async function deleteUserPlaylistSongs(id, param, res) {
   var listSongToRemove = param.idMusic.map(s => s.toString());

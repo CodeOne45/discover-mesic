@@ -15,6 +15,7 @@ function onYoutubeIframeAPIReady() {
 }
 
 function onPlayerReady(event) {
-  console.log('init!');
   event.target.playVideo();
 }
+
+

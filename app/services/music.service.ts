@@ -10,8 +10,14 @@ export const songService = {
     findMusics,
     findMusicsBySearch,
     findMusicById,
+    findMusicsByArtists,
+    findTotalLikesbyUsername,
+    increaseLikes,
 };
 
+function findTotalLikesbyUsername(username: string){
+  return fetchWrapper.get(`${API_URL}/songs/totallikes/${username}`);
+}
 function songsList(){
     return fetchWrapper.get(`${API_URL}/songs/songs`);
 }
@@ -26,6 +32,11 @@ function randomSong(){
 
 function topTen(){
     return fetchWrapper.get(`${API_URL}/songs/topten`);
+}
+
+function increaseLikes(yt_id: string){
+  console.log(yt_id)
+  return fetchWrapper.put(`${API_URL}/songs/increase/likes/${yt_id}`, {});
 }
 
 
@@ -61,4 +72,8 @@ function findMusicById(id: string, musics :IMusic[]): IMusic | null {
     if (id === music.yt_id) return music;
   }
   return null;
+}
+function findMusicsByArtists(author: any){
+  return fetchWrapper.post(`${API_URL}/songs/artistsongs`, {author: author});
+
 }

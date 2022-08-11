@@ -26,7 +26,6 @@ const Search: React.FC<{ keyword: string }> = ({keyword}) => {
     if (keyword && musics.length != 0) {
       (async () => {
         const data = songService.findMusicsBySearch(keyword,musics);
-        console.log(data)
         setMusicsSearched(data);
       })();
     }

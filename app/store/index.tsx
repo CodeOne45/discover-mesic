@@ -26,12 +26,15 @@ const Container: React.FC<Props> = ({ children }) => {
   useEffect(() => {
     if (music) {
       const iframe = document.querySelector("#player") as any;
+      //let player = new YT.Player('player');
       if (iframe) {
         if (isPlay) {
           iframe?.contentWindow.postMessage(
             '{"event":"command","func":"playVideo","args":""}',
             "*"
           );
+          //console.log(player.playerInfo["currentTime"]);
+
         } else {
           iframe?.contentWindow.postMessage(
             '{"event":"command","func":"pauseVideo","args":""}',
@@ -56,10 +59,11 @@ const Container: React.FC<Props> = ({ children }) => {
             src={`https://www.youtube.com/embed/${music?.yt_id}?version=3&enablejsapi=1&autoplay=1&control=0`}
             title="YouTube video player"
             frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; playsinline"
           ></iframe>
         )}
       </div>
+      
     </Context.Provider>
   );
 };

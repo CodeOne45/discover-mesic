@@ -10,6 +10,8 @@ import styles from "../../styles/music-list-item-component.module.css";
 import { Context } from "../../store";
 import UrlForm from "./UrlForm";
 import Controller from "./Controller";
+import Link from "next/link";
+import {songService} from '../../services/music.service';
 
 
 interface Props {
@@ -17,7 +19,7 @@ interface Props {
 }
 
 const MusicList: React.FC<Props> = ({ musics }) => {
-  const {  setMusic, setIsPlay, playStarted, setPlayStarted } = useContext(Context) as any;
+  const { music, setMusic, setIsPlay, playStarted, setPlayStarted } = useContext(Context) as any;
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentIndexRef = useRef(currentIndex)
   const canSwipe = currentIndex >= 0;
@@ -40,24 +42,25 @@ const MusicList: React.FC<Props> = ({ musics }) => {
     } else router?.push("/404");
   }, [musics]);
   
-  const swiped =  (dir : any, music : IMusic, index : integer) => {
-    console.log("You swiped: " + dir);
-    if (music != null && canSwipe ) {
-      setMusic(music);
-      setIsPlay(true);
+  const swiped =  (dir : any, musicSwiped : IMusic, index : integer) => {
+    if (musicSwiped != null) {
       if (dir === "right") {
+        (async() => {
+          let res = await songService.increaseLikes(music.yt_id);
+        })();
         console.log("Music added to your favrotes !");
       } else {
         console.log("Music skiped !");
       }
+      setMusic(musicSwiped);
+      setIsPlay(true);
+      
       updateCurrentIndex(index - 1);
     }
   };
 
   const swipe = async (dir : any) => {
-    console.log(currentIndex);
     if (canSwipe && currentIndex < musics.length) {
-      console.log("Swiping");
       await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
     }
   }
@@ -92,9 +95,11 @@ const MusicList: React.FC<Props> = ({ musics }) => {
                           alt={music.title}
                         />
                       </div>
+                      <Link href={`/artist/${music.author}`}>   
                       <h2 className={classNames(styles.title, "font-nunito")}>
                         {music.title}
                       </h2>
+                      </Link>
                       <h3 className={classNames(styles.author, "font-nunito")}>
                         {music.author}
                       </h3>

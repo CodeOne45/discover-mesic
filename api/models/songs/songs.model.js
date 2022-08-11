@@ -6,10 +6,12 @@ const songSchema = new Schema({
   yt_id: { type: String, unique: true, required: true },
   title: { type: String, required: true },
   author: { type: String, required: true},
-  addedBy: { type: ObjectID, required: true},
-  numberOfLikes : { type: Number, required: true },
+  addedBy: { type: ObjectID},
+  numberOfLikes : { type: Number, default: 0 },
   dateInsertion : {  type : Date, default: Date.now},
-  isVerified: {type: Boolean,default: false}
+  isVerified: {type: Boolean,default: false},
+  profile_pic_url: { type: String, default: "" },
+  channelID: { type: String, required: true }
 });
 
 songSchema.set("toJSON", {

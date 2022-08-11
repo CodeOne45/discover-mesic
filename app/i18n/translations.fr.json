@@ -1,0 +1,48 @@
+{  
+    "i18n": {
+        "header": {
+            "Login": "Se connecter",
+            "Logout": "Déconnexion",
+            "Register": "S'inscire",
+            "Search_for_a_song": "Chercher un morceau",
+            "About_us" : "À propos de nous"
+        },
+        "index": {
+            "Discover_unknown_artists" : "Découvrer des artiste méconnus"
+          },
+          "landing": {
+            "beautiful": "Les choses les plus belles sont souvent cachées, comme les diamants",
+            "make_shine": "Découvrez ou faites briller un artiste qui mérite d'être connu",
+            "with" : "Avec DISCOVER ME’SIC,",
+            "unknown" : "morceaux uniques à découvrir",
+            "more_than" : "Plus de ",
+            "Discover" : "Découvrir"
+          },
+          "carousel": {
+            "Most_Liked_Artists" : "Artistes les plus appréciés",
+            "Most_Liked_Songs" : "Morceaux les plus aimés"
+          },
+          "UrlForm" :{
+            "make_shine" : "Faites le briller",
+            "Youtube" : "Lien YouTube"
+          },
+          "register":{
+            "register" : "S'inscire",
+            "login_info" : "Si vous avez déjà un compte Vous pouvez",
+            "Username" : "Identifiant",
+            "Email" : "Email",
+            "Password": "Mot de passe",
+            "Confirm_Password" : "Confirmation du mot de passe",
+            "Cancel" : "Annuler"
+          },
+          "login":{
+            "Login" : "Se connecter",
+            "Register_info" : "Si vous n'avez pas de compte enregistré, vous pouvez",
+            "password_forgot" : "Mot de passe oublié?",
+            "Username_Email" : "Email ou Identifiant",
+            "Password": "Mot de passe",
+            "Register" : "S'inscrire",
+            "login_option" : "ou continuer avec"
+          }
+    }
+}

@@ -21,8 +21,7 @@ function get(url: any) {
     };
     return axios(requestOptions);
 }
-
-function post(url: any, body: any) {
+ function post(url: any, body: any) {
     const requestOptions = {
         method: 'POST',
         url: url,
@@ -41,6 +40,7 @@ function put(url: any, body: any) {
         headers: { 'Content-Type': 'application/json', ...authHeader(url) },
         data: JSON.stringify(body)
     };
+    
     return axios(requestOptions);    
 }
 
@@ -58,7 +58,7 @@ function _delete(url: any) {
 
 function authHeader(url: any) {
     // return auth header with jwt if user is logged in and request is to the api url
-    const user = userService.userValue;
+    var user = userService.userValue;
     const isLoggedIn = user && user.token;
     const isApiUrl = url.startsWith(publicRuntimeConfig.apiUrl);
     if (isLoggedIn && isApiUrl) {

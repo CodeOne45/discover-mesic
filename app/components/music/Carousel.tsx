@@ -11,6 +11,7 @@ import type { IMusic } from "../../types/music";
 
 import PreloaderComp from '../preloader/preloaderComp';
 import Link from '../Link';
+import { useTranslation } from 'next-export-i18n';
 
 
 
@@ -23,6 +24,8 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
     
     const [sliderRef, setSliderRef] = useState(null);
     
+    const {t} = useTranslation();
+
     const settings = { 
         fade: true ,
         speed: 500, // ms
@@ -36,19 +39,19 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
         // removes default buttons
         arrows: false,
         slidesToShow: 3,
-        slidesToScroll: 1,
+        slidesToScroll: 3,
         infinite: false,
         responsive: [
             {
                 breakpoint: 1024,
                 settings: {
-                slidesToShow: 2,
+                slidesToShow: 3,
                 }
             },
             {
                 breakpoint: 600,
                 settings: {
-                slidesToShow: 1,
+                slidesToShow: 3,
                 }
             }
         ]
@@ -57,47 +60,51 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
     if(slide_type == 'song') {
         return (
         <div className={styles.content}>
-        <div className={styles.content_header}>
-            <h1 className={styles.content_title}>Most Like song</h1>
-            <div className={styles.button_container}>
-                {sliderRef ? (
-                    <>
-                    <button onClick={sliderRef?.slickPrev}>
-                        <FaChevronLeft />
-                    </button>
-                    <button onClick={sliderRef?.slickNext}>
-                        <FaChevronRight />
-                    </button>
-                    </>
-                ): null}
-            </div>
-        </div>
-        <Slider ref={setSliderRef} {...sliderSettings}>
-            {topTenSongs.map((card: { id: srting ; title: string; author: string; yt_id: string; numberOfLikes:double; }, index: any) => ( 
-                <div className={styles.card}>  
-                    <Link className={styles.Link} href={`/music/${card.yt_id}`}>   
-                        <div className={styles.card_image}>
-                            <img src={thumbnailLink(card.yt_id)} />
-                            <p><FaHeart /> {card.numberOfLikes}</p>
-                        </div>
-                        <div className={styles.icon}>
-                            <i className="fas fa-play-circle" />
-                        </div>
-                    </Link>
-                    <div key={index} className={styles.card_content}>
-                        <h4>{card.title}</h4>
-                        <p>{card.author}</p>
-                    </div>
+            <div className={styles.content_header}>
+                <h1 className={styles.content_title}>{t('carousel.Most_Liked_Songs')}</h1>
+                <div className={styles.button_container}>
+                    {sliderRef ? (
+                        <>
+                        <button onClick={sliderRef?.slickPrev}>
+                            <FaChevronLeft />
+                        </button>
+                        <button onClick={sliderRef?.slickNext}>
+                            <FaChevronRight />
+                        </button>
+                        </>
+                    ): null}
                 </div>
-            ))}
-        </Slider>
+            </div>
+            <Slider ref={setSliderRef} {...sliderSettings}>
+                {topTenSongs.map((card: { id: srting ; title: string; author: string; yt_id: string; numberOfLikes:double; }, index: any) => ( 
+                    <div className={styles.card}>  
+                        <Link className={styles.Link} href={`/music/${card.yt_id}`}>   
+                            <div className={styles.card_image}>
+                                <img src={thumbnailLink(card.yt_id)} />
+                            </div>
+                            <div className={styles.icon}>
+                                <i className="fas fa-play-circle" />
+                            </div>
+                        </Link>
+                        <div key={index} className={styles.card_content}>
+                            <div className={styles.card_content_main_info}>
+                                <h4>{card.title}</h4>
+                                <p>{card.author}</p>
+                            </div>
+                            <div className={styles.card_content_likes}>
+                                <p><FaHeart className={styles.card_content_likes_icon} /> {card.numberOfLikes}</p>
+                            </div>                            
+                        </div>
+                    </div>
+                ))}
+            </Slider>
         </div>
         )      
     } else if(slide_type == 'artiste') {
         return (
             <div className={styles.content}>
                 <div className={styles.content_header}>
-                    <h1 className={styles.content_title}>Most Like Artiste</h1>
+                    <h1 className={styles.content_title}>{t('carousel.Most_Liked_Artists')}</h1>
                     <div className={styles.button_container}>
                         <button onClick={sliderRef?.slickPrev}>
                             <FaChevronLeft />
@@ -108,12 +115,12 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
                     </div>
                 </div>
                 <Slider ref={setSliderRef} {...sliderSettings}>
-                    {topTenSongs.map((card: { title: string; author: string; yt_id: string; }, index: any) => ( 
-                    <div className={styles.card}>     
+                    {topTenSongs.map((card: { title: string; author: string; profile_pic_url: string; }, index: any) => ( 
+                    <div className={styles.card_artist}>     
                         <div className={styles.card_image_circle}>
-                            <img src={thumbnailLink(card.yt_id)} />
+                            <img src={card.profile_pic_url} />
                         </div>
-                        <div key={index} className={styles.card_content}>
+                        <div key={index} className={styles.card_content_artist}>
                             <h4>{card.author}</h4>
                         </div>
                     </div> 

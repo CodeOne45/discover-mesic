@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Layout from '../../components/Layout';
 import musicNotesImg from '../../asset/music_notes.png';
 import {userService} from '../../services/user.service';
+import styles from "../../styles/verification.module.css";
 
 function Verification(props) {
     const router = useRouter();
@@ -25,27 +26,27 @@ function Verification(props) {
             });
     }
   
-    useEffect(() => {
+    /*useEffect(() => {
         if(!email){
             router.push('register')
         }
-    }, [email]);
+    }, [email]);*/
     
 
     return(
         <Layout>
-            <div className="container">
-                <img src={musicNotesImg.src} />
-                <h2>Please verify your email</h2>
-                <p>You're almost there! We sent an email to {email}<br/></p>
+            <div className={styles.block_verification}>
+                <img className={styles.verification_img} src={musicNotesImg.src} />
+                <h2 className={styles.verification_header}>Please verify your email</h2>
+                <p className={styles.verification_info}>You're almost there! We sent an email to <br>{email}</br></p>
 
-                <small className="info">
+                <small className={styles.verification_other_info}>
                     Just click on the link in that email to complete your signup.
                     If you don't see it, you may need to check your spam folder                
                 </small>
 
-                <p>Still can't find the email?   
-                    <div className="navbar-nav">
+                <p className={styles.verification_resend}>Still can't find the email?   
+                    <div className={styles.verification_resend_btn}>
                         <a onClick={resendMail} className="nav-item nav-link">Resend Email</a>
                     </div>
                 </p>
