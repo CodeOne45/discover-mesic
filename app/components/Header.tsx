@@ -81,6 +81,7 @@ const Header: React.FC = () => {
       variant="light"
       className="px-4 py-8"
       fixed="top"
+      className={styles.topnav}
     >
       <Navbar.Brand>
         <Link href={"/"}>
@@ -114,12 +115,12 @@ const Header: React.FC = () => {
             }
             {user?         
               <NavDropdown title={<AvatarLayout user={user} />} id="basic-nav-dropdown" className={styles.dropdown}> 
-               <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
-               <NavDropdown.Divider />
-               <NavDropdown.Item href="#action/3.4" onClick={logout}>
-                {t('header.Logout')}
-               </NavDropdown.Item>
-             </NavDropdown> : <a className={styles.log_btn} href="/account/login">{t('header.Login')}</a>
+                <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4" onClick={logout}>
+                  {t('header.Logout')}
+                </NavDropdown.Item>
+              </NavDropdown> : <a className={styles.log_btn} href="/account/login">{t('header.Login')}</a>
             }
           </div>
         </Nav>

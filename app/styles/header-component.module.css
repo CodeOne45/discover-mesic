@@ -2,9 +2,16 @@
   display: none !important; 
 }
 
-.dropdown{
+.dropdown > div{
   margin-left: -80px;
 }
+
+.navbar-nav .dropdown-menu {
+  position: static;
+  float: none;
+  margin-left: -80px;
+}
+
 .image_container_logo{
   height: 35px;
   width: 120px;
@@ -109,7 +116,7 @@
 .log_btn { 
   display: flex;
   height:30px;
-  width: 110px;
+  width: 130px;
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
