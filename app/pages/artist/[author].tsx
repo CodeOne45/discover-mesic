@@ -18,21 +18,11 @@ import Songs from "../../components/artist/Songs";
  * Handle /artist/[author] type url 
  */
  const Author: React.FC<IMusic | any> = (props) => {
-  const {  setMusic, setIsPlay, playStarted, setPlayStarted } = useContext(Context) as any;
   const author = props.data[0]?.author ?? undefined;
-    const [user, setUser] = useState<any>();
-    const [totallikes, setTotallikes] = useState<number>();
-    const TITLE = props.data[0]? ` Songs of ${author}` : undefined;
-    const URL = `${FRONTEND_URL}/artist/${author}`;
-    const boutton =  (music : IMusic) => {
-      if (music != null) {
-        setMusic(music);
-        setIsPlay(true);
-      }
-    };
-
-    useEffect(() => {
-      (async () => {
+  const [user, setUser] = useState<any>();
+  useEffect(() => {
+    (async () => {
+      if(props.data[0].addedBy){
         const  addedBy  = (await userService.getUserProfilById(props.data[0].addedBy));
         const allLikes = (await songService.findTotalLikesbyUsername(author))            
         if (addedBy.data.username){
@@ -41,20 +31,21 @@ import Songs from "../../components/artist/Songs";
         if(allLikes.data.totalLikes){
           setTotallikes(Number(JSON.stringify(allLikes.data.totalLikes)));
         }
-      })();
-    }, [props.data[0].yt_id]);
+      }        
+    })();
+  }, [props.data[0].yt_id]);
 
-    if (!props.data) {
-        return <PreloaderComp />;
-      }
-    return (
-      <Layout>
-        <div className={styles.container_right}>
-          <Title artist={props.data[0]} />.
-          <Songs songs={props.data} />
-        </div>
-      </Layout>
-    );
+  if (!props.data) {
+      return <PreloaderComp />;
+    }
+  return (
+    <Layout>
+      <div className={styles.container_right}>
+        <Title artist={props.data[0]} />.
+        <Songs songs={props.data} />
+      </div>
+    </Layout>
+  );
  };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
