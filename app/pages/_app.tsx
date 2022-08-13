@@ -7,7 +7,6 @@ import { useTranslation, LanguageSwitcher } from 'next-export-i18n';
 
 
 
-
 import ReactSwitch from 'react-switch';
 //import Head from "next/head";
 import PreloaderComp from '../components/preloader/preloaderComp';
@@ -87,7 +86,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               <label>{theme === 'light' ? 'Light mode' : 'Dark Mode'}</label>
               <ReactSwitch onChange={toggleTheme} checked={theme === 'dark'}/>
             </div>
-          <Component {...pageProps} />
+            <Component {...pageProps} />
         </Container>
       </div>
     </ThemeContext.Provider>

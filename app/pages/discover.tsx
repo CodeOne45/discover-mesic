@@ -12,6 +12,9 @@ import { FRONTEND_URL } from "../constant/url";
 import {songService} from '../services/music.service';
 import useWindowSize from '../helpers/useWindowSize'
 
+import Login from './account/login'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+
 
 /**
  * Discover page
@@ -21,7 +24,7 @@ const Discover: NextPage = () => {
   const {topMusics, setTopMusics} = useContext(Context) as any;
   const size = useWindowSize();    
 
-  const [activeLink, setActiveLink] = useState("full"); // 9 was default in example
+  const [activeLink, setActiveLink] = useState("full");
 
   useEffect(() => {
     (async () => {
@@ -108,8 +111,24 @@ const Discover: NextPage = () => {
       }
       { project() }  
       </Layout>
+      
     </>
   );
 };
 
 export default Discover;
+
+/*
+/*<div className={styles.block}>
+        <div className={styles.music_lister}>
+          <MusicList musics={musics}/>
+        </div>
+        <div className={styles.other_music}>
+          <Router>
+            <Routes>
+              <Route path='/discover/topten' element={<> <Carousel topTenSongs={topMusics} slide_type="song"/><Carousel topTenSongs={topMusics} slide_type="artiste"/> </>} />
+              <Route path='/accoutn/login' element={<Login />} />
+            </Routes>
+          </Router>
+        </div>
+      </div>*/

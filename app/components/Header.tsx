@@ -114,7 +114,7 @@ const Header: React.FC = () => {
               <a className={styles.none_btn}></a> : <a className={styles.register_btn} href="/account/register"> {t('header.Register')}</a>
             }
             {user?         
-              <NavDropdown title={<AvatarLayout user={user} />} id="basic-nav-dropdown" className={styles.dropdown}> 
+              <NavDropdown title={<AvatarLayout user={user.data} withBadge={true} />} id="basic-nav-dropdown" className={styles.dropdown}> 
                 <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.4" onClick={logout}>
@@ -125,6 +125,7 @@ const Header: React.FC = () => {
           </div>
         </Nav>
       </Navbar.Collapse>
+
     </Navbar>
     
   )

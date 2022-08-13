@@ -70,6 +70,7 @@
 .author {
     margin: 10px auto 0;
     text-align: center;
+    line-height: 28px;
     font-weight: 400;
     letter-spacing: .4px;
     font-size: 16px;
@@ -80,6 +81,8 @@
     white-space: nowrap;
     overflow: hidden;
 }
+
+.author a { color: inherit; }
 
 .buttons_swipe{
     margin-top: 370px;

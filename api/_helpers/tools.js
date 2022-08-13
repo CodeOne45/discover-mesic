@@ -94,8 +94,8 @@ function get_yt_profile_pic(chaneel_id){
   });
 }
 
-async function video_details(id){
-  const url = "https://www.googleapis.com/youtube/v3/videos?part=id%2C+snippet&id="+ id + "&key=" + process.env.YOUTUBE_VIEW_API;
+async function video_details(data){
+  const url = "https://www.googleapis.com/youtube/v3/videos?part=id%2C+snippet&id="+ data.yt_id + "&key=" + process.env.YOUTUBE_VIEW_API;
 
   return fetch(url)
     .then(res =>{
@@ -108,14 +108,26 @@ async function video_details(id){
       let profile_pic_url;
       return (async() => {
         profile_pic_url = await get_yt_profile_pic(yt_video.items[0].snippet.channelId);
-        let data = {
-          yt_id: id,
-          title: yt_video.items[0].snippet.title,
-          author: yt_video.items[0].snippet.channelTitle,
-          profile_pic_url: profile_pic_url,
-          channelID: yt_video.items[0].snippet.channelId
-        };
-        return data;
+        let dataSend;
+        if(data.addedBy){
+          dataSend = {
+            yt_id: data.yt_id,
+            addedBy: data.addedBy,
+            title: yt_video.items[0].snippet.title,
+            author: yt_video.items[0].snippet.channelTitle,
+            profile_pic_url: profile_pic_url,
+            channelID: yt_video.items[0].snippet.channelId
+          };
+        }else{
+          dataSend = {
+            yt_id: data.yt_id,
+            title: yt_video.items[0].snippet.title,
+            author: yt_video.items[0].snippet.channelTitle,
+            profile_pic_url: profile_pic_url,
+            channelID: yt_video.items[0].snippet.channelId
+          };
+        }
+        return dataSend;
       })();
   });
 }

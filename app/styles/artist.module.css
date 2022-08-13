@@ -25,6 +25,11 @@
   transition: transform 0.2s ease-out;
 }
 
+.added_by{
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
 /* Start Single Artist Page */
 
 .header_artist {
@@ -151,5 +156,11 @@
 @media (max-width: 432px) {
   .container_song .duration {
       display: none;
+  }
+}
+
+@media (max-width: 1280px) {
+  .container_right{
+    margin: 0 20px 0 20px;
   }
 }

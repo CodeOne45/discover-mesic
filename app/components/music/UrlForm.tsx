@@ -1,31 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../../styles/music-list-item-component.module.css";
 import {songService} from '../../services/music.service';
 import { useTranslation } from 'next-export-i18n';
 
 import { BiPlusCircle } from 'react-icons/bi';
 
+import {userService} from '../../services/user.service';
+
 
 const UrlForm: React.FC = () => {
   const [yt_id, setyt_id] = useState("");
-  //const [title, settitle] = useState("");
-  //const [author, setauthor] = useState("");
+  const [user, setUser] = useState(null);
+
   const [message, setMessage] = useState("");
   const [color, setColor] = useState("");
 
   const {t} = useTranslation();
 
+  /*useEffect(() => {
+    setUser(userService.userValue);
+    console.log(user);
+  }, []);*/
 
   let handleSubmit = async (e : any) => {
     e.preventDefault();
+    setUser(userService.userValue);
     /*let data = {
       yt_id: yt_id,
       title: title,
       author: author,
     };*/
-    let data = {
-      yt_id: yt_id,
-    };
+    let data;
+    if(user){
+      data = {
+        yt_id: yt_id,
+        addedBy: user.data.id,
+      };
+    } else{
+      data = {
+        yt_id: yt_id,
+      };
+    }
+    
     try {
       let res = await songService.addSong(data);
       if (res.status === 200) {
