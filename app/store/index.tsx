@@ -33,7 +33,9 @@ const Container: React.FC<Props> = ({ children }) => {
             '{"event":"command","func":"playVideo","args":""}',
             "*"
           );
-          //console.log(player.playerInfo["currentTime"]);
+          //console.log(player);
+
+          //console.log(player["playerInfo"]);
 
         } else {
           iframe?.contentWindow.postMessage(

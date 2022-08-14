@@ -27,7 +27,6 @@ const Author: React.FC<IMusic | any> = (props) => {
         }
       }  
       const allLikes = (await songService.findTotalLikesbyUsername(author))  
-      console.log(allLikes) 
       if(allLikes.data.totalLikes){
         setTotallikes(Number(JSON.stringify(allLikes.data.totalLikes)));
       }      

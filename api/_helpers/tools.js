@@ -89,7 +89,6 @@ function get_yt_profile_pic(chaneel_id){
        return res.json();
     })
     .then(yt_video =>  {
-      console.log(yt_video.items[0].snippet.thumbnails.high.url)
       return yt_video.items[0].snippet.thumbnails.high.url;
   });
 }
