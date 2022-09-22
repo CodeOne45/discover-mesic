@@ -32,9 +32,6 @@ jobs:
         # Dockerfile directory.
         dockerfile_directory: api/Dockerfile
 
-        # Dockerfile name.
-        dockerfile_name: Dockerfile
-
         # (Optional, default: "")
         # Additional options of docker build command.
         docker_options: "--no-cache"
@@ -62,10 +59,7 @@ jobs:
         heroku_app_name: ${{ secrets.HEROKU_APP_FRONT }}
 
         # Dockerfile directory.
-        dockerfile_directory: apP/Dockerfile
-
-        # Dockerfile name.
-        dockerfile_name: Dockerfile
+        dockerfile_directory: app/Dockerfile
 
         # (Optional, default: "")
         # Additional options of docker build command.
