@@ -4,11 +4,8 @@ import pochetteImage from '../asset/pochette.png';
 import styles from "../styles/home.module.css";
 import { useTranslation } from 'next-export-i18n';
 
-
-
 const TITLE_1 = "Discover";
 const TITLE_2 = "Me'sic";
-const SUBTITLE_Number = '10 000';
 
 import { thumbnailLink } from "../constant/url";
 import Link from "next/link";

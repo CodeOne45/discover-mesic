@@ -74,59 +74,61 @@ const Header: React.FC = () => {
   }
 
   return (
-    <Navbar
-      collapseOnSelect
-      expand="md"
-      bg="light"
-      variant="light"
-      className="px-4 py-8"
-      fixed="top"
-      className={styles.topnav}
-    >
-      <Navbar.Brand>
-        <Link href={"/"}>
-          <img className={styles.image_container_logo} src={logo.src} alt="Logo Discover Me-sic"/>
-        </Link>
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-na" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav className="mr-auto align-items-end px-3">
-          <Nav.Link href="/discover">Top 10</Nav.Link>
-          <Nav.Link href="#">{t('header.About_us')}</Nav.Link>
-        </Nav>
-        <Nav className="ml-auto align-items-end px-3">
-            { accessPaths.includes(path) ? (<form className={styles.search_form} onSubmit={submitSearchHandler}>
-            <div className={styles.text_box}>
-              <input
-                type="text"
-                placeholder={t('header.Search_for_a_song')}
-                className={classNames(styles.text, "font-nanum")}
-                value={keyword}
-                onChange={changeKeywordHandler}
-              />
-              <button className={styles.button}>
-                <i className={classNames("fas fa-search", styles.icon)} />
-              </button>
+    <div className={styles.main_nav}>
+      <Navbar
+        collapseOnSelect
+        expand="md"
+        bg="light"
+        variant="light"
+        className="px-4 py-8"
+        fixed="top"
+        className={styles.topnav}
+      >
+        <Navbar.Brand>
+          <Link href={"/"}>
+            <img className={styles.image_container_logo} src={logo.src} alt="Logo Discover Me-sic"/>
+          </Link>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-na" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="mr-auto align-items-end px-3">
+            <Nav.Link href="/discover">Top 10</Nav.Link>
+            <Nav.Link href="#">{t('header.About_us')}</Nav.Link>
+          </Nav>
+          <Nav className="ml-auto align-items-end px-3">
+              { accessPaths.includes(path) ? (<form className={styles.search_form} onSubmit={submitSearchHandler}>
+              <div className={styles.text_box}>
+                <input
+                  type="text"
+                  placeholder={t('header.Search_for_a_song')}
+                  className={classNames(styles.text, "font-nanum")}
+                  value={keyword}
+                  onChange={changeKeywordHandler}
+                />
+                <button className={styles.button}>
+                  <i className={classNames("fas fa-search", styles.icon)} />
+                </button>
+              </div>
+            </form>) : "" }
+            <div className={styles.auth_btn}>
+              {user?
+                <a className={styles.none_btn}></a> : <a className={styles.register_btn} href="/account/register"> {t('header.Register')}</a>
+              }
+              {user?         
+                <NavDropdown title={<AvatarLayout user={user.data} withBadge={true} />} id="basic-nav-dropdown" className={styles.dropdown}> 
+                  <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#action/3.4" onClick={logout}>
+                    {t('header.Logout')}
+                  </NavDropdown.Item>
+                </NavDropdown> : <a className={styles.log_btn} href="/account/login">{t('header.Login')}</a>
+              }
             </div>
-          </form>) : "" }
-          <div className={styles.auth_btn}>
-            {user?
-              <a className={styles.none_btn}></a> : <a className={styles.register_btn} href="/account/register"> {t('header.Register')}</a>
-            }
-            {user?         
-              <NavDropdown title={<AvatarLayout user={user} />} id="basic-nav-dropdown" className={styles.dropdown}> 
-                <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4" onClick={logout}>
-                  {t('header.Logout')}
-                </NavDropdown.Item>
-              </NavDropdown> : <a className={styles.log_btn} href="/account/login">{t('header.Login')}</a>
-            }
-          </div>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
-    
+          </Nav>
+        </Navbar.Collapse>
+
+      </Navbar>
+    </div>
   )
 };
 

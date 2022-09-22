@@ -41,20 +41,23 @@ const SmallAvatar = styled(Avatar)(({ theme }) => ({
 
 interface Props {
     readonly user?: any;
+    readonly withBadge?: boolean;
 }
 
-const AvatarLayout: React.FC<Props> = ({ user }) => {
+const AvatarLayout: React.FC<Props> = ({ user , withBadge}) => {
   return (
     <Stack direction="row" spacing={2}>
-      <Badge
-        overlap="circular"
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        badgeContent={
-          <SmallAvatar alt={user.data.username} src="/static/images/avatar/1.jpg" />
-        }
-      >
-        <Avatar alt={user.data.username} src="/static/images/avatar/2.jpg" />
-      </Badge>
+      {withBadge? 
+        <Badge
+          overlap="circular"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          badgeContent={
+            <SmallAvatar alt={user.username? user.username : user} src="/static/images/avatar/1.jpg" />
+          }
+        >
+          <Avatar alt={user.username? user.username : user} src="/static/images/avatar/2.jpg" />
+        </Badge>
+      :  <Avatar alt={user.username? user.username : user} src="/static/images/avatar/2.jpg" />}
     </Stack>
   );
 }

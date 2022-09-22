@@ -61,7 +61,7 @@ async function create(songParam, res) {
         return res.status(400).json({message :'Song is already famous !'});
     }
 
-    const newSongParam = await tools.video_details(songParam.yt_id);
+    const newSongParam = await tools.video_details(songParam);
     const song = new Songs(newSongParam);
     //save song in db
     await song.save();
@@ -95,12 +95,8 @@ async function _delete(id) {
     await Songs.findByIdAndRemove(id);
 }
 async function getLikeOfSongbyId(idMusic){
-    console.log(idMusic)
     const song =  await Songs.findOne({yt_id : idMusic});
     song.numberOfLikes+=1;
     song.save();
-
-    console.log(song)
-
     return song.numberOfLikes;
 }

@@ -61,7 +61,7 @@ function register() {
             <div className={styles.block_login}>
                 <div className={styles.block_login__header}>
                     <h2 className={styles.header__title}>{t('register.register')}</h2>
-                    <p className={styles.header__desc}> {t('register.login_info')} <Link href="/account/register" className={styles.header__desc_btn}>{t('login.Login')}</Link> </p>
+                    <p className={styles.header__desc}> {t('register.login_info')} <Link href="/account/login" className={styles.header__desc_btn}>{t('login.Login')}</Link> </p>
                     <img className={styles.header__img_regitser} src={register_img.src}/>
                 </div>
                 

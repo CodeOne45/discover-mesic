@@ -7,9 +7,16 @@
   .other_music    { order: 2; }
 }
 
+/*.block {  
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 80px;
+}*/ 
+
 .block {  
   margin-bottom: 80px;
-} 
+}
+
 
 .tab_nav_container{
   background-color: white;
@@ -53,5 +60,11 @@
   font-weight: bold;
   background-color: rgba(91,55, 183, 0.2);
   color: rgba(91,55, 183, 1);
+}
+
+@media (min-width: 1200px) {
+  .block{
+    margin: 0 20px 0 20px;
+  }
 }
 

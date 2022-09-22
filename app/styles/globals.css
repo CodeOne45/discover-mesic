@@ -60,7 +60,7 @@ button {
   --bleu-2: #0E6BFF;
   --bleu-3: #3D54A0;
 
-  --dark-1: #000000;
+  --dark-1: #181919;
   --dark-2: #2C3856;
   --dark-3: #2C3856;
   --dark-4: #2C3856;
@@ -202,3 +202,85 @@ button {
 }
 
 
+/* Modal */
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.open {
+  padding: 20px 80px;
+  font-size: 24px;
+  color: #fff;
+  border-radius: 100px;
+  border: none;
+  outline: none;
+  background: #2466ff;
+  cursor: pointer;
+  font-weight: 500;
+}
+.open.hidden {
+  display: none;
+  pointer-events: none;
+}
+.box {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 0 auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.box.visible {
+  display: block;
+  pointer-events: all;
+}
+.box .imgBox {
+  text-align: center;
+}
+.box img {
+  width: 180px;
+}
+.title {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 32px;
+  color: #222;
+}
+.box p {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 500;
+  color: #777;
+}
+.btnContainer {
+  display: flex;
+  justify-content: center;
+}
+.close {
+  margin-top: 30px;
+  width: 240px;
+  height: 54px;
+  cursor: pointer;
+  font-size: 17px;
+  color: var(--bleu-3);
+  border: none;
+  outline: none;
+  background: #2466ff;
+  border-radius: 5px;
+}

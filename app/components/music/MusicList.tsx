@@ -95,13 +95,11 @@ const MusicList: React.FC<Props> = ({ musics }) => {
                           alt={music.title}
                         />
                       </div>
-                      <Link href={`/artist/${music.author}`}>   
                       <h2 className={classNames(styles.title, "font-nunito")}>
                         {music.title}
                       </h2>
-                      </Link>
-                      <h3 className={classNames(styles.author, "font-nunito")}>
-                        {music.author}
+                      <h3  className={classNames(styles.author, "font-nunito")}>
+                        <a href={`/artist/${music.author}`}>{music.author}</a>
                       </h3>
                     </div>
                   </div>

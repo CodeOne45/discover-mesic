@@ -89,7 +89,7 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
                         <div key={index} className={styles.card_content}>
                             <div className={styles.card_content_main_info}>
                                 <h4>{card.title}</h4>
-                                <p>{card.author}</p>
+                                <p><a href={`/artist/${card.author}`}>{card.author}</a></p>
                             </div>
                             <div className={styles.card_content_likes}>
                                 <p><FaHeart className={styles.card_content_likes_icon} /> {card.numberOfLikes}</p>
@@ -118,7 +118,7 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
                     {topTenSongs.map((card: { title: string; author: string; profile_pic_url: string; }, index: any) => ( 
                     <div className={styles.card_artist}>     
                         <div className={styles.card_image_circle}>
-                            <img src={card.profile_pic_url} />
+                            <a href={`/artist/${card.author}`}> <img src={card.profile_pic_url} /> </a>
                         </div>
                         <div key={index} className={styles.card_content_artist}>
                             <h4>{card.author}</h4>

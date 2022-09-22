@@ -2,6 +2,23 @@
   display: none !important; 
 }
 
+.main_nav{
+  background-color:#F8F9FA;
+  height: 66px;
+  position: absolute;
+  width: 100%;
+  margin-top: -120px;
+  box-shadow: var(--shadow-37);
+  position: fixed;
+  top: 109px;
+  z-index: 100;
+
+}
+.main_nav nav{
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
 .dropdown > div{
   margin-left: -80px;
 }
@@ -83,7 +100,6 @@
   padding: 0 14px;
   z-index: 100;
 
-  box-shadow: var(--shadow-37);
   background-color: var(--color-text-10);
 }
 

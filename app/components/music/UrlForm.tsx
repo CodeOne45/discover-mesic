@@ -1,50 +1,74 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../../styles/music-list-item-component.module.css";
 import {songService} from '../../services/music.service';
 import { useTranslation } from 'next-export-i18n';
 
 import { BiPlusCircle } from 'react-icons/bi';
 
+import {userService} from '../../services/user.service';
+
 
 const UrlForm: React.FC = () => {
   const [yt_id, setyt_id] = useState("");
-  //const [title, settitle] = useState("");
-  //const [author, setauthor] = useState("");
+  const [user, setUser] = useState(null);
+
   const [message, setMessage] = useState("");
   const [color, setColor] = useState("");
 
   const {t} = useTranslation();
 
+  useEffect(() => {
+    const timeId = setTimeout(() => {
+      // After 3 seconds set the show value to false
+      setMessage("")
+    }, 3000)
+
+    return () => {
+      clearTimeout(timeId)
+    }
+  }, [message]);
 
   let handleSubmit = async (e : any) => {
     e.preventDefault();
-    /*let data = {
-      yt_id: yt_id,
-      title: title,
-      author: author,
-    };*/
-    let data = {
-      yt_id: yt_id,
-    };
-    try {
-      let res = await songService.addSong(data);
-      if (res.status === 200) {
-        setyt_id("");
-        //settitle("");
-        setColor("green")
-        setMessage("Song added successfully");
+    if(yt_id){
+      setUser(userService.userValue);
+      let data;
+
+      if(user){
+        data = {
+          yt_id: yt_id,
+          addedBy: user.data.id,
+        };
+      } else{
+        data = {
+          yt_id: yt_id,
+        };
       }
-    } catch (err : any) {
-      if(err.response.status === 400) {
-        setColor("red")
-        setyt_id("");
-        setMessage("Error : empty input !");
-      }else{
-        setColor("red")
-        setyt_id("");
-        setMessage("Eroor : Some error occured !");
+      
+      try {
+        let res = await songService.addSong(data);
+        if (res.status === 200) {
+          setyt_id("");
+          //settitle("");
+          setColor("green")
+          setMessage("Song added successfully");
+        }
+      } catch (err : any) {
+        if(err.response.status === 400) {
+          setColor("red")
+          setyt_id("");
+          setMessage("Error : empty input !");
+        }else{
+          setColor("red")
+          setyt_id("");
+          setMessage("Eroor : Some error occured !");
+        }
       }
+    }else{
+      setColor("red")
+      setMessage("URL is required");
     }
+    
   };
 
   //TODO: Verify if input are empty or not
