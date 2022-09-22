@@ -30,7 +30,7 @@ jobs:
         heroku_app_name: ${{ secrets.HEROKU_APP_BACK }}
 
         # Dockerfile directory.
-        dockerfile_directory: api/Dockerfile
+        dockerfile_directory: ./api
 
         # (Optional, default: "")
         # Additional options of docker build command.
@@ -59,7 +59,7 @@ jobs:
         heroku_app_name: ${{ secrets.HEROKU_APP_FRONT }}
 
         # Dockerfile directory.
-        dockerfile_directory: app/Dockerfile
+        dockerfile_directory: ./app
 
         # (Optional, default: "")
         # Additional options of docker build command.
