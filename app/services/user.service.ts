@@ -20,6 +20,7 @@ export const userService = {
     resendEmail,
     delete: _delete,
     getUserProfilById,
+    login_google,
 };
 
 function login(username: string, password: string) {
@@ -29,6 +30,16 @@ function login(username: string, password: string) {
             userSubject.next(user);
             localStorage.setItem('user', JSON.stringify(user));
 
+            return user;
+        });
+}
+
+function login_google() {
+    return fetchWrapper.get(`${API_URL}/auth/google`)
+        .then(user => {
+            // publish user to subscribers and store in local storage to stay logged in between page refreshes
+            userSubject.next(user);
+            localStorage.setItem('user', JSON.stringify(user));
             return user;
         });
 }
