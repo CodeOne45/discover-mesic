@@ -45,6 +45,19 @@ function Login() {
                 setMessage("Error: " +  error.response.data.message)
             });
     }
+
+    function login_google() {
+        return userService.login_google()
+            .then((user) => {
+                // get return url from query parameters or default to '/'
+                const returnUrl = router.query.returnUrl || '/discover';   
+                router.push(returnUrl);             
+            })
+            .catch(error => {
+                setColor("red")
+                setMessage("Error: " +  error.response)
+            });
+    }
     return (
         <Layout>
             <div className={styles.block_login}>
@@ -74,7 +87,7 @@ function Login() {
                         </button>
                         <div className={styles.body__form_other_options}> 
                             <p>{t('login.login_option')}</p>
-                            <FcGoogle onClick="" className={styles.form_other_options__icon} />
+                            <FcGoogle onClick={ () => login_google()} className={styles.form_other_options__icon} />
                         </div>
                     </form>
                 </div>
