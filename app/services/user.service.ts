@@ -5,7 +5,9 @@ import {fetchWrapper} from '../helpers/fetch-wrapper';
 
 import { API_URL } from "../constant/url";
 
+
 const userSubject = new BehaviorSubject(typeof window!== "undefined"?JSON.parse(localStorage.getItem('user')):"" )
+
 
 export const userService = {
     
@@ -24,6 +26,7 @@ export const userService = {
 };
 
 function login(username: string, password: string) {
+
     return fetchWrapper.post(`${API_URL}/users/login`, { username, password })
         .then(user => {
             // publish user to subscribers and store in local storage to stay logged in between page refreshes
@@ -35,6 +38,8 @@ function login(username: string, password: string) {
 }
 
 function login_google() {
+    //const router = useRouter();
+
     return fetchWrapper.get(`${API_URL}/auth/google`)
         .then(user => {
             // publish user to subscribers and store in local storage to stay logged in between page refreshes

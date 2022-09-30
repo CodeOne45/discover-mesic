@@ -1,8 +1,14 @@
- passport = require('passport');
- express = require("express");
- app = express();
+const cors = require('cors');
+passport = require('passport');
+express = require("express");
+app = express();
+
+//cors middleware
+app.use(cors());
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.serializeUser(function(user, cb) {
   cb(null, user);
 });

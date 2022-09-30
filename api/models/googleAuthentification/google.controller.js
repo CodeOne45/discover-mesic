@@ -5,15 +5,17 @@ const db = require("_helpers/db");
 const jwt = require("jsonwebtoken");
 const config = require("config.json");
 const User = db.User;
+
 router.get("/auth/google", googleService.passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get("/auth/google/callback", passport.authenticate('google', { failureRedirect: '/error' }),
-  async function (req, res) {
-    // Successful authentication, redirect success.
-    res.redirect('/logGoogle/success');
-    ;
-  });
+  
+async function (req, res) {
+  // Successful authentication, redirect success.
+  res.redirect('/logGoogle/success');
+  ;
+});
 
- router.get('/logGoogle/success', async function (req, res){ 
+router.get('/logGoogle/success', async function (req, res){ 
   var vUsername = userProfile.emails[0].value.split("@")[0];
   var vEmail = userProfile.emails[0].value;
   var user = await User.findOne( { email: vEmail });
