@@ -23,6 +23,7 @@ export const userService = {
     delete: _delete,
     getUserProfilById,
     login_google,
+    add_to_playlist,
 };
 
 function login(username: string, password: string) {
@@ -97,3 +98,6 @@ function _delete(id) {
     return fetchWrapper.delete(`${API_URL}/users/${id}`);
 }
 
+function add_to_playlist(id: string , data: {}){
+    return fetchWrapper.put(`${API_URL}/users/playlist/${id}`, data);
+}

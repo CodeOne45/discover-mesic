@@ -168,8 +168,10 @@ async function updateUserPlaylistSongs(id, param, res) {
   user.playlistIdSongs.push(param.idMusic);
   user.save();
   //call service song for +1 like
-  var nbrLikes = await songService.getLikeOfSongbyId(param.idMusic);
-  return res.status(200).json({playlistuser: user.playlistIdSongs , username : user.username, nombreLikes : nbrLikes});
+  //var nbrLikes = await songService.getLikeOfSongbyId(param.idMusic);
+  //return res.status(200).json({playlistuser: user.playlistIdSongs , username : user.username, nombreLikes : nbrLikes});
+  return res.status(200).json({"message" : "Song added!"});
+
 }
 async function deleteUserPlaylistSongs(id, param, res) {
   var listSongToRemove = param.idMusic.map(s => s.toString());

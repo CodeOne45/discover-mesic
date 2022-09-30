@@ -35,7 +35,6 @@ function topTen(){
 }
 
 function increaseLikes(yt_id: string){
-  console.log(yt_id)
   return fetchWrapper.put(`${API_URL}/songs/increase/likes/${yt_id}`, {});
 }
 
