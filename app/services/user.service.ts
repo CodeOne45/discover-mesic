@@ -24,6 +24,7 @@ export const userService = {
     getUserProfilById,
     login_google,
     add_to_playlist,
+    get_user_liked_playlist,
 };
 
 function login(username: string, password: string) {
@@ -100,4 +101,8 @@ function _delete(id) {
 
 function add_to_playlist(id: string , data: {}){
     return fetchWrapper.put(`${API_URL}/users/playlist/${id}`, data);
+}
+
+function get_user_liked_playlist(id: string){
+    return fetchWrapper.get(`${API_URL}/users/playlist/${id}`);
 }

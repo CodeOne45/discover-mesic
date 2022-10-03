@@ -143,7 +143,7 @@ async function update(id, userParam, res) {
 async function getUserPlaylistSongs(id, res) {
   const user = await User.findById(id);
   if(!user) return res.status(404).json({message: "erreur get playlist"});
-  return res.status(200).json(user.playlistIdSongs);
+  return res.status(200).json(user.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MmIwNzBkOTI2YmQ2OTIzNzQ4ODZhNWIiLCJpYXQiOjE2NjQ3Nzg5OTUsImV4cCI6MTY2NTM4Mzc5NX0.BVdpbi0nv_rjp7Y4cHmhZg_4QsqK3V_gAa8T8F1fQHw);
 }
 // recuperer la list de l'utilisateur connecté swipé à gauche
 async function getUserPlaylistSongsLeftById(id,res) {
