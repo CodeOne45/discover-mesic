@@ -13,12 +13,6 @@ const MyMusicCard: React.FC<Props> = ({ userID }) => {
 
   useEffect(() => {
     console.log("okay");
-    (async () => {
-      console.log("okay");
-      //const { data } = (await userService.get_user_liked_playlist(userID));
-      //console.log("okay" + data)
-      //if (data.length) setmySongs(data);
-    });
     (async() => {
       const { data } = (await userService.get_user_liked_playlist(userID));
       console.log("okay" + data)
