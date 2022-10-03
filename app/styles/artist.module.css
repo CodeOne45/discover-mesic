@@ -108,6 +108,10 @@
   overflow: visible;
 }
 
+.top_songs_container .empty_info{
+  text-align: center;
+}
+
 /* End Cards Tracks */
 
 /* Card css */
