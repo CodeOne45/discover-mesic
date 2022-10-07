@@ -42,20 +42,18 @@
   display: flex;
   flex-wrap: wrap;
   flex: 50%;
-
   height: 330px;
-  justify-content: center;
+  justify-content: right;
   transform: rotate(19.07deg);
 }
 .image_container_block {
   position: absolute;
-  background-color: var(--color-text-50);
-  transform: rotate(-19.07deg);
+  transform: rotate(-20deg);
   width: 330px;
   height: 100%;
-  filter: blur(4px);
+  filter: blur(50px);
 }
-.image_container_img {
+.image_container_img, .image_container_img_bg {
   height: 100%;
   width: 330px;
   padding: 20px;
@@ -63,16 +61,36 @@
   position: relative;
 }
 .image_container_icon_container {
-  flex: 100%;
-  text-align: center;
+  flex: 100% 1;
+  text-align: right;
   position: relative;
+  margin-right: 81px;
 }
 .image_container_icon {
   font-size: 45px;
   padding: 0 16px;
 }
 #image_container_icon_heart {
-  color: var(--red-45);
+  color: var(--color-icon-heart);
+  border: solid white;
+  border-radius: 50%;
+  padding: 10px;
+  background: white;
+  box-shadow: 0px 3px 8px rgb(0 0 0 / 12%), 0px 3px 1px rgb(0 0 0 / 4%);
+  filter: blur(1px);
+  margin-right: 19px;
+}
+
+#image_container_icon_cancel{
+  color: #8E8E93;
+  border: solid #D5D5D5;
+  border-radius: 50%;
+  padding: 10px;
+  margin-left: 10px;
+  background: #D5D5D5;
+  box-shadow: 0px 3px 8px rgb(0 0 0 / 12%), 0px 3px 1px rgb(0 0 0 / 4%);
+  filter: blur(1px);
+  margin: 10px;
 }
 
 .content_button {

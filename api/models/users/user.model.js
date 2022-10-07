@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const ObjectID = require('mongodb').ObjectID
 
 const typeRole = {
   roleArtiste: 'artiste',
@@ -11,7 +12,7 @@ const Userschema = new Schema({
   username: { type: String, unique: true, required: true },
   email :{ type: String, unique: true, required:true},
   password : {type: String, required: true},
-  playlistIdSongs : [{type : String}],
+  playlistIdSongs : [{type : ObjectID}],
   role : {type : typeRole, default: typeRole.roleUtilisateur},
   listIdSongsSwiptoLeft : [{type: String , default:[]}],
   isVerified: {type: Boolean,default: false}

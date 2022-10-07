@@ -5,7 +5,9 @@ import {fetchWrapper} from '../helpers/fetch-wrapper';
 
 import { API_URL } from "../constant/url";
 
+
 const userSubject = new BehaviorSubject(typeof window!== "undefined"?JSON.parse(localStorage.getItem('user')):"" )
+
 
 export const userService = {
     
@@ -21,9 +23,12 @@ export const userService = {
     delete: _delete,
     getUserProfilById,
     login_google,
+    add_to_playlist,
+    get_user_liked_playlist,
 };
 
 function login(username: string, password: string) {
+
     return fetchWrapper.post(`${API_URL}/users/login`, { username, password })
         .then(user => {
             // publish user to subscribers and store in local storage to stay logged in between page refreshes
@@ -35,6 +40,8 @@ function login(username: string, password: string) {
 }
 
 function login_google() {
+    //const router = useRouter();
+
     return fetchWrapper.get(`${API_URL}/auth/google`)
         .then(user => {
             // publish user to subscribers and store in local storage to stay logged in between page refreshes
@@ -92,3 +99,10 @@ function _delete(id) {
     return fetchWrapper.delete(`${API_URL}/users/${id}`);
 }
 
+function add_to_playlist(id: string , data: {}){
+    return fetchWrapper.put(`${API_URL}/users/playlist/${id}`, data);
+}
+
+function get_user_liked_playlist(id: string){
+    return fetchWrapper.get(`${API_URL}/users/playlist/${id}`);
+}

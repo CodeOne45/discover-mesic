@@ -4,10 +4,13 @@ const bcrypt = require("bcryptjs");
 const crypto = require('crypto');
 const db = require("_helpers/db");
 const User = db.User;
+const Songs = db.Songs;
 const Tokens = db.Tokens;
 const emailCheck = require('email-check');
-const songService = require("../songs/songs.service"); 
 const {sendEmail} = require('_helpers/tools');
+
+var mongoose = require('mongoose');
+
 
 
 module.exports = {
@@ -142,8 +145,15 @@ async function update(id, userParam, res) {
 // recuperer la playlist de l'utilisateur connecté
 async function getUserPlaylistSongs(id, res) {
   const user = await User.findById(id);
-  if(!user) return res.status(404).json({message: "erreur get playlist"});
-  return res.status(200).json(user.playlistIdSongs);
+  if(!user) return res.status(404).json({message: "Erreur get playlist"});
+  var finalPlaylist = [];
+  
+  for (const s of user.playlistIdSongs) {
+    let song = await Songs.findById(s);
+    finalPlaylist.push(song); 
+  }
+  
+  return res.status(200).json(finalPlaylist);
 }
 // recuperer la list de l'utilisateur connecté swipé à gauche
 async function getUserPlaylistSongsLeftById(id,res) {
@@ -156,7 +166,7 @@ async function updateUserPlaylistSongsSwipLeft(id, param, res) {
   const user = await User.findById(id);
   if(!user) return res.status(404).json({message: "erreur uppdate playlist left"});
   if( typeof param.idMusic === 'undefined' || param.idMusic === null || param.idMusic === "" ) return res.status(402).json({message: "champ id music est vide"});
-  user.listIdSongsSwiptoLeft.push(param.idMusic)
+  user.listIdSongsSwiptoLeft.push(mongoose.Types.ObjectId( param.idMusic ))
   user.save();
   return res.status(200).json({playlistuserLeft: user.listIdSongsSwiptoLeft , username : user.username});
 }
@@ -165,11 +175,12 @@ async function updateUserPlaylistSongs(id, param, res) {
   const user = await User.findById(id);
   if(!user) return res.status(404).json({message: "erreur update playlist"});
   if( typeof param.idMusic === 'undefined' || param.idMusic === null || param.idMusic === "" ) return res.status(402).json({message: "champ id music est vide"});
-  user.playlistIdSongs.push(param.idMusic);
+  user.playlistIdSongs.push(mongoose.Types.ObjectId( param.idMusic ));
   user.save();
   //call service song for +1 like
-  var nbrLikes = await songService.getLikeOfSongbyId(param.idMusic);
-  return res.status(200).json({playlistuser: user.playlistIdSongs , username : user.username, nombreLikes : nbrLikes});
+  //var nbrLikes = await songService.getLikeOfSongbyId(param.idMusic);
+  //return res.status(200).json({playlistuser: user.playlistIdSongs , username : user.username, nombreLikes : nbrLikes});
+  return res.status(200).json({"message" : "Song added!"});
 }
 async function deleteUserPlaylistSongs(id, param, res) {
   var listSongToRemove = param.idMusic.map(s => s.toString());

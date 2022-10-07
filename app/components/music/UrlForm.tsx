@@ -28,12 +28,15 @@ const UrlForm: React.FC = () => {
     }
   }, [message]);
 
+  useEffect(() => {
+    const subscription = userService.user.subscribe(x => setUser(x));
+    return () => subscription.unsubscribe();
+  }, []);
+
   let handleSubmit = async (e : any) => {
     e.preventDefault();
     if(yt_id){
-      setUser(userService.userValue);
       let data;
-
       if(user){
         data = {
           yt_id: yt_id,

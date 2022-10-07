@@ -5,15 +5,16 @@ import Carousel from "../components/music/Carousel";
 import Layout from "../components/Layout";
 import styles from "../styles/discover.module.css";
 import MusicList from "../components/music/MusicList";
+import MyMusic from "../components/users/MyMusicCard";
+
 import { Context } from "../store";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { FRONTEND_URL } from "../constant/url";
 import {songService} from '../services/music.service';
 import useWindowSize from '../helpers/useWindowSize'
+import {userService} from '../services/user.service';
 
-import Login from './account/login'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 
 /**
@@ -25,6 +26,13 @@ const Discover: NextPage = () => {
   const size = useWindowSize();    
 
   const [activeLink, setActiveLink] = useState("full");
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+      const subscription = userService.user.subscribe(x => setUser(x));
+      return () => subscription.unsubscribe();
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -45,9 +53,13 @@ const Discover: NextPage = () => {
   }, []);
 
   useEffect(() => {
-    if(size.width < 1100){
-      setActiveLink("player");
-    } else{
+    if(user && size.width > 1100){
+      setActiveLink("top");
+    }
+    else if(size.width < 1100){
+      setActiveLink("");
+    }
+    else{
       setActiveLink("full");
     }
   }, [size.width]);
@@ -67,10 +79,10 @@ const Discover: NextPage = () => {
                           <Carousel topTenSongs={topMusics} slide_type="artiste"/>
                       </div>);
 
-      default:      return (<div className={`${styles.other_music}, ${styles.block}`}>
-                                <Carousel topTenSongs={topMusics} slide_type="song"/>
-                                <Carousel topTenSongs={topMusics} slide_type="artiste"/>
-                            </div>)
+      case "my-music":   return (<div className={`${styles.other_music}, ${styles.block}`}>
+                                    {user ? <MyMusic userID={user.data.id} /> : <></>}
+                                </div>);
+      default:      return (<></>)
     }
   }
  
@@ -90,23 +102,31 @@ const Discover: NextPage = () => {
 
         <link rel="canonical" href={FRONTEND_URL} />
       </Head>
-      <Layout>        
-        {size.width < 1100 ? (
-
+      <Layout> 
+        <div className={`${styles.music_lister}, ${styles.block}`}>
+          <MusicList musics={musics}/>
+        </div>       
+        {size.width < 1100 || user != null ? (
           <div className={styles.tab_nav_container}>
-            <div onClick={() => setActiveLink("player")} className={`${styles.tab} ${activeLink === "player" ? `${styles.active}` : ''}`}>
+            <div onClick={() => setActiveLink("top")} className={`${styles.tab} ${activeLink === "top" ? `${styles.active}` : ''}`}>
               <i className="fas fa-home"></i>
               <p>Home</p>
             </div>
-            <div onClick={() => setActiveLink("top")} className={`${styles.tab} ${activeLink === "top" ? `${styles.active}` : ''}`}>
+            <div onClick={() => setActiveLink("top")} className={`${styles.tab} ${activeLink === "discover" ? `${styles.active}` : ''}`}>
               <i className="fas fa-search"></i>
-              <p>search</p>
+              <p>Discover</p>
+            </div>
+            <div onClick={() => setActiveLink("my-music")} className={`${styles.tab} ${activeLink === "my-music" ? `${styles.active}` : ''}`}>
+              <i className="fas fa-music"></i>
+              <p>My music</p>
+            </div>
+            <div onClick={() => setActiveLink("top")} className={`${styles.tab} ${activeLink === "my-profile" ? `${styles.active}` : ''}`}>
+              <i className="fas fa-user"></i>
+              <p>Account</p>
             </div>
           </div>
         ) : ( 
-          <div className={`${styles.music_lister}, ${styles.block}`}>
-            <MusicList musics={musics}/>
-          </div> 
+          <></> 
         )
       }
       { project() }  

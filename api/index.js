@@ -6,9 +6,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const jwt = require("_helpers/jwt");
 const errorHandler = require("_helpers/error-handler");
-const passport = require('passport');
 const PORT = process.env.PORT || 8080;
-var fs = require("fs");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

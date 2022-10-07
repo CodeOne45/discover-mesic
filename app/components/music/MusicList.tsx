@@ -12,6 +12,8 @@ import UrlForm from "./UrlForm";
 import Controller from "./Controller";
 import Link from "next/link";
 import {songService} from '../../services/music.service';
+import {userService} from '../../services/user.service';
+
 
 
 interface Props {
@@ -23,6 +25,12 @@ const MusicList: React.FC<Props> = ({ musics }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentIndexRef = useRef(currentIndex)
   const canSwipe = currentIndex >= 0;
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const subscription = userService.user.subscribe(x => setUser(x));
+    return () => subscription.unsubscribe();
+  }, []);
 
   const updateCurrentIndex = (val) => {
     setCurrentIndex(val)
@@ -47,6 +55,13 @@ const MusicList: React.FC<Props> = ({ musics }) => {
       if (dir === "right") {
         (async() => {
           let res = await songService.increaseLikes(music.yt_id);
+          
+          if(user){
+            let data = {
+              idMusic : music._id
+            };
+            let add = await userService.add_to_playlist(user.data.id, data)
+          } 
         })();
         console.log("Music added to your favrotes !");
       } else {
