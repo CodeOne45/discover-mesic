@@ -84,7 +84,7 @@ const Discover: NextPage = () => {
                                     {user ? <MyMusic userID={user.data.id} /> : <></>}
                                 </div>);
       case "my-profile":   return (<div className={`${styles.other_music}, ${styles.block}`}>
-*                                  {user ? <EditProile user={user} /> : <></>}
+                                  {user ? <EditProile user={user} /> : <></>}
                                 </div>);
       default:      return (<div className={`${styles.other_music}, ${styles.block}`}>
                                 <Carousel topTenSongs={topMusics} slide_type="song"/>

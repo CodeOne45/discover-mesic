@@ -55,7 +55,7 @@ const AvatarLayout: React.FC<Props> = ({ user , withBadge}) => {
             <SmallAvatar alt={user.username? user.username : user} src="/static/images/avatar/1.jpg" />
           }
         >
-          <Avatar alt={user.username? user.username : user} src="https://avatars.dicebear.com/api/big-ears-neutral/${user.username}.svg" />
+          <Avatar alt={user.username? user.username : user} src={`https://avatars.dicebear.com/api/adventurer-neutral/${user.username}.svg`} />
         </Badge>
       :  <Avatar alt={user.username? user.username : user} src="/static/images/avatar/2.jpg" />}
     </Stack>

@@ -1,0 +1,76 @@
+.header_user_profile{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0 20px 0;
+}
+
+.user_seprator{
+    border-bottom: 1.5px solid #C4C4C4;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    display: flex;
+    align-items: center;
+    color: #091127;
+}
+
+.user_info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.user_info_img {
+    border-radius: 200px;
+    box-sizing: border-box;
+    border: 1px solid #cfd8dc;
+    text-align: center;
+    padding: 10px;
+    margin-right: 20px;
+}
+.user_info_img img {
+    border-radius: 50%;
+    height: 100px;
+}
+
+.user_info_details{
+    padding-top: 20px;
+}
+
+.user_info_details .user_info_details_name{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+}
+
+.user_info_details_level .user_info_details_level{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    
+    color: #545871;
+    opacity: 0.8;
+    padding-bottom: -10px;
+}
+
+.user_info_details_level .user_info_details_songs{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: #0F2869;
+    opacity: 0.8;
+}
+
+.user_progress{
+    min-width: 250px;
+    padding-top: 40px;
+}
+
+.progress_bar{
+    height: 5px;
+}

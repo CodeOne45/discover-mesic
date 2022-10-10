@@ -2,9 +2,15 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import styles from "../../styles/user-profile.module.css";
 
 import { userService} from '../../services/user.service';
+import { songService} from '../../services/music.service';
+
+import ProgressBar from 'react-bootstrap/ProgressBar';
+
 
 interface Props {
     readonly user?: any;
@@ -12,7 +18,19 @@ interface Props {
 const AddEdit: React.FC = ({ user }) => {
     const isAddMode = !user;
     const router = useRouter();
-    
+    const [addedSongs, setaddedSongs] = useState<any>();
+
+    useEffect(() => {
+        (async() => {
+            const addedSongs = (await songService.songsList());
+            if(user.data.id && addedSongs.length != 0){
+                var result = addedSongs.data.filter((x)=>x.addedBy === user.data.id);
+                console.log(result)
+                setaddedSongs(result);
+            }
+        })();
+      }, []);
+
     // form validation rules 
     const validationSchema = Yup.object().shape({
         email: Yup.string()
@@ -31,7 +49,7 @@ const AddEdit: React.FC = ({ user }) => {
 
     // set default form values if in edit mode
     if (!isAddMode) {
-        formOptions.defaultValues = user;
+        formOptions.defaultValues = user.data;
     }
 
     // get functions to build form with useForm() hook
@@ -41,7 +59,7 @@ const AddEdit: React.FC = ({ user }) => {
     function onSubmit(data) {
         return isAddMode
             ? createUser(data)
-            : updateUser(user.id, data);
+            : updateUser(user.data.id, data);
     }
 
     function createUser(data) {
@@ -63,6 +81,28 @@ const AddEdit: React.FC = ({ user }) => {
     }
 
     return (
+        <>
+        <div className={styles.header_user_profile}>
+            <div className={styles.user_info}>
+                <div className={styles.user_info_img}>
+                    <img src={`https://avatars.dicebear.com/api/adventurer-neutral/${user.data.username}.svg`} alt="user img"/>
+                </div>
+                <div className={styles.user_info_details}>
+                    <h1 className={styles.user_info_details_name}>{user.data.username}</h1>
+                    <p className={styles.user_info_details_level}>Level : Bronze Vinyl</p>
+                    <p className={styles.user_info_details_songs}>Total songs added : {addedSongs? addedSongs.length: "#"}</p>
+                </div>
+            </div>
+            <div className={styles.user_progress}>
+                <p className={styles.bold}> Next level : Silver vinyl </p>
+                <ProgressBar className={styles.progress_bar} variant="danger" now={addedSongs? (addedSongs.length * 100)/150: 0} />
+                <p> {addedSongs? addedSongs.length: "#"}/150 songs</p>
+            </div>
+        </div>
+        <div className={styles.user_seprator}>
+            <p>Edit profile:</p>
+        </div>
+
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-row">
                 <div className="form-group col">
@@ -102,9 +142,9 @@ const AddEdit: React.FC = ({ user }) => {
                     Save
                 </button>
                 <button onClick={() => reset(formOptions.defaultValues)} type="button" disabled={formState.isSubmitting} className="btn btn-secondary">Reset</button>
-                <Link href="/users" className="btn btn-link">Cancel</Link>
             </div>
         </form>
+        </>
     );
 }
 
