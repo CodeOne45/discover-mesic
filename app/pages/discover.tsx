@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 import styles from "../styles/discover.module.css";
 import MusicList from "../components/music/MusicList";
 import MyMusic from "../components/users/MyMusicCard";
+import EditProile from "../components/users/AddEdit";
 
 import { Context } from "../store";
 import type { NextPage } from "next";
@@ -82,7 +83,13 @@ const Discover: NextPage = () => {
       case "my-music":   return (<div className={`${styles.other_music}, ${styles.block}`}>
                                     {user ? <MyMusic userID={user.data.id} /> : <></>}
                                 </div>);
-      default:      return (<></>)
+      case "my-profile":   return (<div className={`${styles.other_music}, ${styles.block}`}>
+*                                  {user ? <EditProile user={user} /> : <></>}
+                                </div>);
+      default:      return (<div className={`${styles.other_music}, ${styles.block}`}>
+                                <Carousel topTenSongs={topMusics} slide_type="song"/>
+                                <Carousel topTenSongs={topMusics} slide_type="artiste"/>
+                            </div>)
     }
   }
  
@@ -120,7 +127,7 @@ const Discover: NextPage = () => {
               <i className="fas fa-music"></i>
               <p>My music</p>
             </div>
-            <div onClick={() => setActiveLink("top")} className={`${styles.tab} ${activeLink === "my-profile" ? `${styles.active}` : ''}`}>
+            <div onClick={() => setActiveLink("my-profile")} className={`${styles.tab} ${activeLink === "my-profile" ? `${styles.active}` : ''}`}>
               <i className="fas fa-user"></i>
               <p>Account</p>
             </div>

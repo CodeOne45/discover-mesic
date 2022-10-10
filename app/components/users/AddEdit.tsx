@@ -4,10 +4,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Link from "next/link";
 
-import { userService, alertService } from 'services';
+import { userService} from '../../services/user.service';
 
-const AddEdit: React.FC = (props) => {
-    const user = props?.user;
+interface Props {
+    readonly user?: any;
+}
+const AddEdit: React.FC = ({ user }) => {
     const isAddMode = !user;
     const router = useRouter();
     
@@ -29,7 +31,7 @@ const AddEdit: React.FC = (props) => {
 
     // set default form values if in edit mode
     if (!isAddMode) {
-        formOptions.defaultValues = props.user;
+        formOptions.defaultValues = user;
     }
 
     // get functions to build form with useForm() hook

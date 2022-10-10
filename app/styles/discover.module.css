@@ -34,7 +34,13 @@
   margin: 0 auto;
   z-index: 2;
   height: 65px;
+  opacity: 35%;
 }
+
+.tab_nav_container:hover{
+  opacity: 100%;
+}
+
 .tab{
   border-radius: 50px;
   cursor: pointer;
@@ -45,6 +51,10 @@
   padding: 0 20px;
   margin: 0 10px;
   transition: background 0.4s linear;
+}
+
+.tab:hover{
+  background-color: rgba(91,55, 183, 0.2);
 }
 .tab i{
   font-size: 1.2em;
