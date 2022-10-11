@@ -61,7 +61,6 @@ function YouTubeGetID(url){
 
 async function checkYTview(id){
   const url = "https://www.googleapis.com/youtube/v3/videos?id="+ id + "&key=" + process.env.YOUTUBE_VIEW_API + "&part=statistics";
-
   return fetch(url)
     .then(res =>{
       if (res.status !== 200) {

@@ -7,7 +7,8 @@ const bodyParser = require("body-parser");
 const jwt = require("_helpers/jwt");
 const errorHandler = require("_helpers/error-handler");
 const PORT = process.env.PORT || 8080;
-
+const config = require("./jobs/config")
+const scheduler = require("./jobs/jobsSheduler")
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
@@ -28,6 +29,7 @@ app.use("", require("./models/googleAuthentification/google.controller"));
 // global error handler
 app.use(errorHandler);
 
+scheduler.initCrons(config)
 
 
 app.listen(PORT, () => {
