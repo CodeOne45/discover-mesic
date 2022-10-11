@@ -22,6 +22,7 @@ const MyMusicCard: React.FC<Props> = ({ userID }) => {
       if (data.length) setmySongs(data);
 
       const addedSongs = (await songService.songsList());
+
       if(userID && addedSongs.length != 0){
         var result = addedSongs.data.filter((x)=>x.addedBy === userID);
         setaddedSongs(result);
