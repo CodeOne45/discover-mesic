@@ -1,4 +1,5 @@
 import React, { useContext, useState , useMemo, useEffect, useRef} from "react";
+import { useRouter } from 'next/router';
 import { IMusic } from "../../types/music";
 import classNames from "classnames";
 import TinderCard from "react-tinder-card";
@@ -10,7 +11,6 @@ import styles from "../../styles/music-list-item-component.module.css";
 import { Context } from "../../store";
 import UrlForm from "./UrlForm";
 import Controller from "./Controller";
-import Link from "next/link";
 import {songService} from '../../services/music.service';
 import {userService} from '../../services/user.service';
 
@@ -27,12 +27,15 @@ const MusicList: React.FC<Props> = ({ musics }) => {
   const canSwipe = currentIndex >= 0;
   const [user, setUser] = useState(null);
 
+  const router = useRouter();
+
+
   useEffect(() => {
     const subscription = userService.user.subscribe(x => setUser(x));
     return () => subscription.unsubscribe();
   }, []);
 
-  const updateCurrentIndex = (val) => {
+  const updateCurrentIndex = (val: any) => {
     setCurrentIndex(val)
     currentIndexRef.current = val
   }
@@ -50,7 +53,7 @@ const MusicList: React.FC<Props> = ({ musics }) => {
     } else router?.push("/404");
   }, [musics]);
   
-  const swiped =  (dir : any, musicSwiped : IMusic, index : integer) => {
+  const swiped =  (dir : any, musicSwiped : IMusic, index : any) => {
     if (musicSwiped != null) {
       if (dir === "right") {
         (async() => {
