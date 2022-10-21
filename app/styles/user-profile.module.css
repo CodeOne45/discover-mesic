@@ -126,7 +126,7 @@
     margin-top: 20px;
     margin-left: 10px;
     border-radius: 10px;
-    background-color: #4D47C3;
+    background-color: var(--color-icon-heart);
     border: none;
     color: white;
     padding: 15px 32px;

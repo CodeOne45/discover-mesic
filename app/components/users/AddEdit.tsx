@@ -19,6 +19,10 @@ interface Props {
 const AddEdit: React.FC = ({ user }) => {
     const isAddMode = !user;
     const router = useRouter();
+    const [message, setMessage] = useState("");
+    const [color, setColor] = useState("");
+    const [username, setusername] = useState<String>("")
+    const [email, setemail] = useState<String>("")
     const [addedSongs, setaddedSongs] = useState<any>();
     const [totalSongs, settotalSongs] = useState<number>(0);
 
@@ -33,10 +37,19 @@ const AddEdit: React.FC = ({ user }) => {
             if(user.data.id && addedSongs.length != 0){
                 var result = addedSongs.data.filter((x)=>x.addedBy === user.data.id);
                 setaddedSongs(result);
-                settotalSongs((addedSongs.length * percentage)/maxVentilSongs)
+                settotalSongs((addedSongs.length * percentage)/maxVentilSongs);
             }
         })();
-      }, []);
+
+        setusername(user.data.username)
+        setemail(user.data.email)
+
+    }, []);
+
+    useEffect(() => {
+        // reset form with user data
+        reset();
+    }, [user]);
 
     // form validation rules 
     const validationSchema = Yup.object().shape({
@@ -60,20 +73,32 @@ const AddEdit: React.FC = ({ user }) => {
     }
 
     // get functions to build form with useForm() hook
-    const { register, handleSubmit, reset, formState } = useForm(formOptions);
+    const {formState } = useForm(formOptions);
+    const {register, handleSubmit } = useForm();
+
     const { errors } = formState;
+
 
     function onSubmit(data) {
         return updateUser(user.data.id, data);
     }
 
+    function reset(){
+        setusername(user.data.username)
+        setemail(user.data.email)
+    }
+
     function updateUser(id, data) {
+        console.log(data)
         return userService.update(id, data)
             .then(() => {
-                alertService.success('User updated', { keepAfterRouteChange: true });
-                router.push('..');
+                setColor("green")
+                setMessage("Information updated!")
             })
-            .catch(alertService.error);
+            .catch(error => {
+                setColor("red")
+                setMessage("Error: " +  error.response.data.message)
+            });
     }
 
     return (
@@ -98,68 +123,68 @@ const AddEdit: React.FC = ({ user }) => {
         <div className={styles.user_seprator}>
             <p>Edit profile:</p>
         </div>
-
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-            <div className={styles.body__form}>
+        <div className={styles.form}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className={styles.body__form}>
+                    <div className={styles.body__form__inputs}>
+                        <div>
+                            <label>{t('register.Username')}</label>
+                        </div>
+                        <div>
+                            <input placeholder="example45" name="username" type="text" value={username} {...register('username')} onChange={(e) => setusername(e.target.value)} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
+                        </div>  
+                    </div>
+                <div className="invalid-feedback">{errors.username?.message}</div>
+                </div>
+                <div className={styles.body__form_groupe}>
+                    <div className={styles.body__form__inputs}>
+                        <div>
+                            <label>{t('register.Email')}</label>
+                        </div>
+                        <div>
+                            <input placeholder="example@mail.com" name="email" type="text" value={email} {...register('email')} onChange={(e) => setemail(e.target.value)}  className={`form-control ${errors.email ? 'is-invalid' : ''}`} />
+                        </div>  
+                    </div>
+                    <div className="invalid-feedback">{errors.email?.message}</div>
+                </div>
+                <div className={styles.body__form_groupe}>
+                    <div className={styles.body__form__inputs}>
+                        <div>
+                            <label>{t('register.Password')}</label>
+                        </div>
+                        <div>
+                            <input placeholder="********" name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
+                        </div>  
+                    </div>
+                    <div className="invalid-feedback">{errors.password?.message}</div>
+                </div>
+                <div className={styles.body__form_groupe}>
                 <div className={styles.body__form__inputs}>
-                    <div>
-                        <label>{t('register.Username')}</label>
+                        <div>
+                            <label>{t('register.Confirm_Password')}</label>
+                        </div>
+                        <div>
+                            <input
+                                name="confirmPwd"
+                                type="password"
+                                placeholder="********"
+                                {...register('confirmPwd')}
+                                className={`form-control ${errors.confirmPwd ? 'is-invalid' : ''}`}
+                            />                    
+                        </div>  
                     </div>
-                    <div>
-                        <input placeholder="example45" name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
-                    </div>  
+                    <div className="invalid-feedback">{errors.confirmPwd?.message}</div>
                 </div>
-               <div className="invalid-feedback">{errors.username?.message}</div>
-            </div>
-            <div className={styles.body__form_groupe}>
-                <div className={styles.body__form__inputs}>
-                    <div>
-                        <label>{t('register.Email')}</label>
-                    </div>
-                    <div>
-                        <input placeholder="example@mail.com" name="email" type="text" {...register('email')} className={`form-control ${errors.email ? 'is-invalid' : ''}`} />
-                    </div>  
+                <div className={styles.body__form_btn_bloc}>
+                    <button onClick={() => reset()} type="button" disabled={formState.isSubmitting} className={styles.body__form_btn_rest}>Reset</button>
+                    <button type="submit" disabled={formState.isSubmitting} className={styles.body__form_btn}>
+                        {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
+                        Save
+                    </button>
                 </div>
-                <div className="invalid-feedback">{errors.email?.message}</div>
-            </div>
-            <div className={styles.body__form_groupe}>
-                 <div className={styles.body__form__inputs}>
-                    <div>
-                        <label>{t('register.Password')}</label>
-                    </div>
-                    <div>
-                        <input placeholder="********" name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
-                    </div>  
-                </div>
-                <div className="invalid-feedback">{errors.password?.message}</div>
-            </div>
-            <div className={styles.body__form_groupe}>
-            <div className={styles.body__form__inputs}>
-                    <div>
-                        <label>{t('register.Confirm_Password')}</label>
-                    </div>
-                    <div>
-                        <input
-                            name="confirmPwd"
-                            type="password"
-                            placeholder="********"
-                            {...register('confirmPwd')}
-                            className={`form-control ${errors.confirmPwd ? 'is-invalid' : ''}`}
-                        />                    
-                    </div>  
-                </div>
-                
-                <div className="invalid-feedback">{errors.confirmPwd?.message}</div>
-            </div>
-            <div className={styles.body__form_btn_bloc}>
-                <button onClick={() => reset(formOptions.defaultValues)} type="button" disabled={formState.isSubmitting} className={styles.body__form_btn_rest}>Reset</button>
-                <button type="button" disabled={formState.isSubmitting} className={styles.body__form_btn}>
-                    {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                    Save
-                </button>
-            </div>
-            
-        </form>
+                <div className="message">{message ? <p style={{ color: `${color}` }}>{message}</p> : null}</div>
+            </form>
+        </div>
         </>
     );
 }

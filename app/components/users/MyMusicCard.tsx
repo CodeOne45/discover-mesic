@@ -45,9 +45,8 @@ const MyMusicCard: React.FC<Props> = ({ userID }) => {
           )): <> <p> No song liked yet!</p> </> }</> 
 
          :<>{addedSongs? addedSongs.map((track: any) => (
-          <CardSong key={track} song={track} />
-          )):
-          <><p className={styles.empty_info}> No song added ! It's never late ;)</p></> }</>}
+            <CardSong key={track} song={track} />
+          )):<><p className={styles.empty_info}> No song added ! It's never late. </p></> }</>}
         </section>
     </React.Fragment>
   );
