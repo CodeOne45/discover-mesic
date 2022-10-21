@@ -8,7 +8,7 @@ WORKDIR /app
 
 # Copy package.json and package-lock.json
 # to the /app working directory
-COPY ./package*.json .
+COPY ./package*.json ./
 
 # Install dependencies in /app
 RUN yarn install --no-lockfile
@@ -21,5 +21,5 @@ RUN yarn build
 EXPOSE 3000
 
 # Run yarn dev, as we would via the command line 
-CMD ["yarn", "dev"]
+CMD ["yarn", "start"]
 
