@@ -20,4 +20,5 @@ module.exports = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  future: { webpack5: true },
 }
