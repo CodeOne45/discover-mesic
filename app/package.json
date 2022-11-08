@@ -37,7 +37,7 @@
     "react-router-dom": "^6.3.0",
     "react-slick": "^0.29.0",
     "react-switch": "^7.0.0",
-    "react-tinder-card": "1.5.4",
+    "react-tinder-card": "^1.6.2",
     "rxjs": "^7.5.5",
     "rxjs-compat": "^6.6.7",
     "slick-carousel": "^1.8.1",
