@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 module.exports = {
+  staticPageGenerationTimeout: 10000,
   webpackDevMiddleware: config => {
     config.watchOptions = {
       poll: 1000,
