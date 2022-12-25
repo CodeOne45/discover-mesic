@@ -2,10 +2,12 @@ import React, { useContext, useState , useMemo, useEffect, useRef} from "react";
 import { useRouter } from 'next/router';
 import { IMusic } from "../../types/music";
 import classNames from "classnames";
-import dynamic from "next/dynamic"
+/*import dynamic from "next/dynamic"
 const TinderCard = dynamic(() => import('react-tinder-card'), {
-  ssr: false
-});
+  ssr: true
+});*/
+
+import TinderCard from "react-tinder-card";
 import { thumbnailLink } from "../../constant/url";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import IconButton from "@material-ui/core/IconButton";

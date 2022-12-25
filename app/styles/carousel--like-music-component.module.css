@@ -71,6 +71,11 @@
   border-bottom-left-radius: 10px 10px;
 }
 
+/* Error image */
+.card_image_circle img {
+  background-color: lightgray;
+}
+
 .card:hover > .Link .card_image img{
   filter: brightness(50%);
   transition: .3s;
