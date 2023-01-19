@@ -33,9 +33,9 @@ const MyMusicCard: React.FC<Props> = ({ userID }) => {
   return (
     <React.Fragment>
         <div className={styles.my_music_header}>
-          <div onClick={() => setActiveLink("liked")} className={`${activeLink === "liked" ? `${styles.active}` : ''}`}> <h3>Your liked songs </h3> </div>
+          <div onClick={() => setActiveLink("liked")} className={`${activeLink === "liked" ? `${styles.active}` : `${styles.inactive}`}`}> <h3>Your liked songs </h3> </div>
           <div > <h3> | </h3> </div>
-          <div onClick={() => setActiveLink("added")} className={`${activeLink === "added" ? `${styles.active}` : ''}`} > <h3>Your added songs </h3> </div>
+          <div onClick={() => setActiveLink("added")} className={`${activeLink === "added" ? `${styles.active}` : `${styles.inactive}`}`} > <h3>Your added songs </h3> </div>
         </div>
 
         <section className={styles.top_songs_container}>

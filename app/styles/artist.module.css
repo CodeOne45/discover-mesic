@@ -18,8 +18,12 @@
 
 .active{
   color: var(--color-icon-heart);
+  font-family: 'Roboto', sans-serif;
 }
 
+.inactive{
+  font-family: 'Roboto', sans-serif;
+}
 
 /* Main block */
 .container_right {

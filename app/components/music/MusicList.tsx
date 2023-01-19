@@ -2,8 +2,8 @@ import React, { useContext, useState , useMemo, useEffect, useRef} from "react";
 import { useRouter } from 'next/router';
 import { IMusic } from "../../types/music";
 import classNames from "classnames";
-/*import dynamic from "next/dynamic"
-const TinderCard = dynamic(() => import('react-tinder-card'), {
+import dynamic from "next/dynamic"
+/*const TinderCard = dynamic(() => import('react-tinder-card'), {
   ssr: true
 });*/
 

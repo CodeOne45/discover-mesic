@@ -25,7 +25,7 @@ const CALL_BACK = process.env.CALL_BACK;
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: CALL_BACK + "/auth/google/callback"
+    callbackURL: CALL_BACK + "/discover"
   },
   function(accessToken, refreshToken, profile, done) {
       userProfile=profile;
