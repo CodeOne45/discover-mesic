@@ -129,7 +129,8 @@ Based on the youtube player, Discover Me'sic allows you to add unknown music wit
 ### :art: Color Reference
 
 | Design (Figma)             |
-<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2Fom9iBQYrCXpqjL0W3h2eLV%2FDiscover-Me'sic-team-library%3Fnode-id%3D514%253A30%26t%3DXYJnWtcCHIy904Kq-1" allowfullscreen></iframe>
+
+<a href="https://www.figma.com/file/om9iBQYrCXpqjL0W3h2eLV/Discover-Me'sic-team-library?node-id=426%3A30&t=OSJPpZp0uLapM7Cy-1"> Discover Me'sic UI Mockup</a>
 
 
 
