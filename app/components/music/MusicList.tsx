@@ -2,9 +2,9 @@ import React, { useContext, useState , useMemo, useEffect, useRef} from "react";
 import { useRouter } from 'next/router';
 import { IMusic } from "../../types/music";
 import classNames from "classnames";
-import dynamic from "next/dynamic"
-/*const TinderCard = dynamic(() => import('react-tinder-card'), {
-  ssr: true
+/*import dynamic from "next/dynamic"
+const TinderCard = dynamic(() => import('react-tinder-card'), {
+  ssr: false
 });*/
 
 import TinderCard from "react-tinder-card";
@@ -91,6 +91,7 @@ const MusicList: React.FC<Props> = ({ musics }) => {
   const onCardLeftScreen = (myIdentifier : any) => {
     console.log(myIdentifier + " left the screen");
   };
+
 
   return (
     <div className={styles.list_wrapper}>

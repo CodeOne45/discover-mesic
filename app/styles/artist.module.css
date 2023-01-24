@@ -34,6 +34,8 @@
 
 .container_right {
   overflow: hidden;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .container_right section {
@@ -115,7 +117,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   max-height: 450px;
-  padding: 10px 10px 0 10px;
+  padding: 10px 0 10px 0;
 }
 
 .top_songs_container::-webkit-scrollbar-track

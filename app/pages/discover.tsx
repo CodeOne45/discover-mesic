@@ -31,7 +31,7 @@ const Discover: NextPage = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-      const subscription = userService.user.subscribe(x => setUser(x));
+      const subscription = userService.user.subscribe(user => setUser(user));
       return () => subscription.unsubscribe();
   }, []);
 
