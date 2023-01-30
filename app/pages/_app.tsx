@@ -6,6 +6,7 @@ import Container from "../store";
 import { useTranslation, LanguageSwitcher } from 'next-export-i18n';
 import useWindowSize from '../helpers/useWindowSize'
 
+import Head from 'next/head'
 
 
 import ReactSwitch from 'react-switch';
@@ -101,7 +102,11 @@ function MyApp({ Component, pageProps, width }: AppProps) {
         <Component {...pageProps} />
       </Container>
     </>*/
+    
     <ThemeContext.Provider value={{theme, toggleTheme}}>
+      <Head>
+        <meta name="viewport" content="viewport-fit=cover" />
+      </Head>
       <div id={theme}>
         <Container>
             <div className='switch_color'>
