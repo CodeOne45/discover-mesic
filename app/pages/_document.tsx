@@ -10,7 +10,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="en">
+      <Html lang="en" className="light">
         <Head>
           <meta httpEquiv="x-ua-compatible" content="IE=edge"/>
           <meta
@@ -44,7 +44,7 @@ class MyDocument extends Document {
           <link href="//netdna.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
 
         </Head>
-        <body >
+        <body>
           <Main/>
           <NextScript/>
           <script src="/script/assets.js"/>

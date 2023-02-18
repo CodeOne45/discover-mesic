@@ -6,6 +6,8 @@ import Container from "../store";
 import { useTranslation, LanguageSwitcher } from 'next-export-i18n';
 import useWindowSize from '../helpers/useWindowSize'
 
+import { ThemeProvider } from "next-themes";
+
 import Head from 'next/head'
 
 
@@ -20,7 +22,7 @@ export const ThemeContext = createContext(null);
 
 function MyApp({ Component, pageProps, width }: AppProps) {
 
-  const [theme, setTheme] = useState('light');
+  //const [theme, setTheme] = useState('light');
   const size = useWindowSize();    
 
 
@@ -103,24 +105,12 @@ function MyApp({ Component, pageProps, width }: AppProps) {
       </Container>
     </>*/
     
-    <ThemeContext.Provider value={{theme, toggleTheme}}>
+    <ThemeProvider enableSystem={true} attribute="class">
       <Head>
         <meta name="viewport" content="viewport-fit=cover" />
       </Head>
-      <div id={theme}>
-        <Container>
-            <div className='switch_color'>
-              <div className="language-selector">
-                <LanguageSwitcher lang="fr">FR</LanguageSwitcher> |{' '}
-                <LanguageSwitcher lang="en">EN</LanguageSwitcher>
-              </div>
-              <label>{theme === 'light' ? 'Light mode' : 'Dark Mode'}</label>
-              <ReactSwitch onChange={toggleTheme} checked={theme === 'dark'}/>
-            </div>
-            <Component {...pageProps} />
-        </Container>
-      </div>
-    </ThemeContext.Provider>
+      <Component {...pageProps} />
+    </ThemeProvider>
   );
 }
 

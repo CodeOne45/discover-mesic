@@ -1,5 +1,6 @@
 import 'font-awesome/css/font-awesome.min.css';
 import Landing from "../components/Landing";
+import Experience from '../components/Experience';
 import Layout from "../components/Layout";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -33,6 +34,7 @@ const Home: NextPage = () => {
       </Head>
       <Layout>
           <Landing />
+          <Experience />
       </Layout>
     </>
   );

@@ -37,19 +37,21 @@ const Discover: NextPage = () => {
 
   useEffect(() => {
     (async () => {
-      if(musics.length === 0){
-        const { data } = (await songService.songsList());
-        if (data.length) setMusics(data);
+      const { data } = (await songService.songsList());
+      if (data.length){
+        if(musics.length === 0){
+          setMusics(data);
+        }
       }
     })();
   }, []);
 
   useEffect(() => {
     (async () => {
-      if(topMusics.length === 0){
         const { data } = (await songService.topTen());
-        if (data.length) setTopMusics(data);
-      }
+        if (data.length){
+          setTopMusics(data);
+        }
     })();
   }, []);
 
@@ -73,7 +75,7 @@ const Discover: NextPage = () => {
     switch(activeLink) {
 
       case "player":   return (<div className={`${styles.music_lister}, ${styles.block}`}>
-                          <MusicList musics={musics}/>
+                          <MusicList musics={musics?(musics.length > 0 ? musics : []) : []}  />
                       </div> );
       case "top":   return (<div className={`${styles.other_music}, ${styles.block}`}>
                           <Carousel topTenSongs={topMusics} slide_type="song"/>
@@ -87,8 +89,8 @@ const Discover: NextPage = () => {
                                   {user ? <EditProile user={user} /> : <></>}
                                 </div>);
       default:      return (<div className={`${styles.other_music}, ${styles.block}`}>
-                                <Carousel topTenSongs={topMusics} slide_type="song"/>
-                                <Carousel topTenSongs={topMusics} slide_type="artiste"/>
+                                <Carousel topTenSongs={topMusics? (topMusics.length > 0 ? topMusics : []) : []} slide_type="song"/>
+                                <Carousel topTenSongs={topMusics? (topMusics.length > 0 ? topMusics : []) : []} slide_type="artiste"/>
                             </div>)
     }
   }
@@ -111,7 +113,7 @@ const Discover: NextPage = () => {
       </Head>
       <Layout> 
         <div className={`${styles.music_lister}, ${styles.block}`}>
-          <MusicList musics={musics}/>
+          <MusicList musics={musics?(musics.length > 0 ? musics : []) : []} />
         </div>       
         {size.width < 1100 || user != null ? (
           <div className={styles.tab_nav_container}>

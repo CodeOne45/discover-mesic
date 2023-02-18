@@ -40,8 +40,8 @@ const Landing: React.FC = () => {
   }, []); 
 
     return (
-      <div className={styles.container}>
-        <div className={styles.content}>
+      <div className=" wrapper dark:bg-[#081730]  flex items-center justify-between px-[10rem] mt-[-3rem] rounded-b-[5rem] w-[100%] h-[50rem] relative z-[3]">
+        <div className="headings flex flex-col items-start justify-center h-[100%] mt-[5rem] text-[1rem]">
           <div className={styles.title}>
             <span>{TITLE_1}</span>
             <span>{TITLE_2}</span>
@@ -53,8 +53,13 @@ const Landing: React.FC = () => {
               {t('landing.more_than')}<span className={styles.music_number}>{numberOfSongs}</span> {t('landing.unknown')}
             </span>
           </div>
+          <Link href="/discover" >
+          <a className={styles.content_button}>
+            {t('landing.Discover')}
+          </a>
+        </Link>
         </div>
-        <div className={styles.image}>
+        <div className="images relative w-[50%]">
           <div className={styles.image_container}>
             <div className={styles.image_container_block}>
               <img className={styles.image_container_img_bg} src={ytBackground?thumbnailLink(ytBackground): pochetteImage.src} alt="Landing pochette"/>
@@ -66,15 +71,8 @@ const Landing: React.FC = () => {
             </div>
           </div>
         </div>   
-        <Link href="/discover" >
-          <a className={styles.content_button}>
-            {t('landing.Discover')}
-          </a>
-        </Link>
-        <div className={styles.catchphrase}>
-          “{t('landing.beautiful')}”
-        </div>
       </div>
+      
     );
   };
   export default Landing;
