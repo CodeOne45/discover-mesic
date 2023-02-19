@@ -9,7 +9,7 @@ import useWindowSize from '../helpers/useWindowSize'
 import { ThemeProvider } from "next-themes";
 
 import Head from 'next/head'
-
+import NotAvalable from '../components/app-available/NotAvalable';
 
 import ReactSwitch from 'react-switch';
 //import Head from "next/head";
@@ -83,28 +83,11 @@ function MyApp({ Component, pageProps, width }: AppProps) {
 
   if (size.width < 992) {
     return (
-      <div style={{
-        textAlign: 'center',
-        padding: '2em',
-        color: 'black',
-      }}>
-        <p style={{ fontSize: '1.5em', marginBottom: '1em' }}>
-          Sorry, this website is only available on desktop devices.
-        </p>
-        <p style={{ fontSize: '1.2em' }}>
-          Please visit us on a desktop computer for the full experience.
-        </p>
-      </div>      
+      <NotAvalable />  
     );
   }
           
   return (
-    /*<>
-      <Container>
-        <Component {...pageProps} />
-      </Container>
-    </>*/
-    
     <ThemeProvider enableSystem={true} attribute="class">
       <Head>
         <meta name="viewport" content="viewport-fit=cover" />

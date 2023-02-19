@@ -39,9 +39,7 @@ const Discover: NextPage = () => {
     (async () => {
       const { data } = (await songService.songsList());
       if (data.length){
-        if(musics.length === 0){
-          setMusics(data);
-        }
+        setMusics(data);
       }
     })();
   }, []);

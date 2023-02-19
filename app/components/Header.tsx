@@ -107,10 +107,10 @@ const Header: React.FC = () => {
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-na" />
-        <Navbar.Collapse id="text-white responsive-navbar-nav">
+        <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto align-items-end px-3">
-            <Nav.Link className="dark:text-white text-black" href="/discover">Top 10</Nav.Link>
-            <Nav.Link className="dark:text-white text-black" href="#">{t('header.About_us')}</Nav.Link>
+            <Nav.Link href="/discover">Top 10</Nav.Link>
+            <Nav.Link href="#">{t('header.About_us')}</Nav.Link>
           </Nav>
           <Nav className="ml-auto align-items-end px-3">
               { accessPaths.includes(path) ? (<form className={styles.search_form} onSubmit={submitSearchHandler}>

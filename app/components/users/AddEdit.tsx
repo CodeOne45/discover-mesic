@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import styles from "../../styles/user-profile.module.css";
 
 import { userService} from '../../services/user.service';

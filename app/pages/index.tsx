@@ -1,9 +1,15 @@
 import 'font-awesome/css/font-awesome.min.css';
+import type { NextPage } from "next";
+import Head from "next/head";
+
 import Landing from "../components/Landing";
 import Experience from '../components/Experience';
 import Layout from "../components/Layout";
-import type { NextPage } from "next";
-import Head from "next/head";
+import Details from '../components/Details';
+import Download from '../components/app-available/Download';  
+import Footer from '../components/Footer';
+
+
 import { FRONTEND_URL } from "../constant/url";
 import { useTranslation } from 'next-export-i18n';
 
@@ -35,6 +41,9 @@ const Home: NextPage = () => {
       <Layout>
           <Landing />
           <Experience />
+          <Details />
+          <Download />
+          <Footer />
       </Layout>
     </>
   );

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import pochetteImage from '../asset/pochette.png';
 import styles from "../styles/home.module.css";
 import { useTranslation } from 'next-export-i18n';
+import classNames from "classnames";
 
 const TITLE_1 = "Discover";
 const TITLE_2 = "Me'sic";
@@ -40,7 +41,7 @@ const Landing: React.FC = () => {
   }, []); 
 
     return (
-      <div className=" wrapper dark:bg-[#081730]  flex items-center justify-between px-[10rem] mt-[-3rem] rounded-b-[5rem] w-[100%] h-[50rem] relative z-[3]">
+      <div className=" wrapper dark:bg-[#081730] flex items-center justify-between px-[10rem] mt-[-3rem] rounded-b-[5rem] w-[100%] h-[50rem] relative z-[3]">
         <div className="headings flex flex-col items-start justify-center h-[100%] mt-[5rem] text-[1rem]">
           <div className={styles.title}>
             <span>{TITLE_1}</span>
@@ -54,7 +55,7 @@ const Landing: React.FC = () => {
             </span>
           </div>
           <Link href="/discover" >
-          <a className={styles.content_button}>
+          <a className={classNames(styles.content_button, "text-white bg-gradient-to-bl from-[#F3071D] to-[#E600FF]")}>
             {t('landing.Discover')}
           </a>
         </Link>

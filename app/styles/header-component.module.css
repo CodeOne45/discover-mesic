@@ -6,7 +6,6 @@
   background-color:black;
   height: 80px;
   position: absolute;
-  max-width: 1400px;
   margin-top: -120px;
   box-shadow: var(--shadow-37);
   position: fixed;
@@ -14,9 +13,11 @@
   z-index: 100;
 }
 .main_nav nav{
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding-top: 5px;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 .dropdown > div{
@@ -85,7 +86,6 @@
   width: 100%;
   padding: 0 14px;
   z-index: 100;
-  color: white;
   background-color: #081730;
 }
 

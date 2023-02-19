@@ -1,5 +1,3 @@
-
-//import pochetteImage from '../asset/pochette.png';
 import Feature from './Feature';
 
 const TITLE_1 = "Discover";
@@ -15,9 +13,9 @@ import community_icon from '../asset/community_icon.png';
 const Experience: React.FC = () => {
 
     return (
-        <div className="experience flex flex-col items-center justify-start px-[5rem] dark:bg-[#020917] h-[60rem] pt-[18rem] mt-[-10rem] relative z-[2] rounded-b-[5rem]">
+        <div className="experience flex flex-col items-center justify-start px-[5rem] dark:bg-[#020917] h-[50rem] pt-[18rem] mt-[-10rem] relative z-[2] rounded-b-[5rem]">
         {/* heading */}
-        <div className="dark:text-white headline mt-7 flex flex-col items-center text-[2rem]">
+        <div className="dark:text-white headline mt-3 flex flex-col items-center text-[2rem]">
             <span>Discover the Music Beyond Mainstream</span>
             <p className="text-[#707070] mt-4 text-[1.2rem]"> Discover Me'sic helps you escape the same old playlist by exploring unheard of artists and music </p>
         </div>
