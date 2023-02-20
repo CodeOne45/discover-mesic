@@ -8,13 +8,16 @@ import React, {
 import classNames from "classnames";
 import { useRouter } from "next/router";
 import {userService} from '../services/user.service';
+import {useTheme} from "next-themes";
+
+import{SunIcon ,MoonIcon} from "@heroicons/react/solid";
 
 import { useTranslation } from 'next-export-i18n';
 
 import Link from "next/link";
 import styles from "../styles/header-component.module.css";
 
-import logo from '../asset/logo_large.png';
+import logo from '../asset/logo_small.png';
 
 import { Nav, Navbar } from "react-bootstrap"
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -63,26 +66,40 @@ const Header: React.FC = () => {
     }
   }, []);
 
+  const [mounted, setMounted] = useState(false);
 
-  function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "header-component_topnav__JpB0H") {
-      x.className += " header-component_responsive__ZOS4I";
-    } else {
-      x.className = "header-component_topnav__JpB0H";
+  useEffect(() =>{
+    setMounted(true);
+  },[])
+  
+  const {systemTheme , theme, setTheme} = useTheme ();
+
+  const renderThemeChanger= () => {
+
+    if(!mounted) return null;
+
+    const currentTheme = theme === "system" ? systemTheme : theme ;
+
+    if(currentTheme ==="dark"){
+      return (
+        <SunIcon className="w-10 h-10 text-yellow-500 " role="button" onClick={() => setTheme('light')} />
+      )
     }
-  }
+
+    else {
+      return (
+        <MoonIcon className="w-10 h-10 text-gray-900 " role="button" onClick={() => setTheme('dark')} />
+      )
+    }
+  };
 
   return (
     <div className={styles.main_nav}>
       <Navbar
         collapseOnSelect
         expand="md"
-        bg="light"
-        variant="light"
-        className="px-4 py-8"
         fixed="top"
-        className={styles.topnav}
+        className={classNames(styles.navbar, "dark:bg-[#081730] bg-[#F9FAFB]")}
       >
         <Navbar.Brand>
           <Link href={"/"}>
@@ -97,7 +114,7 @@ const Header: React.FC = () => {
           </Nav>
           <Nav className="ml-auto align-items-end px-3">
               { accessPaths.includes(path) ? (<form className={styles.search_form} onSubmit={submitSearchHandler}>
-              <div className={styles.text_box}>
+              <div >
                 <input
                   type="text"
                   placeholder={t('header.Search_for_a_song')}
@@ -126,8 +143,9 @@ const Header: React.FC = () => {
             </div>
           </Nav>
         </Navbar.Collapse>
-
+        {renderThemeChanger()}
       </Navbar>
+
     </div>
   )
 };

@@ -95,8 +95,7 @@ const MusicList: React.FC<Props> = ({ musics }) => {
 
   return (
     <div className={styles.list_wrapper}>
-      {musics.length
-        ? musics.map((music, index) => {
+      {musics?(musics.length? musics.map((music, index) => {
             playStarted
               ? console.log("musicStarted")
               : (setMusic(music), setIsPlay(true), setPlayStarted(true));
@@ -131,7 +130,7 @@ const MusicList: React.FC<Props> = ({ musics }) => {
               </div>
             );
           })
-        : `No music found!`}
+        : `No music found!`): `Loading...`}
         <div className={styles.buttons_swipe}>
           <IconButton className={styles.close} onClick={() => swipe('left')}>
             <CloseIcon className={styles.close_icon} fontSize="large" />

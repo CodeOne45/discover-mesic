@@ -9,6 +9,8 @@ import MyMusic from "../components/users/MyMusicCard";
 import EditProile from "../components/users/AddEdit";
 
 import { Context } from "../store";
+import Container from "../store";
+
 import type { NextPage } from "next";
 import Head from "next/head";
 import { FRONTEND_URL } from "../constant/url";
@@ -16,13 +18,21 @@ import {songService} from '../services/music.service';
 import useWindowSize from '../helpers/useWindowSize'
 import {userService} from '../services/user.service';
 
-
+// Wrap Discover component with Container
+export default function App() {
+  return (
+    <Container>
+      <Discover />
+    </Container>
+  );
+}
 
 /**
  * Discover page
  */
 const Discover: NextPage = () => {
-  const {musics, setMusics} = useContext(Context) as any;
+  const { musics, setMusics } = useContext<{ musics: IMusic[]; setMusics: (value: IMusic[]) => void }>(Context);
+  console.log(musics, setMusics);
   const {topMusics, setTopMusics} = useContext(Context) as any;
   const size = useWindowSize();    
 
@@ -37,19 +47,19 @@ const Discover: NextPage = () => {
 
   useEffect(() => {
     (async () => {
-      if(musics.length === 0){
-        const { data } = (await songService.songsList());
-        if (data.length) setMusics(data);
+      const { data } = (await songService.songsList());
+      if (data.length){
+        setMusics(data);
       }
     })();
   }, []);
 
   useEffect(() => {
     (async () => {
-      if(topMusics.length === 0){
         const { data } = (await songService.topTen());
-        if (data.length) setTopMusics(data);
-      }
+        if (data.length){
+          setTopMusics(data);
+        }
     })();
   }, []);
 
@@ -73,7 +83,7 @@ const Discover: NextPage = () => {
     switch(activeLink) {
 
       case "player":   return (<div className={`${styles.music_lister}, ${styles.block}`}>
-                          <MusicList musics={musics}/>
+                          <MusicList musics={musics?(musics.length > 0 ? musics : []) : []}  />
                       </div> );
       case "top":   return (<div className={`${styles.other_music}, ${styles.block}`}>
                           <Carousel topTenSongs={topMusics} slide_type="song"/>
@@ -87,8 +97,8 @@ const Discover: NextPage = () => {
                                   {user ? <EditProile user={user} /> : <></>}
                                 </div>);
       default:      return (<div className={`${styles.other_music}, ${styles.block}`}>
-                                <Carousel topTenSongs={topMusics} slide_type="song"/>
-                                <Carousel topTenSongs={topMusics} slide_type="artiste"/>
+                                <Carousel topTenSongs={topMusics? (topMusics.length > 0 ? topMusics : []) : []} slide_type="song"/>
+                                <Carousel topTenSongs={topMusics? (topMusics.length > 0 ? topMusics : []) : []} slide_type="artiste"/>
                             </div>)
     }
   }
@@ -111,7 +121,7 @@ const Discover: NextPage = () => {
       </Head>
       <Layout> 
         <div className={`${styles.music_lister}, ${styles.block}`}>
-          <MusicList musics={musics}/>
+          <MusicList musics={musics?(musics.length > 0 ? musics : []) : []} />
         </div>       
         {size.width < 1100 || user != null ? (
           <div className={styles.tab_nav_container}>
@@ -143,7 +153,6 @@ const Discover: NextPage = () => {
   );
 };
 
-export default Discover;
 
 /*
 /*<div className={styles.block}>

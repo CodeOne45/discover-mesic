@@ -94,7 +94,7 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
                 </div>
             </div>
             <Slider ref={setSliderRef} {...sliderSettings}>
-                {topTenSongs.map((card: { id: srting ; title: string; author: string; yt_id: string; numberOfLikes:double; }, index: any) => ( 
+                {topTenSongs? topTenSongs.map((card: { id: srting ; title: string; author: string; yt_id: string; numberOfLikes:double; }, index: any) => ( 
                     <div className={styles.card}>  
                         <Link className={styles.Link} href={`/music/${card.yt_id}`}>   
                             <div className={styles.card_image}>
@@ -114,7 +114,7 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
                             </div>                            
                         </div>
                     </div>
-                ))}
+                )): null}
             </Slider>
         </div>
         )      
@@ -133,7 +133,7 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
                     </div>
                 </div>
                 <Slider ref={setSliderRef} {...sliderSettings}>
-                    {topTenSongs.map((card: { title: string; author: string; profile_pic_url: string; }, index: any) => ( 
+                    {topTenSongs? topTenSongs.map((card: { title: string; author: string; profile_pic_url: string; }, index: any) => ( 
                     <div className={styles.card_artist}>     
                         <div className={styles.card_image_circle}>
                             <a href={`/artist/${card.author}`}> <img src={card.profile_pic_url} onLoad={imageOnLoadHandler} onError={imageOnErrorHandler} /> </a>
@@ -142,7 +142,7 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
                             <h4>{card.author}</h4>
                         </div>
                     </div> 
-                    ))}
+                    )): null}
                 </Slider>
             </div>
         ) 

@@ -6,8 +6,10 @@ import Container from "../store";
 import { useTranslation, LanguageSwitcher } from 'next-export-i18n';
 import useWindowSize from '../helpers/useWindowSize'
 
-import Head from 'next/head'
+import { ThemeProvider } from "next-themes";
 
+import Head from 'next/head'
+import NotAvalable from '../components/app-available/NotAvalable';
 
 import ReactSwitch from 'react-switch';
 //import Head from "next/head";
@@ -20,7 +22,7 @@ export const ThemeContext = createContext(null);
 
 function MyApp({ Component, pageProps, width }: AppProps) {
 
-  const [theme, setTheme] = useState('light');
+  //const [theme, setTheme] = useState('light');
   const size = useWindowSize();    
 
 
@@ -81,46 +83,17 @@ function MyApp({ Component, pageProps, width }: AppProps) {
 
   if (size.width < 992) {
     return (
-      <div style={{
-        textAlign: 'center',
-        padding: '2em',
-        color: 'black',
-      }}>
-        <p style={{ fontSize: '1.5em', marginBottom: '1em' }}>
-          Sorry, this website is only available on desktop devices.
-        </p>
-        <p style={{ fontSize: '1.2em' }}>
-          Please visit us on a desktop computer for the full experience.
-        </p>
-      </div>      
+      <NotAvalable />  
     );
   }
           
   return (
-    /*<>
-      <Container>
-        <Component {...pageProps} />
-      </Container>
-    </>*/
-    
-    <ThemeContext.Provider value={{theme, toggleTheme}}>
+    <ThemeProvider enableSystem={true} attribute="class">
       <Head>
         <meta name="viewport" content="viewport-fit=cover" />
       </Head>
-      <div id={theme}>
-        <Container>
-            <div className='switch_color'>
-              <div className="language-selector">
-                <LanguageSwitcher lang="fr">FR</LanguageSwitcher> |{' '}
-                <LanguageSwitcher lang="en">EN</LanguageSwitcher>
-              </div>
-              <label>{theme === 'light' ? 'Light mode' : 'Dark Mode'}</label>
-              <ReactSwitch onChange={toggleTheme} checked={theme === 'dark'}/>
-            </div>
-            <Component {...pageProps} />
-        </Container>
-      </div>
-    </ThemeContext.Provider>
+      <Component {...pageProps} />
+    </ThemeProvider>
   );
 }
 
