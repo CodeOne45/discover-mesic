@@ -4,7 +4,9 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Container from "../store";
 import { useTranslation, LanguageSwitcher } from 'next-export-i18n';
+import useWindowSize from '../helpers/useWindowSize'
 
+import Head from 'next/head'
 
 
 import ReactSwitch from 'react-switch';
@@ -16,9 +18,18 @@ import {userService} from '../services/user.service';
 export const ThemeContext = createContext(null);
 
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, width }: AppProps) {
 
   const [theme, setTheme] = useState('light');
+  const size = useWindowSize();    
+
+
+  useEffect(() => {
+    if (width < 768) {
+      setIsMobile(true);
+    }
+  }, [width]);
+
 
   const toggleTheme = () => {
       setTheme((curr) => (curr === 'light' ? 'dark' : 'light'));
@@ -27,7 +38,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState(null);
   const [authorized, setAuthorized] = useState<boolean>(false);
   const {t} = useTranslation();
-
 
   useEffect(() => {
       // on initial load - run auth check 
@@ -69,13 +79,34 @@ function MyApp({ Component, pageProps }: AppProps) {
     return <PreloaderComp />
   }
 
+  if (size.width < 992) {
+    return (
+      <div style={{
+        textAlign: 'center',
+        padding: '2em',
+        color: 'black',
+      }}>
+        <p style={{ fontSize: '1.5em', marginBottom: '1em' }}>
+          Sorry, this website is only available on desktop devices.
+        </p>
+        <p style={{ fontSize: '1.2em' }}>
+          Please visit us on a desktop computer for the full experience.
+        </p>
+      </div>      
+    );
+  }
+          
   return (
     /*<>
       <Container>
         <Component {...pageProps} />
       </Container>
     </>*/
+    
     <ThemeContext.Provider value={{theme, toggleTheme}}>
+      <Head>
+        <meta name="viewport" content="viewport-fit=cover" />
+      </Head>
       <div id={theme}>
         <Container>
             <div className='switch_color'>

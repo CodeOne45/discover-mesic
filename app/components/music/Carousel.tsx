@@ -14,6 +14,8 @@ import Link from '../Link';
 import { useTranslation } from 'next-export-i18n';
 
 
+// This image will be used as the fallback for the error images
+const FALLBACK_IMAGE = "https://us.123rf.com/450wm/yehorlisnyi/yehorlisnyi2104/yehorlisnyi210400016/yehorlisnyi210400016.jpg?ver=6";
 
 interface Props {
     readonly topTenSongs?: IMusic[];
@@ -55,6 +57,22 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
                 }
             }
         ]
+    };
+
+    const imageOnLoadHandler = (
+        event: React.SyntheticEvent<HTMLImageElement, Event>
+      ) => {
+        if (event.currentTarget.className !== "error") {
+          event.currentTarget.className = "success";
+        }
+    };
+
+    // This function is triggered if an error occurs while loading an image
+    const imageOnErrorHandler = (
+        event: React.SyntheticEvent<HTMLImageElement, Event>
+    ) => {
+        event.currentTarget.src = FALLBACK_IMAGE;
+        event.currentTarget.className = "error";
     };
 
     if(slide_type == 'song') {
@@ -118,7 +136,7 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
                     {topTenSongs.map((card: { title: string; author: string; profile_pic_url: string; }, index: any) => ( 
                     <div className={styles.card_artist}>     
                         <div className={styles.card_image_circle}>
-                            <a href={`/artist/${card.author}`}> <img src={card.profile_pic_url} /> </a>
+                            <a href={`/artist/${card.author}`}> <img src={card.profile_pic_url} onLoad={imageOnLoadHandler} onError={imageOnErrorHandler} /> </a>
                         </div>
                         <div key={index} className={styles.card_content_artist}>
                             <h4>{card.author}</h4>

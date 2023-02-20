@@ -2,8 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 a {
@@ -128,7 +127,9 @@ button {
   color: var(--color-text-1);
 }
 
+
 /*NavBar */
+
 #dark .header-component_topnav__JpB0H {
   background-color: var(--dark-5);
 }

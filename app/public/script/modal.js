@@ -1,7 +1,6 @@
 const openbtn = document.querySelector(".open");
 const modal = document.querySelector('.box');
 const closeBtn = document.querySelector('.close');
-console.log("hermlopoooooooooooooooo")
 // we are saying that when we click This
 openbtn.addEventListener("click", () => {
     modal.classList.add('visible')

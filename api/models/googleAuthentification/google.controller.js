@@ -16,17 +16,17 @@ async function (req, res) {
 });
 
 router.get('/logGoogle/success', async function (req, res){ 
-  var vUsername = userProfile.emails[0].value.split("@")[0];
-  var vEmail = userProfile.emails[0].value;
-  var user = await User.findOne( { email: vEmail });
+  let vUsername = userProfile.emails[0].value.split("@")[0];
+  let vEmail = userProfile.emails[0].value;
+  let user = await User.findOne( { email: vEmail });
   let userParam;
   if(user){
-   userParam = {
-    username: user.username,
-    email: user.email,
-    isVerified: true
-  };
-}
+    userParam = {
+      username: user.username,
+      email: user.email,
+      isVerified: true
+    };
+  }
   if(!user){
    userParam = {
     username: vUsername,

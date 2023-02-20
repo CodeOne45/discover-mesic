@@ -1,0 +1,165 @@
+.header_user_profile{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0 20px 0;
+}
+
+.user_seprator{
+    border-bottom: 1.5px solid #C4C4C4;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    display: flex;
+    align-items: center;
+    color: #091127;
+}
+
+.user_info{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.user_info_img {
+    border-radius: 200px;
+    box-sizing: border-box;
+    border: 1px solid #cfd8dc;
+    text-align: center;
+    padding: 10px;
+    margin-right: 20px;
+}
+.user_info_img img {
+    border-radius: 50%;
+    height: 100px;
+}
+
+.user_info_details{
+    padding-top: 20px;
+}
+
+.user_info_details .user_info_details_name{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+}
+
+.user_info_details_level .user_info_details_level{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    
+    color: #545871;
+    opacity: 0.8;
+    padding-bottom: -10px;
+}
+
+.user_info_details_level .user_info_details_songs{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: #0F2869;
+    opacity: 0.8;
+}
+
+.user_progress{
+    min-width: 250px;
+    padding-top: 40px;
+}
+
+.progress_bar{
+    height: 5px;
+}
+
+/* Form */ 
+
+.form {
+    margin: 20px 0 90px 0;
+}
+
+.body__form , .body__form_groupe{
+    padding-bottom : 10px;
+    
+}
+
+.body__form__inputs{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0 5px 0;
+}
+
+.body__form__inputs label{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+}
+.body__form input,.body__form_groupe input{
+    height: 55px;
+    width: 100%;
+    min-width: 400px;
+
+    border-radius: 8px;
+    padding: 0 auto;
+    background-color: #FAFAFA;
+    border: solid #FAFAFA;
+}
+
+.body__form ::placeholder, .body__form_groupe ::placeholder { 
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    color: #717171;
+}
+
+.body__form_btn_bloc{
+    display: flex;
+    justify-content: flex-end;
+}
+.body__form_btn, .body__form_btn_rest{
+    margin-top: 20px;
+    margin-left: 10px;
+    border-radius: 10px;
+    background-color: var(--color-icon-heart);
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0 , .1);
+}
+
+.body__form_btn_rest{
+    background-color: var(--color-text-10);
+    color: black;
+}
+
+@media (max-width: 700px) {
+
+    .block_login{
+        flex-wrap: wrap;
+    }
+    .block_login__body{
+        width: 100%;
+    }
+
+    .header__img{
+        height: 150px; 
+    }
+    .header__img_regitser{
+        height: 110px;
+        margin-top: 5px;
+    }
+
+}

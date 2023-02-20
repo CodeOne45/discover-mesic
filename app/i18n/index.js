@@ -7,7 +7,7 @@ const i18n = {
     fr: fr.i18n,
   },
   defaultLang: "en",
-  useBrowserDefault: true,
+  useBrowserDefault: false,
 };
 
 module.exports = i18n;

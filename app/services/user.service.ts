@@ -40,8 +40,6 @@ function login(username: string, password: string) {
 }
 
 function login_google() {
-    //const router = useRouter();
-
     return fetchWrapper.get(`${API_URL}/auth/google`)
         .then(user => {
             // publish user to subscribers and store in local storage to stay logged in between page refreshes

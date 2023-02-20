@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="app/asset/logo_large.png" alt="logo" width="200" height="auto" />
+  <img src="public/logo_large.png" alt="logo" width="200" height="auto" />
   <h1>Discover Me'sic</h1>
   
   <p>
@@ -50,7 +50,6 @@
   * [Screenshots](#camera-screenshots)
   * [Tech Stack](#space_invader-tech-stack)
   * [Features](#dart-features)
-  * [Color Reference](#art-color-reference)
   * [Environment Variables](#key-environment-variables)
 - [Getting Started](#toolbox-getting-started)
   * [Prerequisites](#bangbang-prerequisites)
@@ -58,7 +57,6 @@
   * [Running Tests](#test_tube-running-tests)
   * [Run Locally](#running-run-locally)
   * [Deployment](#triangular_flag_on_post-deployment)
-- [Usage](#eyes-usage)
 - [Roadmap](#compass-roadmap)
 - [Contributing](#wave-contributing)
   * [Code of Conduct](#scroll-code-of-conduct)
@@ -80,8 +78,12 @@ Based on the youtube player, Discover Me'sic allows you to add unknown music wit
 ### :camera: Screenshots
 
 <div align="center"> 
-  <img src="app/asset/logo_large.png" alt="screenshot" />
+  <img src="public/homepage.png" alt="screenshot" />
+  <img src="public/Discover-page.png" alt="screenshot" />
+  <img src="public/Artist-page.png" alt="screenshot" />
+
 </div>
+
 
 
 <!-- TechStack -->
@@ -90,17 +92,14 @@ Based on the youtube player, Discover Me'sic allows you to add unknown music wit
 <details>
   <summary>Client</summary>
   <ul>
-    <li><a href="https://www.typescriptlang.org/">Typescript</a></li>
     <li><a href="https://nextjs.org/">Next.js</a></li>
     <li><a href="https://reactjs.org/">React.js</a></li>
-    <li><a href="https://tailwindcss.com/">TailwindCSS</a></li>
   </ul>
 </details>
 
 <details>
   <summary>Server</summary>
   <ul>
-    <li><a href="https://www.typescriptlang.org/">Typescript</a></li>
     <li><a href="https://expressjs.com/">Express.js</a></li>
   </ul>
 </details>
@@ -122,19 +121,17 @@ Based on the youtube player, Discover Me'sic allows you to add unknown music wit
 <!-- Features -->
 ### :dart: Features
 
-- Feature 1
-- Feature 2
-- Feature 3
+- Add a song with Youtube URL (less than 50k views)
+- Listen to known songs randomly
+- Export your unknown artist playlist to your favorite streaming platforms
 
 <!-- Color Reference -->
 ### :art: Color Reference
 
-| Color             | Hex                                                                |
-| ----------------- | ------------------------------------------------------------------ |
-| Primary Color | ![#222831](https://via.placeholder.com/10/222831?text=+) #222831 |
-| Secondary Color | ![#393E46](https://via.placeholder.com/10/393E46?text=+) #393E46 |
-| Accent Color | ![#00ADB5](https://via.placeholder.com/10/00ADB5?text=+) #00ADB5 |
-| Text Color | ![#EEEEEE](https://via.placeholder.com/10/EEEEEE?text=+) #EEEEEE |
+| Design (Figma)             |
+
+<a href="https://www.figma.com/file/om9iBQYrCXpqjL0W3h2eLV/Discover-Me'sic-team-library?node-id=426%3A30&t=OSJPpZp0uLapM7Cy-1"> Discover Me'sic UI Mockup</a>
+
 
 
 <!-- Env Variables -->
@@ -238,25 +235,10 @@ To deploy this project run
 ```
 
 
-<!-- Usage -->
-## :eyes: Usage
-
----
-
-
-```javascript
-import Component from 'my-project'
-function App() {
-  return <Component />
-}
-```
-
 <!-- Roadmap -->
 ## :compass: Roadmap
 
-* [x] Todo 1
-* [ ] Todo 2
-
+<a href="https://www.notion.so/discover-mesic/Roadmap-ba008969be5d4b5b9f139a1b83f14523"> Roadmap </a>
 
 <!-- Contributing -->
 ## :wave: Contributing
@@ -279,14 +261,7 @@ Please read the [Code of Conduct](https://github.com/CodeOne45/discover-mesic/bl
 <!-- FAQ -->
 ## :grey_question: FAQ
 
-- Question 1
-
-  + Answer 1
-
-- Question 2
-
-  + Answer 2
-
+NaN
 
 <!-- License -->
 ## :warning: License
@@ -298,4 +273,8 @@ Distributed under the no License. See LICENSE.txt for more information.
 ## :handshake: Contact
 
 Project Link: [https://github.com/CodeOne45/discover-mesic](https://github.com/CodeOne45/discover-mesic)
+
+Notion Roadmap : <a href="https://www.notion.so/discover-mesic/Roadmap-ba008969be5d4b5b9f139a1b83f14523"> Roadmap </a>
+
+Website: www.discovermesic.live
 

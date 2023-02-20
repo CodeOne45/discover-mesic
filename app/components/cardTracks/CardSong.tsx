@@ -32,7 +32,6 @@ const CardSong = ({ song }) => {
   useEffect(() => {
     if(music){
       if(music != musicToPlay){
-        console.log("music");
         seticonPlay(false);
       }
     }
@@ -42,13 +41,13 @@ const CardSong = ({ song }) => {
     <div className={styles.container_song}>
       <div className={styles.container_song_info}>
         <div className={styles.cover_container}>
-          <img src={song.yt_id?thumbnailLink(song.yt_id): ""} alt={song.title} />
+          <img src={song?thumbnailLink(song.yt_id): ""} alt={song?song.title : "undefined"} />
         </div>
         <div className={styles.info_container}>
-          <span>{song.title}</span>
+          <span>{song?song.title : "undefined"}</span>
           <div className={styles.contributors}>
-            <p key={song.author} className={styles.track_artist}>
-              {song.author}
+            <p key={song?song.author : "undefined"} className={styles.track_artist}>
+              {song?song.author : "undefined"}
             </p>
           </div>
         </div>
@@ -63,7 +62,7 @@ const CardSong = ({ song }) => {
         </button>
         <div className={styles.container_song_likes}>
           <FaHeart /> 
-          <p> {song.numberOfLikes}</p>
+          <p> {song?song.numberOfLikes  : "undefined"}</p>
         </div>
       </div>
     </div>

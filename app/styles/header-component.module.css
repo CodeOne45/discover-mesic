@@ -4,19 +4,19 @@
 
 .main_nav{
   background-color:#F8F9FA;
-  height: 66px;
+  height: 80px;
   position: absolute;
   width: 100%;
   margin-top: -120px;
   box-shadow: var(--shadow-37);
   position: fixed;
-  top: 109px;
+  top: 100px;
   z-index: 100;
-
 }
 .main_nav nav{
   max-width: 1400px;
   margin: 0 auto;
+  padding-top: 5px;
 }
 
 .dropdown > div{
@@ -30,9 +30,10 @@
 }
 
 .image_container_logo{
-  height: 35px;
+  height: 40px;
   width: 120px;
   cursor: pointer;
+  padding-top: 5px;
 }
 .text_box {
   display: flex;
@@ -41,6 +42,7 @@
   width: 300px;
   height: 38px;
   
+  margin-top: 3px;
   padding: 0 14px;
   border-radius: 8px;
   background: rgba(0, 0, 0, .06);
@@ -107,7 +109,6 @@
   float: left;
   color: var(--dark-1);
   text-align: center;
-  padding: 14px 16px ;
   text-decoration: none;
   font-size: 17px;
 }

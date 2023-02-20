@@ -14,6 +14,8 @@ import {userService} from '../../services/user.service';
 
 import { useTranslation } from 'next-export-i18n';
 
+
+
 function Login() {
     const router = useRouter();
     const [message, setMessage] = useState("");
@@ -88,6 +90,7 @@ function Login() {
                         <div className={styles.body__form_other_options}> 
                             <p>{t('login.login_option')}</p>
                             <FcGoogle onClick={ () => login_google()} className={styles.form_other_options__icon} />
+                            
                         </div>
                     </form>
                 </div>
