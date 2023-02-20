@@ -115,12 +115,12 @@ const CompContainer = styled.div`
       }
 
       .little-card:nth-child(1) {
-        background-image: url("https://images.unsplash.com/photo-1543852786-1cf6624b9987?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y2F0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60");
+        background-image: url("https://yt3.ggpht.com/HoVVbai2dQ4aaSdnMezDHkWQhAhogF7dboIzOSjkkl9BATSVeMn89G5cIUsZ8qkVapsS4miqog=s800-c-k-c0x00ffffff-no-rj");
         border-radius: 50%;
       }
 
       .little-card:nth-child(3) {
-        background-image: url("https://images.unsplash.com/photo-1548546738-8509cb246ed3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8Y2F0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60");
+        background-image: url("https://yt3.ggpht.com/ytc/AMLnZu_Ptc6eULkViv9Vyeywea-ckSZdSLRBglG4kGBKHA=s800-c-k-c0x00ffffff-no-rj");
         border-radius: 50%;
       }
 

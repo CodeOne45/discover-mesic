@@ -9,6 +9,8 @@ import MyMusic from "../components/users/MyMusicCard";
 import EditProile from "../components/users/AddEdit";
 
 import { Context } from "../store";
+import Container from "../store";
+
 import type { NextPage } from "next";
 import Head from "next/head";
 import { FRONTEND_URL } from "../constant/url";
@@ -16,13 +18,21 @@ import {songService} from '../services/music.service';
 import useWindowSize from '../helpers/useWindowSize'
 import {userService} from '../services/user.service';
 
-
+// Wrap Discover component with Container
+export default function App() {
+  return (
+    <Container>
+      <Discover />
+    </Container>
+  );
+}
 
 /**
  * Discover page
  */
 const Discover: NextPage = () => {
-  const {musics, setMusics} = useContext(Context) as any;
+  const { musics, setMusics } = useContext<{ musics: IMusic[]; setMusics: (value: IMusic[]) => void }>(Context);
+  console.log(musics, setMusics);
   const {topMusics, setTopMusics} = useContext(Context) as any;
   const size = useWindowSize();    
 
@@ -143,7 +153,6 @@ const Discover: NextPage = () => {
   );
 };
 
-export default Discover;
 
 /*
 /*<div className={styles.block}>
