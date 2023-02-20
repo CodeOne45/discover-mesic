@@ -5,12 +5,22 @@ import { useRouter } from "next/router";
 import { FRONTEND_URL, thumbnailLink, API_URL } from "../../constant/url";
 import { Context } from "../../store";
 import classNames from "classnames";
+import Container from "../../store";
+
+
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import type { IMusic } from "../../types/music";
 import { songService } from "../../services/music.service";
 import PreloaderComp from "../../components/preloader/preloaderComp";
 
+export default function App() {
+  return (
+    <Container>
+      <Music />
+    </Container>
+  );
+}
 /**
  * Handle /music/[yt_id] type url
  */
@@ -25,10 +35,11 @@ const Music: React.FC<IMusic | any> = (data) => {
   const yt_id = data?.yt_id ?? undefined;
 
   useEffect(() => {
+    // Set music with setMusic as the first music in the musics array
     (async () => {
-      if (musics.length === 0) {
-        const { data } = await songService.songsList();
-        if (data.length) setMusics(data);
+      const { data } = (await songService.songsList());
+      if (data.length){
+        setMusics(data);
       }
     })();
   }, []);
@@ -100,4 +111,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return { props: {} } as any;
 };
 
-export default Music;

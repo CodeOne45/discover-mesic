@@ -23,4 +23,7 @@ module.exports = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  images: {
+    domains: ['img.youtube.com'],
+  },
 }

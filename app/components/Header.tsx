@@ -113,7 +113,7 @@ const Header: React.FC = () => {
             <Nav.Link href="#">{t('header.About_us')}</Nav.Link>
           </Nav>
           <Nav className="ml-auto align-items-end px-3">
-              { accessPaths.includes(path) ? (<form className={styles.search_form} onSubmit={submitSearchHandler}>
+              {/* accessPaths.includes(path) ? (<form className={styles.search_form} onSubmit={submitSearchHandler}>
               <div >
                 <input
                   type="text"
@@ -126,7 +126,7 @@ const Header: React.FC = () => {
                   <i className={classNames("fas fa-search", styles.icon)} />
                 </button>
               </div>
-            </form>) : "" }
+            </form>) : "" */}
             <div className={styles.auth_btn}>
               {user?
                 <a className={styles.none_btn}></a> : <a className={styles.register_btn} href="/account/register"> {t('header.Register')}</a>
