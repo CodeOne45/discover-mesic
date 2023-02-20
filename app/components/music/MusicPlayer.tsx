@@ -1,5 +1,5 @@
 import React from "react";
-import unkownImg from '../../asset/Logo_small.png';
+import unkownImg from '../../asset/logo_small.png';
 import path from '../../asset/path.png';
 import play from '../../asset/play.png';
 
