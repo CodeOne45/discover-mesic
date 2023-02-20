@@ -1,10 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import 'font-awesome/css/font-awesome.min.css';
-
-import Layout from "../components/Layout";
-import styles from "../styles/discover.module.css";
-import MusicList from "../components/music/MusicList";
-
+import { AnimatePresence } from 'framer-motion';
+import { IMusic } from "../types/music";
+import MusicCard from "../components/music/MusicCard";
 
 import { Context} from "../store";
 import Container from "../store";
@@ -28,14 +26,44 @@ export default function App() {
  */
 const Discover: NextPage = () => {
   const { musics, setMusics } = useContext<{ musics: IMusic[]; setMusics: (value: IMusic[]) => void }>(Context);
-  console.log(musics, setMusics);  
+  const {setMusic, setIsPlay, playStarted, setPlayStarted } = useContext(Context) as any;
 
+  const [rightSwipe, setRightSwipe] = useState(0);
+  const [leftSwipe, setLeftSwipe] = useState(0);
+
+  const [isLoading, setLoading] = useState(true);
+
+  const activeIndex = musics.length - 1;
+  const removeCard = (id: string, action: 'right' | 'left') => {
+    console.log(musics.filter((card) => card._id === id));
+    setMusics((prev) => prev.filter((card) => card._id !== id));
+    if (action === 'right') {
+      setRightSwipe((prev) => prev + 1);
+    } else {
+      setLeftSwipe((prev) => prev + 1);
+    }
+    setMusic(musics[activeIndex - 1]);
+    setIsPlay(true);
+  };
+
+  const stats = [
+    {
+      name: 'Left',
+      count: leftSwipe,
+    },
+    {
+      name: 'Right',
+      count: rightSwipe,
+    },
+  ];
 
   useEffect(() => {
+    // Set music with setMusic as the first music in the musics array
     (async () => {
       const { data } = (await songService.songsList());
       if (data.length){
         setMusics(data);
+        setLoading(false);
       }
     })();
   }, []);
@@ -46,27 +74,48 @@ const Discover: NextPage = () => {
   const DESCRIPTION = "Discover unknown artists";
   const OG_IMAGE = `${FRONTEND_URL}/og-image.jpg`;
   
+  if (isLoading) {
+    return <div className="App">Loading...</div>;
+  }
+
   return (
     <>
-      <Head>
-        <title>{TITLE}</title>
+        <Head>
+          <title>{TITLE}</title>
 
-        <meta name={"description"} content={DESCRIPTION} />
-        <meta name="url" content={FRONTEND_URL} />
+          <meta name={"description"} content={DESCRIPTION} />
+          <meta name="url" content={FRONTEND_URL} />
 
-        <meta property="og:title" content={TITLE} />
-        <meta property="og:description" content={DESCRIPTION} />
-        <meta property="og:image" content={OG_IMAGE} />
-        <meta property="og:url" content={FRONTEND_URL} />
+          <meta property="og:title" content={TITLE} />
+          <meta property="og:description" content={DESCRIPTION} />
+          <meta property="og:image" content={OG_IMAGE} />
+          <meta property="og:url" content={FRONTEND_URL} />
 
-        <link rel="canonical" href={FRONTEND_URL} />
-      </Head>
-      <Layout> 
-        <div className={`${styles.music_lister}, ${styles.block}`}>
-          <MusicList musics={musics?(musics.length > 0 ? musics : []) : []} />
-        </div>       
-      </Layout>
-      
+          <link rel="canonical" href={FRONTEND_URL} />
+        </Head>
+        <AnimatePresence>
+          {musics.length ? (
+            musics.map((card,index) => {
+              playStarted
+              ? console.log("musics[ musics.length - 1]")
+              : (setMusic(musics[ musics.length - 1]), setIsPlay(false), setPlayStarted(true), console.log(musics[ musics.length - 1]));
+              return (
+                <MusicCard
+                  key={index}
+                  data={card}
+                  active={index === activeIndex}
+                  removeCard={removeCard}
+                />
+              );
+            })
+          ) : (
+            <h2 className="absolute z-10 text-center text-2xl font-bold text-textGrey ">
+              Excessive swiping can be injurious to health!
+              <br />
+              Come back tomorrow for more
+            </h2>
+          )}
+        </AnimatePresence>      
     </>
   );
 };
@@ -86,4 +135,11 @@ const Discover: NextPage = () => {
             </Routes>
           </Router>
         </div>
-      </div>*/
+      </div>
+      <MusicCard
+                key={index}
+                data={card}
+                active={index === activeIndex}
+                removeCard={removeCard}
+              />
+      */

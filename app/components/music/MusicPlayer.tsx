@@ -1,5 +1,5 @@
 import React from "react";
-import unkown from '../../asset/unknown.jpg';
+import unkownImg from '../../asset/Logo_small.png';
 import path from '../../asset/path.png';
 import play from '../../asset/play.png';
 
@@ -12,7 +12,7 @@ const MusicPlayer: React.FC = () => {
             {/* profile */}
             <div className="profile flex">
               <img
-                src={unkown.src}
+                src={unkownImg.src}
                 alt=""
                 className="w-[2.5rem] h-[2.5rem] border-2 border-white rounded-full"
               />
@@ -33,7 +33,7 @@ const MusicPlayer: React.FC = () => {
               <img
                 src={play.src}
                 alt=""
-                className="w-[16rem]"
+                className="w-[14rem]"
               />
               <span>4: 30</span>
             </div>
