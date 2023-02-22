@@ -73,7 +73,7 @@ const MusicCard = ({ data, active, removeCard }: CardProps) => {
           </div>
         </motion.div>
       ) : null}
-        <SwipeButton exit={setExitX} removeCard={removeCard} id={data._id} />
+        <SwipeButton exit={setExitX} removeCard={removeCard} id={data._id} music={data} />
     </>
   );
 };

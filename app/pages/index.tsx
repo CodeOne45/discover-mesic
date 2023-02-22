@@ -20,7 +20,7 @@ import { useTranslation } from 'next-export-i18n';
 const Home: NextPage = () => {
   const {t} = useTranslation();
   const TITLE = "Discover Me'sic";
-  const OG_IMAGE = `${FRONTEND_URL}/og-image.jpg`;
+  const OG_IMAGE = `../asset/logo_small.png`;
 
   return (
     <>
@@ -32,7 +32,9 @@ const Home: NextPage = () => {
 
         <meta property="og:title" content={TITLE} />
         <meta property="og:description" content={t('Discover_unknown_artists')} />
-        <meta property="og:image" content={OG_IMAGE} />
+        <meta property="og:image" content={OG_IMAGE} />     
+         <link rel="shortcut icon" href={OG_IMAGE} />
+
         <meta property="og:url" content={FRONTEND_URL} />
 
         <link rel="canonical" href={FRONTEND_URL} />

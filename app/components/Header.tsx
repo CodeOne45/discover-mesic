@@ -133,8 +133,6 @@ const Header: React.FC = () => {
               }
               {user?         
                 <NavDropdown title={<AvatarLayout user={user.data} withBadge={true} />} id="basic-nav-dropdown" className={styles.dropdown}> 
-                  <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
-                  <NavDropdown.Divider />
                   <NavDropdown.Item href="#action/3.4" onClick={logout}>
                     {t('header.Logout')}
                   </NavDropdown.Item>

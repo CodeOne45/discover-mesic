@@ -48,7 +48,6 @@ const Discover: NextPage = () => {
   
   const activeIndex = musics.length - 1;
   const removeCard = (id: string, action: 'right' | 'left') => {
-    console.log(musics.filter((card) => card._id === id));
     setMusics((prev) => prev.filter((card) => card._id !== id));
     if (action === 'right') {
       setRightSwipe((prev) => prev + 1);
@@ -135,7 +134,7 @@ const Discover: NextPage = () => {
               {musics.length ? (
                 musics.map((card,index) => {
                   playStarted
-                  ? console.log("musics[ musics.length - 1]")
+                  ? null
                   : (setMusic(musics[ musics.length - 1]), setIsPlay(false), setPlayStarted(true), console.log(musics[ musics.length - 1]));
                   return (
                     <MusicCard
@@ -181,7 +180,7 @@ const Discover: NextPage = () => {
             <></> 
           )
         }
-        <div className="right mt-5 flex items-start flex-col justify-start flex-1 h-[100%] pt-[9rem]">  
+        <div className="right mt-5 flex items-start flex-col flex-1 h-[100%] pt-[9rem]">  
         { project() }  
         </div> 
       </div>

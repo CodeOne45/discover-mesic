@@ -105,6 +105,7 @@ const Music: React.FC<IMusic | any> = (data) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const yt_id = context.query?.yt_id;
+  console.log(yt_id);
   if (yt_id) {
     return { props: { yt_id } };
   }

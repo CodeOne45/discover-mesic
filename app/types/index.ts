@@ -11,4 +11,6 @@ export type SwipeButtonProps = {
   exit: (value: SetStateAction<number>) => void;
   removeCard: (id: string, action: 'right' | 'left') => void;
   id: string;
+  music: IMusic;
+  user: string;
 };
