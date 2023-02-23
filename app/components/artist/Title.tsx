@@ -33,22 +33,29 @@ const imageOnErrorHandler = (
 };
 
   return (
-    <div className={styles.header_artist}>
+    <>
+      <div className={styles.header_artist_img_baner}>
+        <img src={artist.profile_pic_url? artist.profile_pic_url: ""} onLoad={imageOnLoadHandler} onError={imageOnErrorHandler}  alt="Artist img"/>
+      </div>
+      <div className={styles.header_artist}>
         <div className={styles.artist_info}>
           <div className={styles.header_artist_img}>
             <img src={artist.profile_pic_url? artist.profile_pic_url: ""} onLoad={imageOnLoadHandler} onError={imageOnErrorHandler}  alt="Artist img"/>
           </div>
           <div className={styles.header_artist_info}>
             <h1>{artist.author}</h1>
-            <p><a href={"https://www.youtube.com/channel/" + `${artist.channelID}`} target="_blank" ><FaYoutube   className={styles.youtube} /></a> {artist.author}</p>
-            <p> <FaHeart  className={styles.logo}/>  {totalLikes} </p> 
+            <div className={styles.info_youtube}><a href={"https://www.youtube.com/channel/" + `${artist.channelID}`} target="_blank" ><FaYoutube   className={styles.youtube} /></a> {artist.author}</div>
+            <div className={styles.info_like}> <FaHeart  className={styles.heart_logo}/>  {totalLikes} </div> 
           </div>
         </div>
         <div className={styles.added_by}>
           <AvatarLayout user={user? user : userUnkown} withBadge={false} />
           <p className={styles.bold}> Added by <b>{user? user : "Unknown"}</b> </p>
-        </div>
+        </div>  
     </div>
+    </>
+    
+
   );
 }
 

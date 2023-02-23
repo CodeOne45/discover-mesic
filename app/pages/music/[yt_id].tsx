@@ -7,7 +7,6 @@ import { Context } from "../../store";
 import classNames from "classnames";
 import Container from "../../store";
 
-
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import type { IMusic } from "../../types/music";
@@ -21,43 +20,46 @@ export default function App() {
     </Container>
   );
 }
+
 /**
  * Handle /music/[yt_id] type url
  */
 const Music: React.FC<IMusic | any> = (data) => {
-
   const router = useRouter();
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const { musics, setMusics, music, setMusic, setIsPlay } = useContext(
     Context
   ) as any;
 
-  const yt_id = data?.yt_id ?? undefined;
-
+  const { yt_id } = router.query;
+  
   useEffect(() => {
-    // Set music with setMusic as the first music in the musics array
     (async () => {
-      const { data } = (await songService.songsList());
-      if (data.length){
-        setMusics(data);
-      }
+      const { data } = await songService.songsList();
+      setMusics(data);
     })();
   }, []);
 
   useEffect(() => {
-    if (yt_id && musics) {
-      setIsLoaded(true);
-      setIsPlay(true);
+    if (yt_id && musics.length) {
       const databis = songService.findMusicById(yt_id as string, musics);
-      if (databis) setMusic(databis);
-    } else router?.push("/404");
+      if (databis) {
+        setMusic(databis);
+        setIsLoaded(true);
+        setIsPlay(true);
+      } else {
+        router.push("/404");
+      }
+    }
   }, [yt_id, musics]);
+
   const TITLE = data ? `${data.title} - Discover Me'sic` : undefined;
   const URL = `${FRONTEND_URL}/music/${yt_id}`;
 
   if (!music) {
     return <PreloaderComp />;
   }
+
   return (
     <>
       {yt_id && (
@@ -71,6 +73,7 @@ const Music: React.FC<IMusic | any> = (data) => {
           <link rel="canonical" href={URL} />
         </Head>
       )}
+
       <Layout>
         <div className={styles.music_page_wrapper}>
           {isLoaded && (
@@ -104,11 +107,21 @@ const Music: React.FC<IMusic | any> = (data) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const yt_id = context.query?.yt_id;
-  console.log(yt_id);
-  if (yt_id) {
-    return { props: { yt_id } };
+  const yt_id = context.query?.yt_id as string;
+
+  try {
+    const { data } = await songService.songsList();
+    const music = songService.findMusicById(yt_id, data);
+    console.log(music);
+    if (music) {
+      return { props: { yt_id } };
+    }
+  } catch (error) {
+    console.error(error);
   }
-  return { props: {} } as any;
+
+  return { notFound: true };
 };
+
+
 

@@ -77,7 +77,8 @@
 
 @media (min-width: 1200px) {
   .block{
-    margin: 0 20px 0 20px;
+    margin: 0 0 0 -20px;
+    width: 100%;
   }
 }
 

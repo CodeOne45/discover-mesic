@@ -10,6 +10,7 @@ import { Context } from "../../store";
 import { IMusic } from "../../types/music";
 
 
+
 const CardSong = ({ song }) => {
   const { music, setMusic, isPlay, setIsPlay } = useContext(Context) as any;
   const [iconPlay, seticonPlay] = useState<boolean>(false);
@@ -44,11 +45,13 @@ const CardSong = ({ song }) => {
           <img src={song?thumbnailLink(song.yt_id): ""} alt={song?song.title : "undefined"} />
         </div>
         <div className={styles.info_container}>
-          <span>{song?song.title : "undefined"}</span>
+          <span>{song?song.title.replace(new RegExp(`\\s*-?\\s*${song.author}\\s*`, "i"), "").replace('-', '').replace('Audio', '').replace('Official Music', '').replace('(Official )', '').replace('(Visualizer)', '').replace('(CLIP VIDÉO)', '').replace('( Video)', '') : "undefined"}</span>
           <div className={styles.contributors}>
-            <p key={song?song.author : "undefined"} className={styles.track_artist}>
-              {song?song.author : "undefined"}
-            </p>
+            <a href={`/artist/${song.author}`}>
+              <p key={song?song.author : "undefined"} className={styles.track_artist}>
+                {song?song.author : "undefined"}
+              </p>
+            </a>
           </div>
         </div>
       </div>

@@ -74,7 +74,6 @@ const UrlForm: React.FC = () => {
     
   };
 
-  //TODO: Verify if input are empty or not
   return (
     <div>
       <form className={styles.form} onSubmit={handleSubmit}>

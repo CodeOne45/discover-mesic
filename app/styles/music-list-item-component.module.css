@@ -132,7 +132,7 @@
 
 .btn {
     display: inline-block;
-    background: var(--brown-btn);
+    background: linear-gradient(135deg, #F3071D 0%, #E600FF 100%);
     color: var(--color-text-1);
     box-shadow: 0 6px 10px 0 rgba(0, 0, 0 , .1);
     border: 0;
@@ -146,7 +146,7 @@
 }
 
 .btn_icon{
-    background: var(--brown-btn);
+    background: linear-gradient(135deg, #F3071D 0%, #E600FF 100%);
     color: var(--color-text-1);
     box-shadow: 0 6px 10px 0 rgba(0, 0, 0 , .1);
     border: 0;

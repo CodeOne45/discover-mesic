@@ -106,8 +106,8 @@ const Carousel: React.FC<Props> = ({ topTenSongs, slide_type }) => {
                         </Link>
                         <div key={index} className={styles.card_content}>
                             <div className={styles.card_content_main_info}>
-                                <h4>{card.title}</h4>
-                                <p><a href={`/artist/${card.author}`}>{card.author}</a></p>
+                                <h4>{card.title.replace(new RegExp(`\\s*-?\\s*${card.author}\\s*`, "i"), "").replace('-', '').replace('Audio', '').replace('Official Music', '').replace('(Official )', '').replace('(Visualizer)', '').replace('(CLIP VIDÉO)', '').replace('( Video)', '')}</h4>
+                                <p><Link href={`/artist/${card.author}`}>{card.author}</Link></p>
                             </div>
                             <div className={styles.card_content_likes}>
                                 <p><FaHeart className={styles.card_content_likes_icon} /> {card.numberOfLikes}</p>

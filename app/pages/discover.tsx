@@ -180,7 +180,7 @@ const Discover: NextPage = () => {
             <></> 
           )
         }
-        <div className="right mt-5 flex items-start flex-col flex-1 h-[100%] pt-[9rem]">  
+        <div className="right mt-5 flex items-start flex-col flex-1 h-[100%] pt-[9rem] ">  
         { project() }  
         </div> 
       </div>
