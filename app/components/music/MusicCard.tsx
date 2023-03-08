@@ -15,7 +15,7 @@ const MusicCard = ({ data, active, removeCard }: CardProps) => {
   const [exitX, setExitX] = useState(0);
 
   const x = useMotionValue(0);
-  const input = [-200, 0, 200];
+  //const input = [-200, 0, 200];
   const rotate = useTransform(x, [-200, 200], [-25, 25]);
   const opacity = useTransform(x, [-200, -125, 0, 125, 200], [0, 1, 1, 1, 0]);
 
@@ -69,11 +69,12 @@ const MusicCard = ({ data, active, removeCard }: CardProps) => {
             </h2>
             <h3  className={styles.author}>
                 <a href={`/artist/${data.author}`}>{data.author}</a>
-            </h3>
+            </h3>            
           </div>
         </motion.div>
       ) : null}
         <SwipeButton exit={setExitX} removeCard={removeCard} id={data._id} music={data} />
+        
     </>
   );
 };

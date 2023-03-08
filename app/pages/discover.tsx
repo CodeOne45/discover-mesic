@@ -19,6 +19,7 @@ import Head from "next/head";
 import { FRONTEND_URL } from "../constant/url";
 import {songService} from '../services/music.service';
 import {userService} from '../services/user.service';
+//import Timeline from "../components/music/Timeline";
 
 // Wrap Discover component with Container
 export default function App() {

@@ -41,6 +41,7 @@
     "react-slick": "^0.29.0",
     "react-switch": "^7.0.0",
     "react-visibility-sensor": "^5.1.1",
+    "react-youtube": "^10.1.0",
     "rxjs": "^7.5.5",
     "rxjs-compat": "^6.6.7",
     "slick-carousel": "^1.8.1",
@@ -48,6 +49,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@playwright/test": "^1.31.1",
     "@types/node": "16.11.6",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
