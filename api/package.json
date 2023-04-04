@@ -34,7 +34,7 @@
     "multer": "^1.4.5-lts.1",
     "node-cron": "^3.0.2",
     "node-fetch": "^2.6.7",
-    "nodemon": "^2.0.20",
+    "nodemon": "^2.0.21",
     "nodmeon": "0.0.1-security",
     "passport": "^0.6.0",
     "passport-google-oauth": "^2.0.0",
