@@ -33,7 +33,7 @@
     "mongoose": "^5.12.12",
     "multer": "^1.4.5-lts.1",
     "node-cron": "^3.0.2",
-    "node-fetch": "^2.6.7",
+    "node-fetch": "^2.6.9",
     "nodemon": "^2.0.20",
     "nodmeon": "0.0.1-security",
     "passport": "^0.6.0",
