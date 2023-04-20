@@ -21,6 +21,7 @@ import {songService} from '../services/music.service';
 import {userService} from '../services/user.service';
 //import Timeline from "../components/music/Timeline";
 
+import SwipeButton from "../components/music/SwipeButton";
 // Wrap Discover component with Container
 export default function App() {
   return (
@@ -46,7 +47,7 @@ const Discover: NextPage = () => {
 
   const [rightSwipe, setRightSwipe] = useState(0);
   const [leftSwipe, setLeftSwipe] = useState(0);
-  
+
   const activeIndex = musics.length - 1;
   const removeCard = (id: string, action: 'right' | 'left') => {
     setMusics((prev) => prev.filter((card) => card._id !== id));
@@ -111,7 +112,6 @@ const Discover: NextPage = () => {
                             </div>)
     }
   }
- 
 
   return (
     <>
@@ -128,7 +128,7 @@ const Discover: NextPage = () => {
 
         <link rel="canonical" href={FRONTEND_URL} />
       </Head>
-      <Layout> 
+      <Layout>
         <div className="discover relative mt-[-3] h-[60rem] px-[5rem] dark:bg-[#081730] pt-[8rem]  mt-[-15rem] z-[1] flex items-top justify-between rounded-b-[5rem]">
           <div className="left flex-1">
             <AnimatePresence>
@@ -144,16 +144,16 @@ const Discover: NextPage = () => {
                       active={index === activeIndex}
                       removeCard={removeCard}
                     />
-                  );
+                    );
                 })
-              ) : (
+              ): (
                 <h2 className="absolute z-10 text-center text-2xl font-bold text-textGrey ">
                   Excessive swiping can be injurious to health!
                   <br />
                   Come back tomorrow for more
                 </h2>
               )}
-            </AnimatePresence> 
+            </AnimatePresence>
             <div className=" absolute pl-[5rem] bottom-8 left-0 w-full">
               <UrlForm />
             </div>
@@ -177,32 +177,15 @@ const Discover: NextPage = () => {
                 <p>Account</p>
               </div>
             </div>
-          ) : ( 
-            <></> 
+          ) : (
+            <></>
           )
         }
-        <div className="right mt-5 flex items-start flex-col flex-1 h-[100%] pt-[9rem] ">  
-        { project() }  
-        </div> 
+        <div className="right mt-5 flex items-start flex-col flex-1 h-[100%] pt-[9rem] ">
+        { project() }
+        </div>
       </div>
       </Layout>
-      
     </>
   );
 };
-
-
-/*
-/*<div className={styles.block}>
-        <div className={styles.music_lister}>
-          <MusicList musics={musics}/>
-        </div>
-        <div className={styles.other_music}>
-          <Router>
-            <Routes>
-              <Route path='/discover/topten' element={<> <Carousel topTenSongs={topMusics} slide_type="song"/><Carousel topTenSongs={topMusics} slide_type="artiste"/> </>} />
-              <Route path='/accoutn/login' element={<Login />} />
-            </Routes>
-          </Router>
-        </div>
-      </div>*/

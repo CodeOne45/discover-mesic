@@ -129,14 +129,18 @@ const Header: React.FC = () => {
             </form>) : "" */}
             <div className={styles.auth_btn}>
               {user?
-                <a className={styles.none_btn}></a> : <a className={styles.register_btn} href="/account/register"> {t('header.Register')}</a>
+                <a className={styles.none_btn}></a> : <a href="/account/register">
+                                                        <button className="px-4 py-2 rounded-l-xl  m-0  hover:bg-neutral-100transition">{t('header.Register')}</button>
+                                                      </a>
               }
-              {user?         
+              {user?
                 <NavDropdown title={<AvatarLayout user={user.data} withBadge={true} />} id="basic-nav-dropdown" className={styles.dropdown}> 
                   <NavDropdown.Item href="#action/3.4" onClick={logout}>
                     {t('header.Logout')}
                   </NavDropdown.Item>
-                </NavDropdown> : <a className={styles.log_btn} href="/account/login">{t('header.Login')}</a>
+                </NavDropdown> : <a href="/account/login">
+                                  <button className="px-4 py-2 rounded-xl text-white bg-[#0E6AFF] hover:bg-[#C592FF] transition">{t('header.Login')}</button>
+                                </a>
               }
             </div>
           </Nav>

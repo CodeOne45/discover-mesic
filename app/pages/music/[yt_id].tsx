@@ -32,7 +32,7 @@ const Music: React.FC<IMusic | any> = (data) => {
   ) as any;
 
   const { yt_id } = router.query;
-  
+
   useEffect(() => {
     (async () => {
       const { data } = await songService.songsList();
@@ -93,9 +93,9 @@ const Music: React.FC<IMusic | any> = (data) => {
                   </h3>
                 </div>
                 <div className={styles.author_wrapper}>
-                  <h5 className={classNames(styles.author, "font-nunito")}>
-                    {music.author}
-                  </h5>
+                  <a className="hover:underline" href={`/artist/${music.author}`}>
+                    <h3  className={styles.author}>{music.author}</h3>
+                  </a>
                 </div>
               </div>
             </div>

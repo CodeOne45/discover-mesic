@@ -13,9 +13,7 @@ import styles from "../../styles/music-list-item-component.module.css";
 
 const MusicCard = ({ data, active, removeCard }: CardProps) => {
   const [exitX, setExitX] = useState(0);
-
   const x = useMotionValue(0);
-  //const input = [-200, 0, 200];
   const rotate = useTransform(x, [-200, 200], [-25, 25]);
   const opacity = useTransform(x, [-200, -125, 0, 125, 200], [0, 1, 1, 1, 0]);
 
@@ -67,14 +65,16 @@ const MusicCard = ({ data, active, removeCard }: CardProps) => {
             <h2 className={styles.title}>
                 {data.title.replace(new RegExp(`\\s*-?\\s*${data.author}\\s*`, "i"), "").replace('-', '').replace('Audio', '').replace('Official Music', '').replace('(Official )', '').replace('(Visualizer)', '')}
             </h2>
-            <h3  className={styles.author}>
-                <a href={`/artist/${data.author}`}>{data.author}</a>
-            </h3>            
+            <a className="hover:underline" href={`/artist/${data.author}`}>
+              <h3  className={styles.author}>{data.author}</h3>
+            </a>
           </div>
         </motion.div>
       ) : null}
-        <SwipeButton exit={setExitX} removeCard={removeCard} id={data._id} music={data} />
-        
+        <div className={styles.swipeButtons}>
+            <SwipeButton exit={setExitX} removeCard={removeCard} id={data._id} music={data} />
+        </div>
+
     </>
   );
 };

@@ -81,16 +81,15 @@ function Login() {
                             <input placeholder="*******" name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
                             <div className="invalid-feedback">{errors.password?.message}</div>
                         </div>
-                        <Link href="" className="btn btn-link">{t('login.password_forgot')}</Link>
+                        <a href="" className={styles.btn_link__forgot}>{t('login.password_forgot')}</a>
                         <div className="message">{message ? <p style={{ color: `${color}` }}>{message}</p> : null}</div>
                         <button disabled={formState.isSubmitting} className={styles.body__form_btn}>
                             {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
                             {t('login.Login')}
                         </button>
-                        <div className={styles.body__form_other_options}> 
+                        <div className={styles.body__form_other_options}>
                             <p>{t('login.login_option')}</p>
                             <FcGoogle onClick={ () => login_google()} className={styles.form_other_options__icon} />
-                            
                         </div>
                     </form>
                 </div>

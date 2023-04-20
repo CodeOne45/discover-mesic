@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    min-height: 80vh;
+    min-height: 90vh;
 }
 
 .block_login__header{
@@ -42,6 +42,10 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
+}
+
+.block_login__body form{
+    padding: 10px;
 }
 
 .body__form , .body__form_groupe{
@@ -84,9 +88,13 @@
 .body__form_other_options {
     margin-top: 30px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .body__form_other_options p{
+    padding: 5px;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -97,6 +105,11 @@
 .form_other_options__icon{
     font-size: 45px;
     cursor: pointer;
+}
+
+.btn_link__forgot{
+    font-size: 14px;
+    color: #B5B5B5;
 }
 
 
