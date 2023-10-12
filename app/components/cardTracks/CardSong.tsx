@@ -39,7 +39,9 @@ const CardSong = ({ song }) => {
   }, [music]);
 
   return (
-    <div className={styles.container_song}>
+    <>
+     {song?
+      <div className={styles.container_song}>
       <div className={styles.container_song_info}>
         <div className={styles.cover_container}>
           <img src={song?thumbnailLink(song.yt_id): ""} alt={song?song.title : "undefined"} />
@@ -47,7 +49,7 @@ const CardSong = ({ song }) => {
         <div className={styles.info_container}>
           <span>{song?song.title.replace(new RegExp(`\\s*-?\\s*${song.author}\\s*`, "i"), "").replace('-', '').replace('Audio', '').replace('Official Music', '').replace('(Official )', '').replace('(Visualizer)', '').replace('(CLIP VIDÉO)', '').replace('( Video)', '') : "undefined"}</span>
           <div className={styles.contributors}>
-            <a href={`/artist/${song.author}`}>
+            <a href={song?`/artist/${song.author}`:""}>
               <p key={song?song.author : "undefined"} className={styles.track_artist}>
                 {song?song.author : "undefined"}
               </p>
@@ -68,7 +70,10 @@ const CardSong = ({ song }) => {
           <p> {song?song.numberOfLikes  : "undefined"}</p>
         </div>
       </div>
-    </div>
+    </div>:<></>}
+    </>
+   
+   
   );
 };
 

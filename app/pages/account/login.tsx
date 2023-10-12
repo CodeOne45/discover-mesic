@@ -39,8 +39,8 @@ function Login() {
         return userService.login(username, password)
             .then((user) => {
                 // get return url from query parameters or default to '/'
-                const returnUrl = router.query.returnUrl || '/discover';   
-                router.push(returnUrl);             
+                const returnUrl = router.query.returnUrl || '/discover';
+                router.push(returnUrl);
             })
             .catch(error => {
                 setColor("red")
@@ -52,8 +52,8 @@ function Login() {
         return userService.login_google()
             .then((user) => {
                 // get return url from query parameters or default to '/'
-                const returnUrl = router.query.returnUrl || '/discover';   
-                router.push(returnUrl);             
+                const returnUrl = router.query.returnUrl || '/discover';
+                router.push(returnUrl);
             })
             .catch(error => {
                 setColor("red")

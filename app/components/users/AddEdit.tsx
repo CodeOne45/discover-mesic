@@ -11,6 +11,12 @@ import { songService} from '../../services/music.service';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { useTranslation } from 'next-export-i18n';
 
+// import levels vinyls svg
+import BronzeVinyl from '../../asset/rewards/bronze-vinyl.svg';
+import SilverVinyl from '../../asset/rewards/silver-vinyl.svg';
+import GoldVinyl from '../../asset/rewards/gold-vinyl.svg';
+import PlatinumVinyl from '../../asset/rewards/platinum-vinyl.svg';
+
 
 interface Props {
     readonly user?: any;
@@ -24,9 +30,15 @@ const AddEdit: React.FC = ({ user }) => {
     const [email, setemail] = useState<String>("")
     const [addedSongs, setaddedSongs] = useState<any>();
     const [totalSongs, settotalSongs] = useState<number>(0);
+    const [level, setlevel] = useState<String>("Bronze Vinyl");
+    const [levelSongs, setlevelSongs] = useState<number>(0);
+    const [levelImg, setlevelImg] = useState<any>(BronzeVinyl);
 
     const percentage = 100;
     const maxVentilSongs = 150;
+    // 4 levels : 25 song : Bronze Vinyl, 50 songs : Silver Vinyl, 75 songs : Gold Vinyl, 100 songs : Platinum Vinyl
+    const levels = [25, 50, 75, 100];
+    const levelsLabel = ["Bronze Vinyl", "Silver Vinyl", "Gold Vinyl", "Platinum Vinyl"];
 
     const {t} = useTranslation();
 
@@ -35,8 +47,27 @@ const AddEdit: React.FC = ({ user }) => {
             const addedSongs = (await songService.songsList());
             if(user.data.id && addedSongs.length != 0){
                 var result = addedSongs.data.filter((x)=>x.addedBy === user.data.id);
-                setaddedSongs(result);
-                settotalSongs((addedSongs.length * percentage)/maxVentilSongs);
+                setaddedSongs(result); // number of songs added by the user
+                for(var i = 0; i < levels.length; i++){
+                    if(result.length < levels[i]){
+                        settotalSongs((result.length * percentage)/levels[i]);
+                        setlevelSongs(levels[i]);
+                        setlevel(levelsLabel[i]);
+                        switch(i){
+                            case 0:
+                                setlevelImg(BronzeVinyl);
+                            case 1:
+                                setlevelImg(SilverVinyl);
+                            case 2:
+                                setlevelImg(GoldVinyl);
+                            case 3:
+                                setlevelImg(PlatinumVinyl);
+                        }
+                        break;
+                    }
+                }
+
+                //settotalSongs((addedSongs.length * percentage)/maxVentilSongs);
             }
         })();
 
@@ -105,7 +136,7 @@ const AddEdit: React.FC = ({ user }) => {
         <div className={styles.header_user_profile}>
             <div className={styles.user_info}>
                 <div className={styles.user_info_img}>
-                    <img src={`https://avatars.dicebear.com/api/adventurer-neutral/${user.data.username}.svg`} alt="user img"/>
+                    <img src={`https://api.dicebear.com/7.x/adventurer-neutral/svg?seed=${user.data.username}`} alt="user img"/>
                 </div>
                 <div className={styles.user_info_details}>
                     <h1 className={styles.user_info_details_name}>{user.data.username}</h1>
@@ -114,9 +145,13 @@ const AddEdit: React.FC = ({ user }) => {
                 </div>
             </div>
             <div className={styles.user_progress}>
-                <p className={styles.bold}> Next level : Silver vinyl </p>
+                <div className={styles.user_rewards}>
+                    <img src={levelImg.src} alt="level img"/>
+                    <p className={styles.bold}> Next level :  {levelsLabel[levelsLabel.indexOf(level) + 1]}</p>
+                    <img className={styles.next_level_blur_img} src={levelsLabel[levelsLabel.indexOf(level) + 1] === "Platinum Vinyl"? PlatinumVinyl.src: levelsLabel[levelsLabel.indexOf(level) + 1] === "Gold Vinyl"? GoldVinyl.src: levelsLabel[levelsLabel.indexOf(level) + 1] === "Silver Vinyl"? SilverVinyl.src: BronzeVinyl.src} alt="next level img"/>
+                </div>
                 <ProgressBar className={styles.progress_bar} variant="danger" now={totalSongs} />
-                <p> {addedSongs? addedSongs.length: "#"}/150 songs</p>
+                <p> {addedSongs? addedSongs.length: "#"}/{levelSongs} songs</p>
             </div>
         </div>
         <div className={styles.user_seprator}>

@@ -66,6 +66,30 @@
     opacity: 0.8;
 }
 
+.user_rewards{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.user_rewards img{
+    margin-right: 10px;
+    height: 60px;
+}
+
+.user_rewards p{
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.user_rewards .next_level_blur_img{
+    height: 45px;
+    /* blr image */
+    filter: blur(2px);
+    padding-left: 10px;
+}
+
 .user_progress{
     min-width: 250px;
     padding-top: 40px;

@@ -145,7 +145,7 @@ const Header: React.FC = () => {
             </div>
           </Nav>
         </Navbar.Collapse>
-        {renderThemeChanger()}
+        {/*renderThemeChanger()*/}
       </Navbar>
 
     </div>

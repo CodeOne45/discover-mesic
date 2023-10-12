@@ -35,6 +35,7 @@ module.exports = {
 async function authenticate(userAuthentification,res) {
   try {
     var user = await User.findOne({ $or: [{ username: userAuthentification.username }, { email: userAuthentification.username }] });
+    if (!user) return res.status(400).json({message: "User is not found, please sign up before!"});
     const comparePassword = await bcrypt.compare(userAuthentification.password, user.password);
     if (comparePassword) {
       // Make sure the user has been verified
@@ -50,7 +51,10 @@ async function authenticate(userAuthentification,res) {
         token,
       });
     
-    } 
+    }
+    else{
+      return res.status(400).json({message: "Password is invalid"});
+    }
 
   } catch (error) {
     res.status(500).json({message: error.message});
