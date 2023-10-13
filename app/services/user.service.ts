@@ -25,6 +25,7 @@ export const userService = {
     login_google,
     add_to_playlist,
     get_user_liked_playlist,
+    remove_from_playlist
 };
 
 function login(username: string, password: string) {
@@ -99,6 +100,10 @@ function _delete(id) {
 
 function add_to_playlist(id: string , data: {}){
     return fetchWrapper.put(`${API_URL}/users/playlist/${id}`, data);
+}
+
+function remove_from_playlist(id: string , songId: string){
+    return fetchWrapper.delete(`${API_URL}/users/playlist/${id}/${songId}`);
 }
 
 function get_user_liked_playlist(id: string){

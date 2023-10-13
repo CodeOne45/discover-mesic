@@ -16,6 +16,8 @@ router.post("/login", authenticate);
 router.get("/playlist/:userId",getUserPlaylistSongsById);
 router.put("/playlist/:userId", updateUserPlaylistSongs);
 router.delete("/playlist/:userId", deleteUserPlaylistSongs);
+// delete a song from playlist
+router.delete("/playlist/:userId/:songId", deleteUserPlaylistSong);
 router.get("/playlistToLeft/:userId",getUserPlaylistSongsLeftById);
 router.put("/playlistToLeft/:userId",updateUserPlaylistSongsSwipLeft);
 //EMAIL Verification
@@ -90,6 +92,13 @@ function deleteUserPlaylistSongs(req, res, next) {
   .deleteUserPlaylistSongs(req.params.userId, req.body, res)
   .catch((err) => next(err));
 }
+
+function deleteUserPlaylistSong(req, res, next) {
+    userService
+  .deleteUserPlaylistSong(req.params.userId, req.params.songId, res)
+  .catch((err) => next(err));
+}
+
 function updateUserPassword(req, res, next){
   userService
   .updateUserPassword(req.params.userId, req.body, res)
@@ -111,7 +120,6 @@ function getUserEmailVerify(req, res, next){
 function resendTokenEmailVerification(req, res, next){
   userService
     .resendToken(req, res)
-    
 }
 
 function getUserProfilById(req, res, next){

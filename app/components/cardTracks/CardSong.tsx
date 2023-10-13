@@ -8,10 +8,17 @@ import classNames from "classnames";
 
 import { Context } from "../../store";
 import { IMusic } from "../../types/music";
+import {userService} from '../../services/user.service';
+import { songService } from "../../services/music.service";
 
 
+const CardSong = ({ song, liked, refresh, setRefresh }: any) => {
+  const [user, setUser] = useState(null);
 
-const CardSong = ({ song }) => {
+  useEffect(() => {
+    const subscription = userService.user.subscribe(x => setUser(x));
+    return () => subscription.unsubscribe();
+  }, []);
   const { music, setMusic, isPlay, setIsPlay } = useContext(Context) as any;
   const [iconPlay, seticonPlay] = useState<boolean>(false);
   const [musicToPlay, setmusicToPlay] = useState<IMusic>(song);
@@ -28,6 +35,13 @@ const CardSong = ({ song }) => {
         seticonPlay(true);
       }
     }
+  };
+
+  const deleteSong = async (id: any, yt_id: any) => {
+    await userService.remove_from_playlist(user.data.id,id);
+    setRefresh(!refresh);
+    await songService.decreaseLikes(yt_id);
+
   };
 
   useEffect(() => {
@@ -66,14 +80,12 @@ const CardSong = ({ song }) => {
           />
         </button>
         <div className={styles.container_song_likes}>
-          <FaHeart /> 
+          <FaHeart {...(liked ? { color: "red" } : {})} {...(liked ? { onClick: () => deleteSong(song._id, song.yt_id) } : {})} />
           <p> {song?song.numberOfLikes  : "undefined"}</p>
         </div>
       </div>
     </div>:<></>}
     </>
-   
-   
   );
 };
 

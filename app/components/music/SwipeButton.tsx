@@ -28,13 +28,28 @@ export default function SwipeButton({
       exit(-200);
     } else if (action === 'right') {
       (async() => {
-        let res = await songService.increaseLikes(music.yt_id);
-          
+        
         if(user){
-          let data = {
-            idMusic : music._id
-          };
-          let add = await userService.add_to_playlist(user.data.id, data)
+          const { data } = (await userService.get_user_liked_playlist(user.data.id));
+          console.log(data);
+          let isExist = false;
+          data.forEach((song) => {
+            // check song is not null
+            if(song != null){
+              if(song._id == music._id){
+                isExist = true;
+              }
+            }
+          });
+
+          if(!isExist){
+            let data = {
+              idMusic : music._id
+            };
+            let add = await userService.add_to_playlist(user.data.id, data);
+            let res = await songService.increaseLikes(music.yt_id);
+          }
+          
         } 
       })();
       exit(200);

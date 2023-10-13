@@ -13,6 +13,7 @@ export const songService = {
     findMusicsByArtists,
     findTotalLikesbyUsername,
     increaseLikes,
+    decreaseLikes
 };
 
 function findTotalLikesbyUsername(username: string){
@@ -36,6 +37,10 @@ function topTen(){
 
 function increaseLikes(yt_id: string){
   return fetchWrapper.put(`${API_URL}/songs/increase/likes/${yt_id}`, {});
+}
+
+function decreaseLikes(yt_id: string){
+  return fetchWrapper.put(`${API_URL}/songs/decrease/likes/${yt_id}`, {});
 }
 
 
@@ -74,5 +79,4 @@ function findMusicById(id: string, musics :IMusic[]): IMusic | null {
 }
 function findMusicsByArtists(author: any){
   return fetchWrapper.post(`${API_URL}/songs/artistsongs`, {author: author});
-
 }
