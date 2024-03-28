@@ -1,4 +1,4 @@
-FROM node:17 AS discover-mesic
+FROM node:18 AS discover-mesic
 # Create the directory on the node image 
 # where our Next.js app will live
 RUN mkdir -p /app
