@@ -7,6 +7,9 @@ import { BiPlusCircle } from 'react-icons/bi';
 
 import {userService} from '../../services/user.service';
 
+import Modal from "../modal/Modal";
+//import confet
+
 
 const UrlForm: React.FC = () => {
   const [yt_id, setyt_id] = useState("");
@@ -16,6 +19,8 @@ const UrlForm: React.FC = () => {
   const [color, setColor] = useState("");
 
   const {t} = useTranslation();
+
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const timeId = setTimeout(() => {
@@ -67,14 +72,16 @@ const UrlForm: React.FC = () => {
           setMessage("Eroor : Some error occured !");
         }
       }
+      setShowModal(true);
     }else{
-      setColor("red")
+      setColor("red");
+      setShowModal(true);
+
       setMessage("URL is required");
     }
-    
+
   };
 
-  //TODO: Verify if input are empty or not
   return (
     <div>
       <form className={styles.form} onSubmit={handleSubmit}>

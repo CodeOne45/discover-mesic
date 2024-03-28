@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import pochetteImage from '../asset/pochette.png';
 import styles from "../styles/home.module.css";
 import { useTranslation } from 'next-export-i18n';
+import classNames from "classnames";
 
 const TITLE_1 = "Discover";
 const TITLE_2 = "Me'sic";
@@ -40,8 +41,8 @@ const Landing: React.FC = () => {
   }, []); 
 
     return (
-      <div className={styles.container}>
-        <div className={styles.content}>
+      <div className=" wrapper dark:bg-[#081730] flex items-center justify-between px-[10rem] mt-[-3rem] rounded-b-[5rem] w-[100%] h-[50rem] relative z-[3]">
+        <div className="headings flex flex-col items-start justify-center h-[100%] mt-[5rem] text-[1rem]">
           <div className={styles.title}>
             <span>{TITLE_1}</span>
             <span>{TITLE_2}</span>
@@ -53,8 +54,13 @@ const Landing: React.FC = () => {
               {t('landing.more_than')}<span className={styles.music_number}>{numberOfSongs}</span> {t('landing.unknown')}
             </span>
           </div>
+          <Link href="/discover" >
+          <a className={classNames(styles.content_button, "text-white bg-gradient-to-bl from-[#F3071D] to-[#E600FF]")}>
+            {t('landing.Discover')}
+          </a>
+        </Link>
         </div>
-        <div className={styles.image}>
+        <div className="images relative w-[50%]">
           <div className={styles.image_container}>
             <div className={styles.image_container_block}>
               <img className={styles.image_container_img_bg} src={ytBackground?thumbnailLink(ytBackground): pochetteImage.src} alt="Landing pochette"/>
@@ -66,15 +72,8 @@ const Landing: React.FC = () => {
             </div>
           </div>
         </div>   
-        <Link href="/discover" >
-          <a className={styles.content_button}>
-            {t('landing.Discover')}
-          </a>
-        </Link>
-        <div className={styles.catchphrase}>
-          “{t('landing.beautiful')}”
-        </div>
       </div>
+      
     );
   };
   export default Landing;

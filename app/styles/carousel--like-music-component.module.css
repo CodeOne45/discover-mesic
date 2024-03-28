@@ -85,18 +85,22 @@
   margin: -40px 20px 0 5px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between
+  justify-content: space-between;
 }
-.card_content h4{
+.card_content .card_content_main_info {
+  width: 100%;
+}
+.card_content .card_content_main_info h4 {
   color: var(--color-text-100);
-  font-size: 16px;
-  max-width: 150px;
+  font-size: 14px;
   font-weight: 700;
+  line-height: 20px;
+  padding-bottom: 5px;
 }
-.card_content p{
+.card_content .card_content_main_info p{
   margin-top: -5px ;
   color: var(--color-midnight);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
 }
 
@@ -109,13 +113,15 @@
 }
 
 .card_content_likes{
-  margin-top: 5px ;
+  margin-top: 3px ;
 }
 .card_content_likes p{
   padding-left: -5px;
   font-weight: 700;
   font-size: 14px;
   line-height: 16px;
+  display: flex;
+  gap: 5px;
 }
 
 .card_content_likes_icon{

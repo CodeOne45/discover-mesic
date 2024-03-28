@@ -11,7 +11,7 @@ services:
       dockerfile: Dockerfile
       context: ./nginx
     ports:
-      - "3050:80"
+      - "3000:80"
   app:
     image: discover-mesic-app:dev
     build:
@@ -31,8 +31,14 @@ services:
     restart: always
     environment:
       - MONGODB_URI=${MONGODB_URI}
+      - YOUTUBE_VIEW_API=${YOUTUBE_VIEW_API}
+      - CLOUD_NAME=${CLOUD_NAME}
+      - CLOUD_API_KEY=${CLOUD_API_KEY}
+      - CLOUD_API_SECRET=${CLOUD_API_SECRET}
       - SENDGRID_API_KEY=${SENDGRID_API_KEY}
       - FROM_EMAIL=${FROM_EMAIL}
       - CLIENT_ID=${CLIENT_ID}
       - CLIENT_SECRET=${CLIENT_SECRET}
+      - CALL_BACK=${CALL_BACK}
+
 

@@ -1,8 +1,15 @@
 import 'font-awesome/css/font-awesome.min.css';
-import Landing from "../components/Landing";
-import Layout from "../components/Layout";
 import type { NextPage } from "next";
 import Head from "next/head";
+
+import Landing from "../components/Landing";
+import Experience from '../components/Experience';
+import Layout from "../components/Layout";
+import Details from '../components/Details';
+import Download from '../components/app-available/Download';  
+import Footer from '../components/Footer';
+
+
 import { FRONTEND_URL } from "../constant/url";
 import { useTranslation } from 'next-export-i18n';
 
@@ -13,7 +20,7 @@ import { useTranslation } from 'next-export-i18n';
 const Home: NextPage = () => {
   const {t} = useTranslation();
   const TITLE = "Discover Me'sic";
-  const OG_IMAGE = `${FRONTEND_URL}/og-image.jpg`;
+  const OG_IMAGE = `../asset/logo_small.png`;
 
   return (
     <>
@@ -25,7 +32,9 @@ const Home: NextPage = () => {
 
         <meta property="og:title" content={TITLE} />
         <meta property="og:description" content={t('Discover_unknown_artists')} />
-        <meta property="og:image" content={OG_IMAGE} />
+        <meta property="og:image" content={OG_IMAGE} />     
+         <link rel="shortcut icon" href={OG_IMAGE} />
+
         <meta property="og:url" content={FRONTEND_URL} />
 
         <link rel="canonical" href={FRONTEND_URL} />
@@ -33,6 +42,10 @@ const Home: NextPage = () => {
       </Head>
       <Layout>
           <Landing />
+          <Experience />
+          <Details />
+          <Download />
+          <Footer />
       </Layout>
     </>
   );

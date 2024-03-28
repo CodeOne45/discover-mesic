@@ -10,7 +10,7 @@ async function testMusic50kViews(){
         await songsService.delete(s._id)
         console.log("Worker: Song " + s.title + " was deleted !")
         if(s.addedBy){
-        sendEmailFamousSong(s)
+            sendEmailFamousSong(s)
         }
     }
    }
@@ -18,6 +18,9 @@ async function testMusic50kViews(){
  }
  async function sendEmailFamousSong(song){
     const User = await userService.getById(song.addedBy)
+    if(!User){
+        return
+    }
     userService.sendFamousSongEmail(User, song)
     console.log("We warned the user who added the song : " + User.username )
  }

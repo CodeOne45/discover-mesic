@@ -8,13 +8,16 @@ import React, {
 import classNames from "classnames";
 import { useRouter } from "next/router";
 import {userService} from '../services/user.service';
+import {useTheme} from "next-themes";
+
+import{SunIcon ,MoonIcon} from "@heroicons/react/solid";
 
 import { useTranslation } from 'next-export-i18n';
 
 import Link from "next/link";
 import styles from "../styles/header-component.module.css";
 
-import logo from '../asset/logo_large.png';
+import logo from '../asset/logo_small.png';
 
 import { Nav, Navbar } from "react-bootstrap"
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -63,26 +66,40 @@ const Header: React.FC = () => {
     }
   }, []);
 
+  const [mounted, setMounted] = useState(false);
 
-  function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "header-component_topnav__JpB0H") {
-      x.className += " header-component_responsive__ZOS4I";
-    } else {
-      x.className = "header-component_topnav__JpB0H";
+  useEffect(() =>{
+    setMounted(true);
+  },[])
+  
+  const {systemTheme , theme, setTheme} = useTheme ();
+
+  const renderThemeChanger= () => {
+
+    if(!mounted) return null;
+
+    const currentTheme = theme === "system" ? systemTheme : theme ;
+
+    if(currentTheme ==="dark"){
+      return (
+        <SunIcon className="w-10 h-10 text-yellow-500 " role="button" onClick={() => setTheme('light')} />
+      )
     }
-  }
+
+    else {
+      return (
+        <MoonIcon className="w-10 h-10 text-gray-900 " role="button" onClick={() => setTheme('dark')} />
+      )
+    }
+  };
 
   return (
     <div className={styles.main_nav}>
       <Navbar
         collapseOnSelect
         expand="md"
-        bg="light"
-        variant="light"
-        className="px-4 py-8"
         fixed="top"
-        className={styles.topnav}
+        className={classNames(styles.navbar, "dark:bg-[#081730] bg-[#F9FAFB]")}
       >
         <Navbar.Brand>
           <Link href={"/"}>
@@ -96,8 +113,8 @@ const Header: React.FC = () => {
             <Nav.Link href="#">{t('header.About_us')}</Nav.Link>
           </Nav>
           <Nav className="ml-auto align-items-end px-3">
-              { accessPaths.includes(path) ? (<form className={styles.search_form} onSubmit={submitSearchHandler}>
-              <div className={styles.text_box}>
+              {/* accessPaths.includes(path) ? (<form className={styles.search_form} onSubmit={submitSearchHandler}>
+              <div >
                 <input
                   type="text"
                   placeholder={t('header.Search_for_a_song')}
@@ -109,25 +126,28 @@ const Header: React.FC = () => {
                   <i className={classNames("fas fa-search", styles.icon)} />
                 </button>
               </div>
-            </form>) : "" }
+            </form>) : "" */}
             <div className={styles.auth_btn}>
               {user?
-                <a className={styles.none_btn}></a> : <a className={styles.register_btn} href="/account/register"> {t('header.Register')}</a>
+                <a className={styles.none_btn}></a> : <a href="/account/register">
+                                                        <button className="px-4 py-2 rounded-l-xl  m-0  hover:bg-neutral-100transition">{t('header.Register')}</button>
+                                                      </a>
               }
-              {user?         
+              {user?
                 <NavDropdown title={<AvatarLayout user={user.data} withBadge={true} />} id="basic-nav-dropdown" className={styles.dropdown}> 
-                  <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
-                  <NavDropdown.Divider />
                   <NavDropdown.Item href="#action/3.4" onClick={logout}>
                     {t('header.Logout')}
                   </NavDropdown.Item>
-                </NavDropdown> : <a className={styles.log_btn} href="/account/login">{t('header.Login')}</a>
+                </NavDropdown> : <a href="/account/login">
+                                  <button className="px-4 py-2 rounded-xl text-white bg-[#0E6AFF] hover:bg-[#C592FF] transition">{t('header.Login')}</button>
+                                </a>
               }
             </div>
           </Nav>
         </Navbar.Collapse>
-
+        {/*renderThemeChanger()*/}
       </Navbar>
+
     </div>
   )
 };

@@ -1,3 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 dark:bg-black dark:text-gray-100;
+    @apply min-h-screen;
+  }
+
+  ::selection {
+    @apply text-white bg-indigo-500;
+  }
+
+
+  .btn{
+    @apply inline-block px-5 py-3 rounded-lg hover:bg-indigo-600 transition duration-300 shadow-lg bg-indigo-500 text-white capitalize tracking-wider font-semibold text-sm sm:text-xl focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 whitespace-nowrap
+  }
+}
+
 html,
 body {
   padding: 0;
@@ -95,13 +115,9 @@ button {
   background-color: var(--color-text-1);
 }
 
-/*#light{
-  background: url("../asset/Landpage-v2.png") no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}*/
+#light{
+  background-color: #081730;
+}
 #dark {
   background: var(--dark-1);
 }
@@ -129,17 +145,6 @@ button {
 
 
 /*NavBar */
-
-#dark .header-component_topnav__JpB0H {
-  background-color: var(--dark-5);
-}
-#dark .header-component_topnav__JpB0H *{
-  color: var(--color-text-1);
-}#E6E6E6
-#dark .header-component_text_box____wzW{
-  background-color: var(--color-text-70);
-  color: var(--color-text-1);
-}
 
 
 
@@ -285,3 +290,4 @@ button {
   background: #2466ff;
   border-radius: 5px;
 }
+

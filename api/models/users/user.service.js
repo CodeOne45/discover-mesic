@@ -1,17 +1,15 @@
 const config = require("config.json");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const crypto = require('crypto');
+const crypto = require("crypto");
 const db = require("_helpers/db");
 const User = db.User;
 const Songs = db.Songs;
 const Tokens = db.Tokens;
-const emailCheck = require('email-check');
-const {sendEmail} = require('_helpers/tools');
+const emailCheck = require("email-check");
+const { sendEmail } = require("_helpers/tools");
 
-var mongoose = require('mongoose');
-
-
+var mongoose = require("mongoose");
 
 module.exports = {
   getAll,
@@ -29,34 +27,51 @@ module.exports = {
   updateUserPassword,
   resendToken,
   getUserProfilById,
-  sendFamousSongEmail
+  sendFamousSongEmail,
+  deleteUserPlaylistSong,
 };
 
-async function authenticate(userAuthentification,res) {
+async function authenticate(userAuthentification, res) {
   try {
-    var user = await User.findOne({ $or: [{ username: userAuthentification.username }, { email: userAuthentification.username }] });
-    const comparePassword = await bcrypt.compare(userAuthentification.password, user.password);
+    var user = await User.findOne({
+      $or: [
+        { username: userAuthentification.username },
+        { email: userAuthentification.username },
+      ],
+    });
+    if (!user)
+      return res
+        .status(400)
+        .json({ message: "User is not found, please sign up before!" });
+    const comparePassword = await bcrypt.compare(
+      userAuthentification.password,
+      user.password
+    );
     if (comparePassword) {
       // Make sure the user has been verified
-      if (!user.isVerified) return res.status(401).json({ type: 'not-verified', message: 'Your account has not been verified.' });
-      
+      if (!user.isVerified)
+        return res
+          .status(401)
+          .json({
+            type: "not-verified",
+            message: "Your account has not been verified.",
+          });
+
       const token = jwt.sign({ sub: user._id }, config.secret, {
         expiresIn: "7d",
       });
-      return res.status(200).json( {
+      return res.status(200).json({
         id: user.id,
         username: user.username,
         email: user.email,
         token,
       });
-    
-    } 
-
+    } else {
+      return res.status(400).json({ message: "Password is invalid" });
+    }
   } catch (error) {
-    res.status(500).json({message: error.message});
+    res.status(500).json({ message: error.message });
   }
-
-
 }
 
 async function getAll() {
@@ -66,36 +81,45 @@ async function getAll() {
 async function getById(id) {
   return await User.findById(id);
 }
-async function getUserProfilById(id, res){
- const user = await User.findById(id);
- if(user)return res.status(200).json({username : user.username});
- 
- return res.status(200).json({username: "Unknow"});
+async function getUserProfilById(id, res) {
+  const user = await User.findById(id);
+  if (user) return res.status(200).json({ username: user.username });
+
+  return res.status(200).json({ username: "Unknow" });
 }
 
 async function create(userParam, req, res) {
   try {
     // validate
     if (await User.findOne({ username: userParam.username })) {
-      return res.status(400).json({ message: 'Username "' + userParam.username + '" is already taken' });
+      return res
+        .status(400)
+        .json({
+          message: 'Username "' + userParam.username + '" is already taken',
+        });
     }
 
     if (await User.findOne({ email: userParam.email })) {
-      return res.status(400).json({message : 'Email "' + userParam.email + '" is already taken'});
+      return res
+        .status(400)
+        .json({ message: 'Email "' + userParam.email + '" is already taken' });
     }
     // tester mail
-    
+
     if (!emailCheck(userParam.email)) {
-      return res.status(400).json({message : 'Email do not exist'});
+      return res.status(400).json({ message: "Email do not exist" });
     }
 
-    if (!isValidEmail(userParam.email) || userParam.email == '') {
-      return res.status(400).json({message : 'Email is invalid'});
+    if (!isValidEmail(userParam.email) || userParam.email == "") {
+      return res.status(400).json({ message: "Email is invalid" });
     }
 
     // test password
-    if (isValidatePassword(userParam.password) == false || userParam.password == '') {
-      return res.status(400).json({message : 'Password is invalid'});
+    if (
+      isValidatePassword(userParam.password) == false ||
+      userParam.password == ""
+    ) {
+      return res.status(400).json({ message: "Password is invalid" });
     }
 
     userParam.password = bcrypt.hashSync(userParam.password);
@@ -105,7 +129,7 @@ async function create(userParam, req, res) {
     const user_ = await user.save();
 
     await sendVerificationEmail(user_, req, res);
-   /* 
+    /* 
     if (user_) {
       const token = jwt.sign({ sub: user_._id }, config.secret, {
         expiresIn: "7d",
@@ -116,92 +140,131 @@ async function create(userParam, req, res) {
       });
     }
     */
-    } catch (error) {
-        return res.status(500).json({message: error.message})
-    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 }
 
 async function update(id, userParam, res) {
-  try{
+  try {
     const user = await User.findById(id);
     // validate
-    if (!user) return res.status(400).json({message : "User not found" });
+    if (!user) return res.status(400).json({ message: "User not found" });
     // hash password if it was entered
     if (userParam.password) {
       // verify new password
       if (isValidatePassword(userParam.password)) {
         userParam.hash = bcrypt.hashSync(userParam.password, 10);
       } else {
-      return res.status(400).json({message :'Password is invalid, you need to have 1 Maj, 1 Min, 1 Number and 1 Caracter special'});
+        return res
+          .status(400)
+          .json({
+            message:
+              "Password is invalid, you need to have 1 Maj, 1 Min, 1 Number and 1 Caracter special",
+          });
       }
     }
     // copy userParam properties to user
     Object.assign(user, userParam);
     await user.save();
     res.status(200).send("The account has been updated");
-  }catch(error){
-    res.status(500).json({message: error.message})
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 }
 // recuperer la playlist de l'utilisateur connecté
 async function getUserPlaylistSongs(id, res) {
   const user = await User.findById(id);
-  if(!user) return res.status(404).json({message: "Erreur get playlist"});
+  if (!user) return res.status(404).json({ message: "Erreur get playlist" });
   var finalPlaylist = [];
-  
+
   for (const s of user.playlistIdSongs) {
     let song = await Songs.findById(s);
-    finalPlaylist.push(song); 
+    finalPlaylist.push(song);
   }
-  
+
   return res.status(200).json(finalPlaylist);
 }
 // recuperer la list de l'utilisateur connecté swipé à gauche
-async function getUserPlaylistSongsLeftById(id,res) {
+async function getUserPlaylistSongsLeftById(id, res) {
   const user = await User.findById(id);
-  if(!user) return res.status(404).json({message: "erreur get playlist left"});
+  if (!user)
+    return res.status(404).json({ message: "erreur get playlist left" });
   return res.status(200).json(user.listIdSongsSwiptoLeft);
 }
 // update la playlist utilisateur des musiques non likées
 async function updateUserPlaylistSongsSwipLeft(id, param, res) {
   const user = await User.findById(id);
-  if(!user) return res.status(404).json({message: "erreur uppdate playlist left"});
-  if( typeof param.idMusic === 'undefined' || param.idMusic === null || param.idMusic === "" ) return res.status(402).json({message: "champ id music est vide"});
-  user.listIdSongsSwiptoLeft.push(mongoose.Types.ObjectId( param.idMusic ))
+  if (!user)
+    return res.status(404).json({ message: "erreur uppdate playlist left" });
+  if (
+    typeof param.idMusic === "undefined" ||
+    param.idMusic === null ||
+    param.idMusic === ""
+  )
+    return res.status(402).json({ message: "champ id music est vide" });
+  user.listIdSongsSwiptoLeft.push(mongoose.Types.ObjectId(param.idMusic));
   user.save();
-  return res.status(200).json({playlistuserLeft: user.listIdSongsSwiptoLeft , username : user.username});
+  return res
+    .status(200)
+    .json({
+      playlistuserLeft: user.listIdSongsSwiptoLeft,
+      username: user.username,
+    });
 }
 // update la playlist utilisateur quand il ajoute une musique (on peut ajouter plusieurs fois une même musique)
 async function updateUserPlaylistSongs(id, param, res) {
   const user = await User.findById(id);
-  if(!user) return res.status(404).json({message: "erreur update playlist"});
-  if( typeof param.idMusic === 'undefined' || param.idMusic === null || param.idMusic === "" ) return res.status(402).json({message: "champ id music est vide"});
-  user.playlistIdSongs.push(mongoose.Types.ObjectId( param.idMusic ));
+  if (!user) return res.status(404).json({ message: "erreur update playlist" });
+  if (
+    typeof param.idMusic === "undefined" ||
+    param.idMusic === null ||
+    param.idMusic === ""
+  )
+    return res.status(402).json({ message: "champ id music est vide" });
+  user.playlistIdSongs.push(mongoose.Types.ObjectId(param.idMusic));
   user.save();
   //call service song for +1 like
-  //var nbrLikes = await songService.getLikeOfSongbyId(param.idMusic);
+  //var nbrLikes = await songService.updateSongLikes(param.idMusic);
   //return res.status(200).json({playlistuser: user.playlistIdSongs , username : user.username, nombreLikes : nbrLikes});
-  return res.status(200).json({"message" : "Song added!"});
+  return res.status(200).json({ message: "Song added!" });
 }
 async function deleteUserPlaylistSongs(id, param, res) {
-  var listSongToRemove = param.idMusic.map(s => s.toString());
-  await User.updateOne( // select your doc in moongo
-    { _id: id }, // your query, usually match by _id
-    { $pullAll: { playlistIdSongs: listSongToRemove } }, // item(s) to match from array you want to pull/remove
-    { multi: true } // set this to true if you want to remove multiple elements.
-  )
-  return res.status(200).json("Songs " +listSongToRemove+" deleted");
+  var listSongToRemove = param.idMusic.map((s) => s.toString());
+  await User.updateOne(
+    { _id: id },
+    { $pullAll: { playlistIdSongs: listSongToRemove } },
+    { multi: true }
+  );
+  return res.status(200).json("Songs " + listSongToRemove + " deleted");
+}
+
+async function deleteUserPlaylistSong(id, idMusic, res) {
+  await User.updateOne(
+    { _id: id },
+    { $pull: { playlistIdSongs: idMusic } },
+    { multi: true }
+  );
+  return res.status(200).json("Song " + idMusic + " deleted");
 }
 
 async function updateUserPassword(id, param, res) {
   const user = await User.findById(id);
   // test password
-  if (isValidatePassword(param.newPassword) == false || param.newPassword == '') {
-    return res.status(400).json({message : "Password is invalid" });
+  if (
+    isValidatePassword(param.newPassword) == false ||
+    param.newPassword == ""
+  ) {
+    return res.status(400).json({ message: "Password is invalid" });
   }
-  var oldPasswordisSameThanNew = await bcrypt.compare(param.newPassword,user.password);
-  if(oldPasswordisSameThanNew){
-    return res.status(400).json({message : 'This password is the same that your last password' });
+  var oldPasswordisSameThanNew = await bcrypt.compare(
+    param.newPassword,
+    user.password
+  );
+  if (oldPasswordisSameThanNew) {
+    return res
+      .status(400)
+      .json({ message: "This password is the same that your last password" });
   }
   user.password = bcrypt.hashSync(param.newPassword);
   await user.save();
@@ -211,93 +274,123 @@ async function _delete(id) {
   await User.findByIdAndRemove(id);
 }
 function isValidEmail(email) {
-  const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const regex =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return regex.test(String(email).toLowerCase());
 }
 function isValidatePassword(password) {
   var newPassword = password;
   var minNumberofChars = 8;
   var maxNumberofChars = 16;
-  var regularExpression = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,16})')
-  if (newPassword.length < minNumberofChars || newPassword.length > maxNumberofChars) {
+  var regularExpression = new RegExp(
+    "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,16})"
+  );
+  if (
+    newPassword.length < minNumberofChars ||
+    newPassword.length > maxNumberofChars
+  ) {
     return false;
-
   }
   if (!regularExpression.test(String(newPassword))) {
     return false;
-
   }
   return true;
-
 }
-
 
 // ===EMAIL VERIFICATION
 // @route GET users/verify/:token
 // @desc Verify token
 // @access Public
-async function verify(req, res){
-  if(!req.params.token) return res.status(400).json({message: "We were unable to find a user for this token."});
+async function verify(req, res) {
+  if (!req.params.token)
+    return res
+      .status(400)
+      .json({ message: "We were unable to find a user for this token." });
 
   try {
-      // Find a matching token
-      const token = await Tokens.findOne({ token: req.params.token });
+    // Find a matching token
+    const token = await Tokens.findOne({ token: req.params.token });
 
-      if (!token) return res.status(400).json({ message: 'We were unable to find a valid token. Your token my have expired.' });
+    if (!token)
+      return res
+        .status(400)
+        .json({
+          message:
+            "We were unable to find a valid token. Your token my have expired.",
+        });
 
-      // If we found a token, find a matching user
-      User.findOne({ _id: token.userId }, (_err, user) => {
-          if (!user) return res.status(400).json({ mcessage: 'We were unable to find a user for this token.' });
+    // If we found a token, find a matching user
+    User.findOne({ _id: token.userId }, (_err, user) => {
+      if (!user)
+        return res
+          .status(400)
+          .json({ mcessage: "We were unable to find a user for this token." });
 
-          if (user.isVerified) return res.status(400).json({ message: 'This user has already been verified.' });
+      if (user.isVerified)
+        return res
+          .status(400)
+          .json({ message: "This user has already been verified." });
 
-          // Verify and save the user
-          user.isVerified = true;
-          user.save(function (err) {
-              if (err) return res.status(500).json({message:err.message});
+      // Verify and save the user
+      user.isVerified = true;
+      user.save(function (err) {
+        if (err) return res.status(500).json({ message: err.message });
 
-              res.status(200).send("The account has been verified. Please log in.");
-          });
-      }); 
+        res.status(200).send("The account has been verified. Please log in.");
+      });
+    });
   } catch (error) {
-      res.status(500).json({message: error.message})
-    }
-};
+    res.status(500).json({ message: error.message });
+  }
+}
 
 // @route POST users/resend
 // @desc Resend Verification Token
 // @access Public
-async function resendToken(req, res){
+async function resendToken(req, res) {
   try {
-      const { email } = req.body;
+    const { email } = req.body;
 
-      const user = await User.findOne({ email });
+    const user = await User.findOne({ email });
 
-      if (!user) return res.status(401).json({ message: 'The email address ' + req.body.email + ' is not associated with any account. Double-check your email address and try again.'});
+    if (!user)
+      return res
+        .status(401)
+        .json({
+          message:
+            "The email address " +
+            req.body.email +
+            " is not associated with any account. Double-check your email address and try again.",
+        });
 
-      if (user.isVerified) return res.status(400).json({ message: 'This account has already been verified. Please log in.'});
+    if (user.isVerified)
+      return res
+        .status(400)
+        .json({
+          message: "This account has already been verified. Please log in.",
+        });
 
-      await sendVerificationEmail(user, req, res);
+    await sendVerificationEmail(user, req, res);
   } catch (error) {
-      res.status(500).json({message: error.message})
+    res.status(500).json({ message: error.message });
   }
-};
+}
 
-async function sendVerificationEmail(user, req, res){
-  try{
-      let payload = {
-        userId:  user._id,
-        token: crypto.randomBytes(20).toString('hex')
-      };
-      const token = new Tokens(payload);
-      // Save the verification token
-      await token.save();
+async function sendVerificationEmail(user, req, res) {
+  try {
+    let payload = {
+      userId: user._id,
+      token: crypto.randomBytes(20).toString("hex"),
+    };
+    const token = new Tokens(payload);
+    // Save the verification token
+    await token.save();
 
-      let subject = "Account Verification Token";
-      let to = user.email;
-      let from = process.env.FROM_EMAIL;
-      let link="http://"+req.headers.host+"/users/verify/"+token.token;
-      let html = `<head>
+    let subject = "Account Verification Token";
+    let to = user.email;
+    let from = process.env.FROM_EMAIL;
+    let link = "http://" + req.headers.host + "/users/verify/" + token.token;
+    let html = `<head>
                   <meta http-equiv="content-type" content="text/html; charset=utf-8">
                   <meta name="viewport" content="width=device-width, initial-scale=1.0;">
                   <meta name="format-detection" content="telephone=no" />
@@ -480,20 +573,23 @@ async function sendVerificationEmail(user, req, res){
                 </body>
                 </html>`;
 
-      await sendEmail({to, from, subject, html});
-      res.status(200).json({message: 'A verification email has been sent to ' + user.email + '.'});
-  }catch (error) {
-      res.status(500).json({message: error.message})
+    await sendEmail({ to, from, subject, html });
+    res
+      .status(200)
+      .json({
+        message: "A verification email has been sent to " + user.email + ".",
+      });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-
 }
-async function sendFamousSongEmail(user, song){
-  try{
-      let subject = "Music becomes famous (il a percé wola)!";
-      let to = user.email;
-      let from = process.env.FROM_EMAIL;
-      let link= process.env.URL_FRONT + "/discover"
-      let html = `<head>
+async function sendFamousSongEmail(user, song) {
+  try {
+    let subject = "Music becomes famous (il a percé wola)!";
+    let to = user.email;
+    let from = process.env.FROM_EMAIL;
+    let link = process.env.URL_FRONT + "/discover";
+    let html = `<head>
                   <meta http-equiv="content-type" content="text/html; charset=utf-8">
                   <meta name="viewport" content="width=device-width, initial-scale=1.0;">
                   <meta name="format-detection" content="telephone=no" />
@@ -676,9 +772,8 @@ async function sendFamousSongEmail(user, song){
                 </body>
                 </html>`;
 
-      await sendEmail({to, from, subject, html});
-  }catch (error) {
-      console.log(error)
+    await sendEmail({ to, from, subject, html });
+  } catch (error) {
+    console.log(error);
   }
-
 }

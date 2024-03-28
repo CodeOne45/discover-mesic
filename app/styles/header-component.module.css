@@ -3,10 +3,9 @@
 }
 
 .main_nav{
-  background-color:#F8F9FA;
+  background-color:black;
   height: 80px;
   position: absolute;
-  width: 100%;
   margin-top: -120px;
   box-shadow: var(--shadow-37);
   position: fixed;
@@ -17,6 +16,8 @@
   max-width: 1400px;
   margin: 0 auto;
   padding-top: 5px;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 .dropdown > div{
@@ -30,28 +31,12 @@
 }
 
 .image_container_logo{
-  height: 40px;
-  width: 120px;
+  height: 55px;
+  width: 100%;
   cursor: pointer;
   padding-top: 5px;
 }
-.text_box {
-  display: flex;
-  align-items: center;
 
-  width: 300px;
-  height: 38px;
-  
-  margin-top: 3px;
-  padding: 0 14px;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, .06);
-  float: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 
 .topnav-centered a {
   float: none;
@@ -101,8 +86,7 @@
   width: 100%;
   padding: 0 14px;
   z-index: 100;
-
-  background-color: var(--color-text-10);
+  background-color: #081730;
 }
 
 .topnav a {

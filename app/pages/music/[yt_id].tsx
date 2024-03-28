@@ -5,48 +5,61 @@ import { useRouter } from "next/router";
 import { FRONTEND_URL, thumbnailLink, API_URL } from "../../constant/url";
 import { Context } from "../../store";
 import classNames from "classnames";
+import Container from "../../store";
+
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import type { IMusic } from "../../types/music";
 import { songService } from "../../services/music.service";
 import PreloaderComp from "../../components/preloader/preloaderComp";
 
+export default function App() {
+  return (
+    <Container>
+      <Music />
+    </Container>
+  );
+}
+
 /**
  * Handle /music/[yt_id] type url
  */
 const Music: React.FC<IMusic | any> = (data) => {
-
   const router = useRouter();
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const { musics, setMusics, music, setMusic, setIsPlay } = useContext(
     Context
   ) as any;
 
-  const yt_id = data?.yt_id ?? undefined;
+  const { yt_id } = router.query;
 
   useEffect(() => {
     (async () => {
-      if (musics.length === 0) {
-        const { data } = await songService.songsList();
-        if (data.length) setMusics(data);
-      }
+      const { data } = await songService.songsList();
+      setMusics(data);
     })();
   }, []);
 
   useEffect(() => {
-    if (yt_id && musics) {
-      setIsLoaded(true);
-      setIsPlay(true);
+    if (yt_id && musics.length) {
       const databis = songService.findMusicById(yt_id as string, musics);
-      if (databis) setMusic(databis);
-    } else router?.push("/404");
+      if (databis) {
+        setMusic(databis);
+        setIsLoaded(true);
+        setIsPlay(true);
+      } else {
+        router.push("/404");
+      }
+    }
   }, [yt_id, musics]);
+
   const TITLE = data ? `${data.title} - Discover Me'sic` : undefined;
   const URL = `${FRONTEND_URL}/music/${yt_id}`;
 
   if (!music) {
     return <PreloaderComp />;
   }
+
   return (
     <>
       {yt_id && (
@@ -60,6 +73,7 @@ const Music: React.FC<IMusic | any> = (data) => {
           <link rel="canonical" href={URL} />
         </Head>
       )}
+
       <Layout>
         <div className={styles.music_page_wrapper}>
           {isLoaded && (
@@ -79,9 +93,9 @@ const Music: React.FC<IMusic | any> = (data) => {
                   </h3>
                 </div>
                 <div className={styles.author_wrapper}>
-                  <h5 className={classNames(styles.author, "font-nunito")}>
-                    {music.author}
-                  </h5>
+                  <a className="hover:underline" href={`/artist/${music.author}`}>
+                    <h3  className={styles.author}>{music.author}</h3>
+                  </a>
                 </div>
               </div>
             </div>
@@ -93,11 +107,21 @@ const Music: React.FC<IMusic | any> = (data) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const yt_id = context.query?.yt_id;
-  if (yt_id) {
-    return { props: { yt_id } };
+  const yt_id = context.query?.yt_id as string;
+
+  try {
+    const { data } = await songService.songsList();
+    const music = songService.findMusicById(yt_id, data);
+    console.log(music);
+    if (music) {
+      return { props: { yt_id } };
+    }
+  } catch (error) {
+    console.error(error);
   }
-  return { props: {} } as any;
+
+  return { notFound: true };
 };
 
-export default Music;
+
+

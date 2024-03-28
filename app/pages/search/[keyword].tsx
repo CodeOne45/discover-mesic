@@ -1,7 +1,7 @@
 import {GetServerSideProps} from 'next';
 import React, {useContext, useEffect, useState} from 'react';
 import Layout from '../../components/Layout';
-import MusicList from '../../components/music/MusicList';
+//import MusicList from '../../components/music/MusicList';
 import {songService} from '../../services/music.service';
 import {IMusic} from '../../types/music';
 import styles from "../../styles/home.module.css";
@@ -39,7 +39,7 @@ const Search: React.FC<{ keyword: string }> = ({keyword}) => {
     <Layout>
       {musicsSearched && (
         <div className={styles.list_wrapper}>
-          <MusicList musics={musicsSearched}/>
+          {/*<MusicList musics={musicsSearched}/>*/}
         </div>
       )}
     </Layout>
