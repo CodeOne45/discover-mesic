@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 module.exports = {
+  swcMinify: false,
   reactStrictMode: true,
   staticPageGenerationTimeout: 10000,
   /*webpackDevMiddleware: config => {
