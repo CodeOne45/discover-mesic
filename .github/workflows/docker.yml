@@ -1,0 +1,70 @@
+name: Build Discover Mesic Back and front
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+  push:
+    branches:
+      - develop
+      - main
+
+jobs:
+  build-and-deploy-back:
+    name: Build and Deploy Back-end
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build, Push and Release a Backend Docker container to Heroku.
+      uses: gonuit/heroku-docker-deploy@v1.3.3 # GitHub action name (leave it as it is).
+      with:
+        # The email address associated with your Heroku account
+        email: ${{ secrets.HEROKU_EMAIL }}
+
+        # Heroku API key associated with provided user's email.
+        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+
+        # Name of the heroku application to which the build is to be sent.
+        heroku_app_name: ${{ secrets.HEROKU_APP_BACK }}
+
+        # Dockerfile directory.
+        dockerfile_directory: ./api
+
+        # (Optional, default: "")
+        # Additional options of docker build command.
+        docker_options: "--no-cache"
+
+        # (Optional, default: "web")
+        process_type: web
+
+  build-and-deploy-front:
+    name: Build and Deploy Front-end
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build, Push and Release a Frontend Docker container to Heroku.
+      uses: gonuit/heroku-docker-deploy@v1.3.3 # GitHub action name (leave it as it is).
+      with:
+        # The email address associated with your Heroku account
+        email: ${{ secrets.HEROKU_EMAIL }}
+
+        # Heroku API key associated with provided user's email.
+        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+
+        # Name of the heroku application to which the build is to be sent.
+        heroku_app_name: ${{ secrets.HEROKU_APP_FRONT }}
+
+        # Dockerfile directory.
+        dockerfile_directory: ./app
+
+        # (Optional, default: "")
+        # Additional options of docker build command.
+        docker_options: "--no-cache"
+
+        # (Optional, default: "web")
+        process_type: web

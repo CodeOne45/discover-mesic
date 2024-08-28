@@ -31,7 +31,7 @@
 </p>
    
 <h4>
-    <a href="https://github.com/CodeOne45/discover-mesic/">View Demo</a>
+    <a href="https://discover-mesic.herokuapp.com/">View Demo</a>
   <span> · </span>
     <a href="https://github.com/CodeOne45/discover-mesic">Documentation</a>
   <span> · </span>
