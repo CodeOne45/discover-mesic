@@ -4,7 +4,8 @@
   "description": "An API to collect songs & login + register users",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "netlify deploy --prod"
   },
   "repository": {
     "type": "git",

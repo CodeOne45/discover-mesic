@@ -1,6 +1,7 @@
 /** Music Hook store */
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import type { IMusic } from "../types/music";
+
 
 export const Context = React.createContext({});
 
@@ -15,7 +16,9 @@ const Container: React.FC<Props> = ({ children }) => {
   const [playStarted, setPlayStarted] = useState<boolean>(false);
   const [isPlay, setIsPlay] = useState<boolean>(false);
   const [music, setMusic] = useState<IMusic>();
-  
+  const playerRef = useRef<any>(null);
+
+
 
   const handleKeydown = useCallback((event: any) => {
     if (event.code === 'Space') {
@@ -48,6 +51,7 @@ const Container: React.FC<Props> = ({ children }) => {
     }
   }, [isPlay]);
 
+
   /** Creating and running YT player in back for each passed music */
   return (
     <Context.Provider value={{ isPlay, setIsPlay, music, setMusic, playStarted, setPlayStarted, musics, setMusics ,topMusics, setTopMusics}}>
@@ -66,7 +70,7 @@ const Container: React.FC<Props> = ({ children }) => {
           ></iframe>
         )}
       </div>
-      
+
     </Context.Provider>
   );
 };

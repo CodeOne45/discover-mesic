@@ -1,86 +1,80 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useState, useEffect, useContext } from 'react';
 import { Context } from "../../store";
+import styles from "../../styles/timeline.module.css";
 
-const Timeline: React.FC = () => {
-  const { music } = useContext(Context) as any;
-  const [currentTime, setCurrentTime] = useState<number>(0);
-  const [duration, setDuration] = useState<number>(0);
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time - minutes * 60);
-    return `${minutes < 10 ? "0" + minutes : minutes}:${
-      seconds < 10 ? "0" + seconds : seconds
-    }`;
-  };
+const Timeline = () => {
+  const { isPlay, music } = useContext(Context) as any;
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
 
   useEffect(() => {
-    const iframe = iframeRef.current;
-    if (!iframe) return;
+    const iframe = document.querySelector("#player") as any;
+    if (iframe) {
+      const updateProgress = () => {
+        if (iframe.contentWindow) {
+          iframe.contentWindow.postMessage('{"event":"listening","func":"getCurrentTime","args":""}', '*');
+          iframe.contentWindow.postMessage('{"event":"listening","func":"getDuration","args":""}', '*');
+        }
+      };
 
-    const player = new window.YT.Player(iframe, {
-      events: {
-        onReady: () => {
-          setDuration(player.getDuration());
-        },
-        onStateChange: (event: any) => {
-          if (event.data === window.YT.PlayerState.PLAYING) {
-            setIsDragging(false);
-          }
-        },
-      },
-    });
-
-    return () => {
-      player.destroy();
-    };
+      const timer = setInterval(updateProgress, 1000);
+      return () => clearInterval(timer);
+    }
   }, [music]);
 
-  function handleSliderChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const value = Number(event.target.value);
-    setCurrentTime(value);
-    setIsDragging(true);
-  }
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data && typeof event.data === 'string') {
+        try {
+          const data = JSON.parse(event.data);
+          if (data.event === 'infoDelivery') {
+            if (data.info && data.info.currentTime) {
+              setProgress(data.info.currentTime);
+            }
+            if (data.info && data.info.duration) {
+              setDuration(data.info.duration);
+            }
+          }
+        } catch (error) {
+          console.error('Error parsing message:', error);
+        }
+      }
+    };
 
-  function handleSliderDragStart() {
-    setIsDragging(true);
-  }
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
-  function handleSliderDragEnd() {
-    setIsDragging(false);
-    const iframe = iframeRef.current;
-    if (!iframe) return;
-    iframe.contentWindow?.postMessage(
-      `{"event":"command","func":"seekTo","args":[${currentTime}, true]}`,
-      "*"
-    );
-  }
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newTime = parseFloat(e.target.value);
+    const iframe = document.querySelector("#player") as any;
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.postMessage(`{"event":"command","func":"seekTo","args":[${newTime},true]}`, '*');
+    }
+  };
 
   return (
-    <div className="timeline">
-      <iframe
-        ref={iframeRef}
-        title="YouTube video player"
-        src={`https://www.youtube.com/embed/${music?.yt_id}?enablejsapi=1`}
-        allowFullScreen
-      ></iframe>
-      <div className="timeline__controls">
-        <span className="timeline__time">{formatTime(currentTime)}</span>
-        <input
-          type="range"
-          min={0}
-          max={duration}
-          value={isDragging ? currentTime : player?.getCurrentTime() || 0}
-          onChange={handleSliderChange}
-          onMouseDown={handleSliderDragStart}
-          onMouseUp={handleSliderDragEnd}
-        />
-        <span className="timeline__time">{formatTime(duration)}</span>
+    <div className={styles.timeline}>
+      <input
+        type="range"
+        min="0"
+        max={duration}
+        value={progress}
+        onChange={handleSeek}
+        className={styles.progress_bar}
+      />
+      <div className={styles.time_display}>
+        {formatTime(progress)} / {formatTime(duration)}
       </div>
     </div>
   );
+};
+
+const formatTime = (seconds: number) => {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
+  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
 };
 
 export default Timeline;
