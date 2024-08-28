@@ -102,7 +102,7 @@ const Header: React.FC = () => {
         className={classNames(styles.navbar, "dark:bg-[#081730] bg-[#F9FAFB]")}
       >
         <Navbar.Brand>
-          <Link href={"/"}>
+          <Link href={"/"} legacyBehavior>
             <img className={styles.image_container_logo} src={logo.src} alt="Logo Discover Me-sic"/>
           </Link>
         </Navbar.Brand>
@@ -149,7 +149,7 @@ const Header: React.FC = () => {
       </Navbar>
 
     </div>
-  )
+  );
 };
 
 export default Header;

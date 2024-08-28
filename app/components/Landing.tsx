@@ -54,11 +54,13 @@ const Landing: React.FC = () => {
               {t('landing.more_than')}<span className={styles.music_number}>{numberOfSongs}</span> {t('landing.unknown')}
             </span>
           </div>
-          <Link href="/discover" >
-          <a className={classNames(styles.content_button, "text-white bg-gradient-to-bl from-[#F3071D] to-[#E600FF]")}>
+          <Link
+            href="/discover"
+            className={classNames(styles.content_button, "text-white bg-gradient-to-bl from-[#F3071D] to-[#E600FF]")}>
+
             {t('landing.Discover')}
-          </a>
-        </Link>
+
+          </Link>
         </div>
         <div className="images relative w-[50%]">
           <div className={styles.image_container}>
@@ -73,7 +75,6 @@ const Landing: React.FC = () => {
           </div>
         </div>   
       </div>
-      
     );
   };
   export default Landing;
