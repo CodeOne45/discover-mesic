@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const googleService = require("./google.service");
-const db = require("_helpers/db");
+const db = require("../../_helpers/db");
 const jwt = require("jsonwebtoken");
-const config = require("config.json");
+const config = require("../../config.json");
 const User = db.User;
 
 router.get("/auth/google", googleService.passport.authenticate('google', { scope: ['profile', 'email'] }));
