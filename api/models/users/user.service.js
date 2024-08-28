@@ -7,7 +7,7 @@ const User = db.User;
 const Songs = db.Songs;
 const Tokens = db.Tokens;
 const emailCheck = require("email-check");
-const { sendEmail } = require("_helpers/tools");
+const { sendEmail } = require("../../_helpers/tools");
 
 var mongoose = require("mongoose");
 

@@ -1,6 +1,6 @@
 const config = require("../../config.json");
 const db = require("../../_helpers/db");
-const tools = require("_helpers/tools");
+const tools = require("../../_helpers/tools");
 const Songs = db.Songs;
 require("dotenv").config();
 
