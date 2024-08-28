@@ -1,4 +1,4 @@
-const config = require("config.json");
+const config = require("../config.json");
 const mongoose = require("mongoose");
 require('dotenv').config()
 
