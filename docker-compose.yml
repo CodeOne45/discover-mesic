@@ -1,7 +1,6 @@
 version: "3.3"
 
 services:
-
   nginx:
     depends_on:
       - app
@@ -20,7 +19,7 @@ services:
     container_name: app
     restart: always
     environment:
-      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      - BACKEND_PUBLIC_API_URL=${BACKEND_PUBLIC_API_URL}
 
   api:
     image: discover-mesic-api:dev
@@ -40,5 +39,3 @@ services:
       - CLIENT_ID=${CLIENT_ID}
       - CLIENT_SECRET=${CLIENT_SECRET}
       - CALL_BACK=${CALL_BACK}
-
-

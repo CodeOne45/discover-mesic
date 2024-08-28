@@ -44,30 +44,30 @@
 <br />
 
 <!-- Table of Contents -->
+
 # :notebook_with_decorative_cover: Table of Contents
 
 - [About the Project](#star2-about-the-project)
-  * [Screenshots](#camera-screenshots)
-  * [Tech Stack](#space_invader-tech-stack)
-  * [Features](#dart-features)
-  * [Environment Variables](#key-environment-variables)
+  - [Screenshots](#camera-screenshots)
+  - [Tech Stack](#space_invader-tech-stack)
+  - [Features](#dart-features)
+  - [Environment Variables](#key-environment-variables)
 - [Getting Started](#toolbox-getting-started)
-  * [Prerequisites](#bangbang-prerequisites)
-  * [Installation](#gear-installation)
-  * [Running Tests](#test_tube-running-tests)
-  * [Run Locally](#running-run-locally)
-  * [Deployment](#triangular_flag_on_post-deployment)
+  - [Prerequisites](#bangbang-prerequisites)
+  - [Installation](#gear-installation)
+  - [Running Tests](#test_tube-running-tests)
+  - [Run Locally](#running-run-locally)
+  - [Deployment](#triangular_flag_on_post-deployment)
 - [Roadmap](#compass-roadmap)
 - [Contributing](#wave-contributing)
-  * [Code of Conduct](#scroll-code-of-conduct)
+  - [Code of Conduct](#scroll-code-of-conduct)
 - [FAQ](#grey_question-faq)
 - [License](#warning-license)
 - [Contact](#handshake-contact)
 - [Acknowledgements](#gem-acknowledgements)
 
-  
-
 <!-- About the Project -->
+
 ## :star2: About the Project
 
 A platform to discover and introduce unknown artists and music.
@@ -75,6 +75,7 @@ A platform to discover and introduce unknown artists and music.
 Based on the youtube player, Discover Me'sic allows you to add unknown music with a youtube link and also to listen to the music in order to discover new artists who are not mainstream.
 
 <!-- Screenshots -->
+
 ### :camera: Screenshots
 
 <div align="center"> 
@@ -84,9 +85,8 @@ Based on the youtube player, Discover Me'sic allows you to add unknown music wit
 
 </div>
 
-
-
 <!-- TechStack -->
+
 ### :space_invader: Tech Stack
 
 <details>
@@ -119,6 +119,7 @@ Based on the youtube player, Discover Me'sic allows you to add unknown music wit
 </details>
 
 <!-- Features -->
+
 ### :dart: Features
 
 - Add a song with Youtube URL (less than 50k views)
@@ -126,46 +127,48 @@ Based on the youtube player, Discover Me'sic allows you to add unknown music wit
 - Export your unknown artist playlist to your favorite streaming platforms
 
 <!-- Color Reference -->
+
 ### :art: Color Reference
 
-| Design (Figma)             |
+| Design (Figma) |
 
 <a href="https://www.figma.com/file/om9iBQYrCXpqjL0W3h2eLV/Discover-Me'sic-team-library?node-id=426%3A30&t=OSJPpZp0uLapM7Cy-1"> Discover Me'sic UI Mockup</a>
 
-
-
 <!-- Env Variables -->
+
 ### :key: Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
 
-``MONGODB_URI``
+`MONGODB_URI`
 
-``YOUTUBE_VIEW_API``
-``YOUTUBE_VIEW_API_KEY``
-``YOUTUBE_VIEW_API_HOST``
+`YOUTUBE_VIEW_API`
+`YOUTUBE_VIEW_API_KEY`
+`YOUTUBE_VIEW_API_HOST`
 
-``MONGO_USERNAME``
-``MONGO_PASSWORD``
-``NEXT_PUBLIC_API_URL``
+`MONGO_USERNAME`
+`MONGO_PASSWORD`
+`BACKEND_PUBLIC_API_URL`
 
-``CLOUD_NAME``
-``CLOUD_API_KEY``
-``CLOUD_API_SECRET``
+`CLOUD_NAME`
+`CLOUD_API_KEY`
+`CLOUD_API_SECRET`
 
-``SENDGRID_API_KEY``
-``FROM_EMAIL``
+`SENDGRID_API_KEY`
+`FROM_EMAIL`
 
-``CLIENT_ID``
-``CLIENT_SECRET``
+`CLIENT_ID`
+`CLIENT_SECRET`
 
 <!-- Getting Started -->
-## 	:toolbox: Getting Started
+
+## :toolbox: Getting Started
 
 <!-- Prerequisites -->
+
 ### :bangbang: Prerequisites
 
-This project uses Yarn as package manager but the app is also docorized 
+This project uses Yarn as package manager but the app is also docorized
 
 ```bash
  npm install --global yarn
@@ -177,8 +180,8 @@ or
  docker-compose build
 ```
 
-
 <!-- Installation -->
+
 ### :gear: Installation - Next.js App
 
 Install app with npm
@@ -187,8 +190,9 @@ Install app with npm
   yarn install app
   cd app
 ```
-   
+
 <!-- Running Tests -->
+
 ### :test_tube: Running Tests
 
 To run tests, run the following command
@@ -198,6 +202,7 @@ To run tests, run the following command
 ```
 
 <!-- Run Locally -->
+
 ### :running: Run Locally
 
 Clone the project
@@ -224,8 +229,8 @@ Start the server
   yarn start
 ```
 
-
 <!-- Deployment -->
+
 ### :triangular_flag_on_post: Deployment
 
 To deploy this project run
@@ -234,42 +239,44 @@ To deploy this project run
   yarn deploy
 ```
 
-
 <!-- Roadmap -->
+
 ## :compass: Roadmap
 
 <a href="https://www.notion.so/discover-mesic/Roadmap-ba008969be5d4b5b9f139a1b83f14523"> Roadmap </a>
 
 <!-- Contributing -->
+
 ## :wave: Contributing
 
 <a href="https://github.com/CodeOne45/discover-mesic/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=CodeOne45/discover-mesic" />
 </a>
 
-
 Contributions are always welcome!
 
 See `contributing.md` for ways to get started.
 
-
 <!-- Code of Conduct -->
+
 ### :scroll: Code of Conduct
 
 Please read the [Code of Conduct](https://github.com/CodeOne45/discover-mesic/blob/master/CODE_OF_CONDUCT.md)
 
 <!-- FAQ -->
+
 ## :grey_question: FAQ
 
 NaN
 
 <!-- License -->
+
 ## :warning: License
 
 Distributed under the no License. See LICENSE.txt for more information.
 
-
 <!-- Contact -->
+
 ## :handshake: Contact
 
 Project Link: [https://github.com/CodeOne45/discover-mesic](https://github.com/CodeOne45/discover-mesic)
@@ -277,4 +284,3 @@ Project Link: [https://github.com/CodeOne45/discover-mesic](https://github.com/C
 Notion Roadmap : <a href="https://www.notion.so/discover-mesic/Roadmap-ba008969be5d4b5b9f139a1b83f14523"> Roadmap </a>
 
 Website: www.discovermesic.live
-
