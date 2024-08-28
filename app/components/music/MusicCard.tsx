@@ -10,6 +10,7 @@ import { thumbnailLink } from "../../constant/url";
 import Image from 'next/image';
 import { useState } from 'react';
 import styles from "../../styles/music-list-item-component.module.css";
+import Timeline from './Timeline';
 
 const MusicCard = ({ data, active, removeCard }: CardProps) => {
   const [exitX, setExitX] = useState(0);
@@ -52,7 +53,7 @@ const MusicCard = ({ data, active, removeCard }: CardProps) => {
             className={classNames}
         >
           <div className="scrollCards absolute m-auto h-[calc(100%-20px)] w-[calc(100%-20px)] rounded-[8px]">
-            <div className="relative h-[269px] w-full overflow-hidden rounded-[8px]">
+            <div className="relative h-[240px] w-full overflow-hidden rounded-[8px]">
               <Image
                 src={thumbnailLink(data.yt_id)}
                 layout="fill"
@@ -68,12 +69,13 @@ const MusicCard = ({ data, active, removeCard }: CardProps) => {
             <a className="hover:underline" href={`/artist/${data.author}`}>
               <h3  className={styles.author}>{data.author}</h3>
             </a>
+            <Timeline />
+          </div>
+          <div className={styles.swipeButtons}>
+            <SwipeButton exit={setExitX} removeCard={removeCard} id={data._id} music={data} />
           </div>
         </motion.div>
       ) : null}
-        <div className={styles.swipeButtons}>
-            <SwipeButton exit={setExitX} removeCard={removeCard} id={data._id} music={data} />
-        </div>
 
     </>
   );

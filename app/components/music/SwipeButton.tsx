@@ -1,13 +1,11 @@
-import React, {useState, useEffect,} from "react";
+import React, { useState, useEffect } from "react";
 import { SwipeButtonProps } from '../../types';
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Controller from "./Controller";
-import {songService} from '../../services/music.service';
-import {userService} from '../../services/user.service';
-import { Context } from "../../store";
-
+import { songService } from '../../services/music.service';
+import { userService } from '../../services/user.service';
 import styles from "../../styles/music-list-item-component.module.css";
 
 export default function SwipeButton({
@@ -28,17 +26,13 @@ export default function SwipeButton({
       exit(-200);
     } else if (action === 'right') {
       (async() => {
-        
         if(user){
           const { data } = (await userService.get_user_liked_playlist(user.data.id));
           console.log(data);
           let isExist = false;
           data.forEach((song) => {
-            // check song is not null
-            if(song != null){
-              if(song._id == music._id){
-                isExist = true;
-              }
+            if(song != null && song._id == music._id){
+              isExist = true;
             }
           });
 
@@ -49,30 +43,25 @@ export default function SwipeButton({
             let add = await userService.add_to_playlist(user.data.id, data);
             let res = await songService.increaseLikes(music.yt_id);
           }
-          
         } 
       })();
       exit(200);
     }
     removeCard(id, action);
   };
+
   return (
-    <div className="flex items-center space-x-8 absolute pt-[40rem] pl-[6.6rem]">
-        <div className={styles.buttons_swipe}>
-            <IconButton className={styles.close} onClick={() => handleSwipe('left')}>
-                <CloseIcon className={styles.close_icon} fontSize="large" />
-            </IconButton>
-            <Controller />
-            
-            <IconButton
-                className={styles.fav}
-                onClick={() => {
-                    handleSwipe('right');
-                }}  
-            >
-                <FavoriteIcon fontSize="large" />
-            </IconButton>
-        </div>
+    <div className={styles.buttons_swipe}>
+      <IconButton className={styles.close} onClick={() => handleSwipe('left')}>
+        <CloseIcon className={styles.close_icon} fontSize="large" />
+      </IconButton>
+      <Controller />
+      <IconButton
+        className={styles.fav}
+        onClick={() => handleSwipe('right')}
+      >
+        <FavoriteIcon fontSize="large" />
+      </IconButton>
     </div>
   );
 }
