@@ -88,7 +88,7 @@ function MyApp({ Component, pageProps, width }: AppProps) {
   }
           
   return (
-    <ThemeProvider enableSystem={true} attribute="class">
+    <ThemeProvider enableSystem={false} attribute="class">
       <Head>
         <meta name="viewport" content="viewport-fit=cover" />
       </Head>
