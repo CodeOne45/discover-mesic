@@ -27,8 +27,9 @@ function getSongByArtist(req, res, next) {
 }
 
 function getAll(req, res, next) {
+  const { page, limit } = req.query; // e.g., /songs?page=2&limit=10
   songService
-    .getAll()
+    .getAll(page, limit)
     .then((songs) => res.json(songs))
     .catch((err) => next(err));
 }

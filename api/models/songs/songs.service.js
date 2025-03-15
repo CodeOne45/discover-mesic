@@ -38,12 +38,29 @@ async function getSongByArtist(artistName, res) {
   }
   return res.status(200).json(listSongByArtist);
 }
-async function getAll() {
-  var numberofSongs;
-  await Songs.countDocuments().then((count) => {
-    numberofSongs = count;
-  });
-  return await Songs.aggregate([{ $sample: { size: numberofSongs } }]);
+
+async function getAll(page, limit) {
+  // Parse query params or set defaults
+  page = parseInt(page) || 1;
+  limit = parseInt(limit) || 10;
+  const skip = (page - 1) * limit;
+  
+  // Get total number of documents
+  const total = await Songs.countDocuments();
+  
+  // Fetch the paginated list (optionally add a sort for consistent order)
+  const songs = await Songs.find()
+    .sort({ dateInsertion: -1 }) // Example: sort by newest first
+    .skip(skip)
+    .limit(limit);
+  
+  // Return the paginated results along with metadata
+  return {
+    songs,
+    total,
+    page,
+    pages: Math.ceil(total / limit)
+  };
 }
 
 async function getById(id) {
