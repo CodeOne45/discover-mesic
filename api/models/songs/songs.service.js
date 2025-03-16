@@ -16,6 +16,7 @@ module.exports = {
   getSongByArtist,
   getTotalLikesbyUsername,
   updateSongLikes,
+  updateViews,
 };
 
 async function getTotalLikesbyUsername(artistName, res) {
@@ -48,13 +49,14 @@ async function getAll(page, limit) {
   // Get total number of documents
   const total = await Songs.countDocuments();
   
-  // Fetch the paginated list (optionally add a sort for consistent order)
-  const songs = await Songs.find()
-    .sort({ dateInsertion: -1 }) // Example: sort by newest first
-    .skip(skip)
-    .limit(limit);
+  // Use aggregation pipeline to add a random field, sort by it, and paginate
+  const songs = await Songs.aggregate([
+    { $addFields: { random: { $rand: {} } } },
+    { $sort: { random: 1 } },
+    { $skip: skip },
+    { $limit: limit }
+  ]);
   
-  // Return the paginated results along with metadata
   return {
     songs,
     total,
@@ -63,28 +65,48 @@ async function getAll(page, limit) {
   };
 }
 
+
 async function getById(id) {
   return await Songs.findById(id);
 }
 
 async function create(songParam, res) {
+  // Normalize the YouTube ID
   songParam.yt_id = tools.YouTubeGetID(songParam.yt_id);
 
+  if (Array.isArray(songParam.yt_id)) {
+    songParam.yt_id = songParam.yt_id[0];
+  }
+
   if (await Songs.findOne({ yt_id: songParam.yt_id })) {
-    return res.status(400).json({ message: "Song already taken !" });
-  }
-  const vaild_view = await tools.checkYTview(songParam.yt_id);
-
-  if (!vaild_view) {
-    return res.status(400).json({ message: "Song is already famous !" });
+    return res.status(400).json({ message: "Song already taken!" });
   }
 
+  // Check if the song meets your criteria (example: not too famous)
+  const validView = await tools.checkYTview(songParam.yt_id);
+  if (!validView) {
+    return res.status(400).json({ message: "Song is already famous!" });
+  }
+
+  // Fetch additional video details
   const newSongParam = await tools.video_details(songParam);
+
+  // Get view count from YouTube
+  try {
+    const views = await tools.getYTViews(songParam.yt_id);
+    newSongParam.views = views; // add the views field
+  } catch (error) {
+    console.error("Failed to fetch views:", error);
+    // Optionally, decide if you want to continue without views or fail the creation
+    newSongParam.views = 0;
+  }
+
   const song = new Songs(newSongParam);
-  //save song in db
   await song.save();
   return res.status(200).json(song);
 }
+
+
 // get all musics added by a user with its id
 async function getSongsByUser(id, res) {
   const listSongByUser = await Songs.find({ addedBy: id });
@@ -121,6 +143,11 @@ async function updateSongLikes(idMusic, isIncrease){
     }
     await song.save();
     return song;
+}
+
+async function updateViews(songId, newViews) {
+  // Use findByIdAndUpdate to update the views field and return the updated document.
+  return await Songs.findByIdAndUpdate(songId, { views: newViews }, { new: true });
 }
 
 

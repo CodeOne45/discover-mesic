@@ -8,6 +8,7 @@ const songSchema = new Schema({
   author: { type: String, required: true},
   addedBy: { type: ObjectID},
   numberOfLikes : { type: Number, default: 0 },
+  views: { type: Number, default: 0 },
   dateInsertion : {  type : Date, default: Date.now},
   isVerified: {type: Boolean,default: false},
   profile_pic_url: { type: String, default: "" },

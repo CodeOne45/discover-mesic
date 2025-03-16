@@ -46,17 +46,27 @@ function stringToint(num) {
   return parseInt(numBis);
 }
 
-function YouTubeGetID(url){
-  var ID = '';
-  url = url.replace(/(>|<)/gi,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
-  if(url[2] !== undefined) {
-    ID = url[2].split(/[^0-9a-z_\-]/i);
-    ID = ID[0];
+function YouTubeGetID(url) {
+  // If an object with yt_id is passed, extract the string
+  if (typeof url === 'object' && url !== null && url.yt_id) {
+    url = url.yt_id;
   }
-  else {
+  
+  // Ensure we have a string
+  if (typeof url !== 'string') {
+    throw new Error("YouTubeGetID expects a string or an object with a 'yt_id' property.");
+  }
+  
+  var ID = '';
+  url = url.replace(/(>|<)/gi, '').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+  
+  if (url[2] !== undefined) {
+    ID = url[2].split(/[^0-9a-z_\-]/i)[0];
+  } else {
     ID = url;
   }
-    return ID;
+  
+  return ID;
 }
 
 async function checkYTview(id){
@@ -74,6 +84,19 @@ async function checkYTview(id){
       }
       return false
   });
+}
+
+async function getYTViews(ytId) {
+  const url = "https://www.googleapis.com/youtube/v3/videos?id="+ ytId + "&key=" + process.env.YOUTUBE_VIEW_API + "&part=statistics";
+  const response = await fetch(url);
+  if (response.status !== 200) {
+    throw new Error("Error fetching video data from YouTube");
+  }
+  const data = await response.json();
+  if (!data.items || data.items.length === 0) {
+    throw new Error("No video found for the given ID");
+  }
+  return parseInt(data.items[0].statistics.viewCount, 10);
 }
 
 
@@ -136,4 +159,4 @@ async function checkYTVideoURL(chaneel_id){
   // check si la video est une musique
 }
 
-module.exports = { YouTubeGetID, stringToint, checkYTview, uploader, sendEmail, video_details, get_yt_profile_pic};
+module.exports = { YouTubeGetID, stringToint, checkYTview, uploader, sendEmail, video_details, get_yt_profile_pic, getYTViews};
