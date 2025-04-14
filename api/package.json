@@ -19,7 +19,7 @@
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
     "bcryptjs": "^2.4.3",
-    "cloudinary": "^1.30.0",
+    "cloudinary": "^1.37.3",
     "cors": "^2.8.5",
     "cors-anywhere": "^0.4.4",
     "datauri": "^4.1.0",
