@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/CodeOne45/api-food-guessr#readme",
   "dependencies": {
-    "@sendgrid/mail": "^7.7.0",
+    "@sendgrid/mail": "^8.0.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.30.0",
     "cors": "^2.8.5",
