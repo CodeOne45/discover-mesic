@@ -37,7 +37,7 @@
     "react-hook-form": "^7.32.0",
     "react-icons": "^4.4.0",
     "react-native": "^0.68.0",
-    "react-router-dom": "^6.3.0",
+    "react-router-dom": "^6.30.2",
     "react-slick": "^0.29.0",
     "react-switch": "^7.0.0",
     "react-visibility-sensor": "^5.1.1",
